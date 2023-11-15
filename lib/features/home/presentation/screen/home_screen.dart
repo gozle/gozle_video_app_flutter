@@ -64,26 +64,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onLoadMore() {
     context.read<VideoListBloc>().state.whenOrNull(
-      byCategoryLoaded: (videos, category, hasReachedMax) {
-        if (!hasReachedMax) {
-          context.read<VideoListBloc>().add(
-                VideoListEvent.byCategoryloadMore(
-                  category: category,
-                  oldVideos: videos,
-                ),
-              );
-        }
-      },
-      popularLoaded: (videos, hasReachedMax) {
-        if (!hasReachedMax) {
-          context.read<VideoListBloc>().add(
-                VideoListEvent.popularLoadMore(
-                  oldVideos: videos,
-                ),
-              );
-        }
-      },
-    );
+        byCategoryLoaded: (videos, category, hasReachedMax) {
+      if (!hasReachedMax) {
+        context.read<VideoListBloc>().add(
+              VideoListEvent.byCategoryloadMore(
+                category: category,
+                oldVideos: videos,
+              ),
+            );
+      }
+    }, popularLoaded: (videos, hasReachedMax) {
+      if (!hasReachedMax) {
+        context.read<VideoListBloc>().add(
+              VideoListEvent.popularLoadMore(
+                oldVideos: videos,
+              ),
+            );
+      }
+    }, latestLoaded: (videos, hasReachedMax) {
+      if (!hasReachedMax) {
+        context
+            .read<VideoListBloc>()
+            .add(VideoListEvent.latestLoadMore(latestVideos: videos));
+      }
+    });
   }
 
   @override
