@@ -16,5 +16,10 @@ abstract class HomeRepository {
     required VideoCategory category,
   });
 
+  Future<Either<Failure, List<Video>>> getLatestVideo({
+    required int page,
+    required int amount,
+  });
+
   Future<Either<Failure, List<VideoCategory>>> getVideoCategories();
 }

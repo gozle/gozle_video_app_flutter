@@ -21,6 +21,16 @@ class HomeUseCases {
     );
   }
 
+  Future<Either<Failure, List<Video>>> getLatest({
+    required int page,
+    required int amount,
+  }) {
+    return homeRepository.getLatestVideo(
+      page: page,
+      amount: amount,
+    );
+  }
+
   Future<Either<Failure, List<Video>>> getVideoByCategory({
     required int page,
     required int amount,

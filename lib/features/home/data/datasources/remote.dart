@@ -43,7 +43,9 @@ class HomeApiClient {
       });
       if (response.statusCode == 200) {
         final videoJsonList = response.data as List<dynamic>;
-        return videoJsonList.map((videoJson) => Video.fromJson(videoJson)).toList();
+        return videoJsonList
+            .map((videoJson) => Video.fromJson(videoJson))
+            .toList();
       } else {
         throw ExceptionUtils.dioStatusCodeErrorHandle(response.statusCode);
       }
@@ -68,7 +70,34 @@ class HomeApiClient {
 
       if (response.statusCode == 200) {
         final videoJsonList = response.data as List<dynamic>;
-        return videoJsonList.map((videoJson) => Video.fromJson(videoJson)).toList();
+        return videoJsonList
+            .map((videoJson) => Video.fromJson(videoJson))
+            .toList();
+      } else {
+        throw ExceptionUtils.dioStatusCodeErrorHandle(response.statusCode);
+      }
+    } on DioException catch (e, stacktrace) {
+      throw ExceptionUtils.dioErrorHandle(e, stacktrace);
+    }
+  }
+
+  Future<List<Video>> getLatestVideos({
+    required int amount,
+    required int page,
+  }) async {
+    try {
+      const url = "/laters";
+
+      final response = await dio.get(url, queryParameters: {
+        "page": page,
+        "amount": amount,
+      });
+
+      if (response.statusCode == 200) {
+        final videoJsonList = response.data as List<dynamic>;
+        return videoJsonList
+            .map((videoJson) => Video.fromJson(videoJson))
+            .toList();
       } else {
         throw ExceptionUtils.dioStatusCodeErrorHandle(response.statusCode);
       }

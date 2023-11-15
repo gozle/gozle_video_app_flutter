@@ -18,11 +18,14 @@ part 'video_list_bloc.freezed.dart';
 
 class VideoListBloc extends Bloc<VideoListEvent, VideoListState> {
   final UserBloc userBloc;
-  VideoListBloc({required this.userBloc}) : super(const VideoListState.popularLoading(oldVideos: [])) {
+  VideoListBloc({required this.userBloc})
+      : super(const VideoListState.popularLoading(oldVideos: [])) {
     on<_LoadEvent>(_onPopularLoad);
     on<_LoadMoreEvent>(_onPopularLoadMore);
     on<_ByCategoryLoadEvent>(_onByCategoryLoad);
     on<_ByCategoryLoadMoreEvent>(_onByCategoryLoadMore);
+    on<_LatestEvent>(_onLatestLoad);
+    on<_LatestMoreEvent>(_onLatestLoadMore);
 
     add(const VideoListEvent.popularLoad());
   }
@@ -43,7 +46,8 @@ class VideoListBloc extends Bloc<VideoListEvent, VideoListState> {
     lastEvent = event;
     emit(const VideoListState.popularLoading(oldVideos: []));
 
-    final result = await _homeUseCases.getPopular(page: 1, amount: amount, time: time);
+    final result =
+        await _homeUseCases.getPopular(page: 1, amount: amount, time: time);
 
     if (lastEvent != event) return;
 
@@ -81,7 +85,8 @@ class VideoListBloc extends Bloc<VideoListEvent, VideoListState> {
     emit(VideoListState.popularLoading(oldVideos: event.oldVideos));
 
     final nextPage = (event.oldVideos.length / amount).round() + 1;
-    final result = await _homeUseCases.getPopular(page: nextPage, amount: amount, time: time);
+    final result = await _homeUseCases.getPopular(
+        page: nextPage, amount: amount, time: time);
 
     if (lastEvent != event) return;
 
@@ -207,6 +212,82 @@ class VideoListBloc extends Bloc<VideoListEvent, VideoListState> {
               category: event.category,
             ));
           },
+        );
+      },
+    );
+  }
+
+  Future<void> _onLatestLoad(
+    _LatestEvent event,
+    Emitter<VideoListState> emit,
+  ) async {
+    lastEvent = event;
+    emit(const VideoListState.latestLoading(latestVideos: []));
+
+    final result = await _homeUseCases.getLatest(page: 1, amount: amount);
+
+    if (lastEvent != event) return;
+
+    result.fold(
+      (failure) {
+        if (failure is SocketFailure) {
+          Future.delayed(const Duration(seconds: 5)).then((value) {
+            add(event);
+          });
+        } else {
+          emit(VideoListState.error(
+            lastEvent: event,
+            falure: failure,
+            oldVideos: [],
+          ));
+        }
+      },
+      (videos) {
+        final hasReachedMax = videos.length != amount;
+
+        emit(VideoListState.latestLoaded(
+          latestVideos: videos,
+          hasReachedMax: hasReachedMax,
+        ));
+      },
+    );
+  }
+
+  Future<void> _onLatestLoadMore(
+    _LatestMoreEvent event,
+    Emitter<VideoListState> emit,
+  ) async {
+    lastEvent = event;
+
+    emit(VideoListState.latestLoading(latestVideos: event.latestVideos));
+
+    final nextPage = (event.latestVideos.length / amount).round() + 1;
+    final result =
+        await _homeUseCases.getLatest(page: nextPage, amount: amount);
+
+    if (lastEvent != event) return;
+
+    result.fold(
+      (failure) {
+        if (failure is SocketFailure) {
+          Future.delayed(const Duration(seconds: 5)).then((value) {
+            add(event);
+          });
+        } else {
+          emit(VideoListState.error(
+            lastEvent: event,
+            falure: failure,
+            oldVideos: event.latestVideos,
+          ));
+        }
+      },
+      (videos) {
+        final hasReachedMax = videos.length != amount;
+        emit(
+          VideoListState.latestLoaded(
+            hasReachedMax: hasReachedMax,
+            latestVideos: event.latestVideos + videos,
+          ),
         );
       },
     );

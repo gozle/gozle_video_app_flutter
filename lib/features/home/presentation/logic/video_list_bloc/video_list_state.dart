@@ -11,6 +11,15 @@ class VideoListState with _$VideoListState {
     required bool hasReachedMax,
   }) = _PopularLoadedState;
 
+  const factory VideoListState.latestLoading({
+    required List<Video> latestVideos,
+  }) = _LatestLoadingState;
+
+  const factory VideoListState.latestLoaded({
+    required List<Video> latestVideos,
+    required bool hasReachedMax,
+  }) = _LatestLoadedState;
+
   const factory VideoListState.categoryLoading({
     required List<Video> oldVideos,
     VideoCategory? category,

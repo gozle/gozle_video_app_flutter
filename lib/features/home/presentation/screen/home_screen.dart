@@ -99,6 +99,10 @@ class _HomeScreenState extends State<HomeScreen> {
             refreshController.refreshCompleted();
             refreshController.loadComplete();
           },
+          latestLoaded: ((latestVideos, hasReachedMax) {
+            refreshController.refreshCompleted();
+            refreshController.loadComplete();
+          }),
           error: (oldVideos, message, lastEvent) {
             refreshController.loadFailed();
           },
@@ -111,8 +115,10 @@ class _HomeScreenState extends State<HomeScreen> {
               preferredSize: const Size.fromHeight(40),
               child: BlocBuilder<VideoCategoryCubit, VideoCategoryState>(
                 builder: (context, videoCategoryState) {
-                  final popularVideoCategory =
-                      VideoCategory(pk: 0, name: 'popular', verbose: S.current.popular);
+                  final popularVideoCategory = VideoCategory(
+                      pk: 0, name: 'popular', verbose: S.current.popular);
+                  final latestVideoCategory = VideoCategory(
+                      pk: -1, name: 'latest', verbose: S.current.latest);
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: CategoryListWidget(
@@ -121,11 +127,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         byCategoryLoaded: (_, category, __) => category,
                         popularLoading: (_) => popularVideoCategory,
                         popularLoaded: (_, __) => popularVideoCategory,
+                        latestLoading: (_) => latestVideoCategory,
+                        latestLoaded: (_, __) => latestVideoCategory,
                       ),
                       categories: videoCategoryState.maybeWhen(
                         loaded: (categories) {
-                          final List<VideoCategory> categotyList = List.from(categories);
+                          final List<VideoCategory> categotyList =
+                              List.from(categories);
 
+                          categotyList.insert(0, latestVideoCategory);
                           categotyList.insert(0, popularVideoCategory);
 
                           return categotyList;
@@ -134,13 +144,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       onCategorySelected: (category) {
                         if (category == popularVideoCategory) {
-                          context.read<VideoListBloc>().add(const VideoListEvent.popularLoad());
+                          context
+                              .read<VideoListBloc>()
+                              .add(const VideoListEvent.popularLoad());
+                        } else if (category == latestVideoCategory) {
+                          context
+                              .read<VideoListBloc>()
+                              .add(const VideoListEvent.latestLoad());
                         } else {
                           context.read<VideoListBloc>().add(
-                                VideoListEvent.byCategoryload(category: category),
+                                VideoListEvent.byCategoryload(
+                                    category: category),
                               );
                           scrollController.animateTo(1,
-                              duration: const Duration(milliseconds: 100), curve: Curves.linear);
+                              duration: const Duration(milliseconds: 100),
+                              curve: Curves.linear);
                         }
                       },
                     ),
@@ -179,6 +197,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         videoListType: VideoListType.PLACEHOLDER,
                       );
                     }
+                  },
+                  latestLoading: (videos) {
+                    if (videos.isNotEmpty) {
+                      return VideoListWidget(
+                        videos: videos,
+                      );
+                    }
+                    return const VideoListWidget(
+                        videos: [], videoListType: VideoListType.PLACEHOLDER);
+                  },
+                  latestLoaded: (videos, _) {
+                    return VideoListWidget(
+                      videos: videos,
+                    );
                   },
                   byCategoryLoaded: (videos, category, hasReachedMax) {
                     return VideoListWidget(videos: videos);

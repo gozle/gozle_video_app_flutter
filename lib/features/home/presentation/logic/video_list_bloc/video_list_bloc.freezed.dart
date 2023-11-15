@@ -20,6 +20,8 @@ mixin _$VideoListEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() popularLoad,
     required TResult Function(List<Video> oldVideos) popularLoadMore,
+    required TResult Function() latestLoad,
+    required TResult Function(List<Video> latestVideos) latestLoadMore,
     required TResult Function(VideoCategory category) byCategoryload,
     required TResult Function(List<Video> oldVideos, VideoCategory category)
         byCategoryloadMore,
@@ -29,6 +31,8 @@ mixin _$VideoListEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? popularLoad,
     TResult? Function(List<Video> oldVideos)? popularLoadMore,
+    TResult? Function()? latestLoad,
+    TResult? Function(List<Video> latestVideos)? latestLoadMore,
     TResult? Function(VideoCategory category)? byCategoryload,
     TResult? Function(List<Video> oldVideos, VideoCategory category)?
         byCategoryloadMore,
@@ -38,6 +42,8 @@ mixin _$VideoListEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? popularLoad,
     TResult Function(List<Video> oldVideos)? popularLoadMore,
+    TResult Function()? latestLoad,
+    TResult Function(List<Video> latestVideos)? latestLoadMore,
     TResult Function(VideoCategory category)? byCategoryload,
     TResult Function(List<Video> oldVideos, VideoCategory category)?
         byCategoryloadMore,
@@ -48,6 +54,8 @@ mixin _$VideoListEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadEvent value) popularLoad,
     required TResult Function(_LoadMoreEvent value) popularLoadMore,
+    required TResult Function(_LatestEvent value) latestLoad,
+    required TResult Function(_LatestMoreEvent value) latestLoadMore,
     required TResult Function(_ByCategoryLoadEvent value) byCategoryload,
     required TResult Function(_ByCategoryLoadMoreEvent value)
         byCategoryloadMore,
@@ -57,6 +65,8 @@ mixin _$VideoListEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadEvent value)? popularLoad,
     TResult? Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult? Function(_LatestEvent value)? latestLoad,
+    TResult? Function(_LatestMoreEvent value)? latestLoadMore,
     TResult? Function(_ByCategoryLoadEvent value)? byCategoryload,
     TResult? Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
   }) =>
@@ -65,6 +75,8 @@ mixin _$VideoListEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadEvent value)? popularLoad,
     TResult Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult Function(_LatestEvent value)? latestLoad,
+    TResult Function(_LatestMoreEvent value)? latestLoadMore,
     TResult Function(_ByCategoryLoadEvent value)? byCategoryload,
     TResult Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
     required TResult orElse(),
@@ -130,6 +142,8 @@ class _$_LoadEvent implements _LoadEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() popularLoad,
     required TResult Function(List<Video> oldVideos) popularLoadMore,
+    required TResult Function() latestLoad,
+    required TResult Function(List<Video> latestVideos) latestLoadMore,
     required TResult Function(VideoCategory category) byCategoryload,
     required TResult Function(List<Video> oldVideos, VideoCategory category)
         byCategoryloadMore,
@@ -142,6 +156,8 @@ class _$_LoadEvent implements _LoadEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? popularLoad,
     TResult? Function(List<Video> oldVideos)? popularLoadMore,
+    TResult? Function()? latestLoad,
+    TResult? Function(List<Video> latestVideos)? latestLoadMore,
     TResult? Function(VideoCategory category)? byCategoryload,
     TResult? Function(List<Video> oldVideos, VideoCategory category)?
         byCategoryloadMore,
@@ -154,6 +170,8 @@ class _$_LoadEvent implements _LoadEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? popularLoad,
     TResult Function(List<Video> oldVideos)? popularLoadMore,
+    TResult Function()? latestLoad,
+    TResult Function(List<Video> latestVideos)? latestLoadMore,
     TResult Function(VideoCategory category)? byCategoryload,
     TResult Function(List<Video> oldVideos, VideoCategory category)?
         byCategoryloadMore,
@@ -170,6 +188,8 @@ class _$_LoadEvent implements _LoadEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadEvent value) popularLoad,
     required TResult Function(_LoadMoreEvent value) popularLoadMore,
+    required TResult Function(_LatestEvent value) latestLoad,
+    required TResult Function(_LatestMoreEvent value) latestLoadMore,
     required TResult Function(_ByCategoryLoadEvent value) byCategoryload,
     required TResult Function(_ByCategoryLoadMoreEvent value)
         byCategoryloadMore,
@@ -182,6 +202,8 @@ class _$_LoadEvent implements _LoadEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadEvent value)? popularLoad,
     TResult? Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult? Function(_LatestEvent value)? latestLoad,
+    TResult? Function(_LatestMoreEvent value)? latestLoadMore,
     TResult? Function(_ByCategoryLoadEvent value)? byCategoryload,
     TResult? Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
   }) {
@@ -193,6 +215,8 @@ class _$_LoadEvent implements _LoadEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadEvent value)? popularLoad,
     TResult Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult Function(_LatestEvent value)? latestLoad,
+    TResult Function(_LatestMoreEvent value)? latestLoadMore,
     TResult Function(_ByCategoryLoadEvent value)? byCategoryload,
     TResult Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
     required TResult orElse(),
@@ -282,6 +306,8 @@ class _$_LoadMoreEvent implements _LoadMoreEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() popularLoad,
     required TResult Function(List<Video> oldVideos) popularLoadMore,
+    required TResult Function() latestLoad,
+    required TResult Function(List<Video> latestVideos) latestLoadMore,
     required TResult Function(VideoCategory category) byCategoryload,
     required TResult Function(List<Video> oldVideos, VideoCategory category)
         byCategoryloadMore,
@@ -294,6 +320,8 @@ class _$_LoadMoreEvent implements _LoadMoreEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? popularLoad,
     TResult? Function(List<Video> oldVideos)? popularLoadMore,
+    TResult? Function()? latestLoad,
+    TResult? Function(List<Video> latestVideos)? latestLoadMore,
     TResult? Function(VideoCategory category)? byCategoryload,
     TResult? Function(List<Video> oldVideos, VideoCategory category)?
         byCategoryloadMore,
@@ -306,6 +334,8 @@ class _$_LoadMoreEvent implements _LoadMoreEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? popularLoad,
     TResult Function(List<Video> oldVideos)? popularLoadMore,
+    TResult Function()? latestLoad,
+    TResult Function(List<Video> latestVideos)? latestLoadMore,
     TResult Function(VideoCategory category)? byCategoryload,
     TResult Function(List<Video> oldVideos, VideoCategory category)?
         byCategoryloadMore,
@@ -322,6 +352,8 @@ class _$_LoadMoreEvent implements _LoadMoreEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadEvent value) popularLoad,
     required TResult Function(_LoadMoreEvent value) popularLoadMore,
+    required TResult Function(_LatestEvent value) latestLoad,
+    required TResult Function(_LatestMoreEvent value) latestLoadMore,
     required TResult Function(_ByCategoryLoadEvent value) byCategoryload,
     required TResult Function(_ByCategoryLoadMoreEvent value)
         byCategoryloadMore,
@@ -334,6 +366,8 @@ class _$_LoadMoreEvent implements _LoadMoreEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadEvent value)? popularLoad,
     TResult? Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult? Function(_LatestEvent value)? latestLoad,
+    TResult? Function(_LatestMoreEvent value)? latestLoadMore,
     TResult? Function(_ByCategoryLoadEvent value)? byCategoryload,
     TResult? Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
   }) {
@@ -345,6 +379,8 @@ class _$_LoadMoreEvent implements _LoadMoreEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadEvent value)? popularLoad,
     TResult Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult Function(_LatestEvent value)? latestLoad,
+    TResult Function(_LatestMoreEvent value)? latestLoadMore,
     TResult Function(_ByCategoryLoadEvent value)? byCategoryload,
     TResult Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
     required TResult orElse(),
@@ -363,6 +399,306 @@ abstract class _LoadMoreEvent implements VideoListEvent {
   List<Video> get oldVideos;
   @JsonKey(ignore: true)
   _$$_LoadMoreEventCopyWith<_$_LoadMoreEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_LatestEventCopyWith<$Res> {
+  factory _$$_LatestEventCopyWith(
+          _$_LatestEvent value, $Res Function(_$_LatestEvent) then) =
+      __$$_LatestEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_LatestEventCopyWithImpl<$Res>
+    extends _$VideoListEventCopyWithImpl<$Res, _$_LatestEvent>
+    implements _$$_LatestEventCopyWith<$Res> {
+  __$$_LatestEventCopyWithImpl(
+      _$_LatestEvent _value, $Res Function(_$_LatestEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_LatestEvent implements _LatestEvent {
+  const _$_LatestEvent();
+
+  @override
+  String toString() {
+    return 'VideoListEvent.latestLoad()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_LatestEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() popularLoad,
+    required TResult Function(List<Video> oldVideos) popularLoadMore,
+    required TResult Function() latestLoad,
+    required TResult Function(List<Video> latestVideos) latestLoadMore,
+    required TResult Function(VideoCategory category) byCategoryload,
+    required TResult Function(List<Video> oldVideos, VideoCategory category)
+        byCategoryloadMore,
+  }) {
+    return latestLoad();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? popularLoad,
+    TResult? Function(List<Video> oldVideos)? popularLoadMore,
+    TResult? Function()? latestLoad,
+    TResult? Function(List<Video> latestVideos)? latestLoadMore,
+    TResult? Function(VideoCategory category)? byCategoryload,
+    TResult? Function(List<Video> oldVideos, VideoCategory category)?
+        byCategoryloadMore,
+  }) {
+    return latestLoad?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? popularLoad,
+    TResult Function(List<Video> oldVideos)? popularLoadMore,
+    TResult Function()? latestLoad,
+    TResult Function(List<Video> latestVideos)? latestLoadMore,
+    TResult Function(VideoCategory category)? byCategoryload,
+    TResult Function(List<Video> oldVideos, VideoCategory category)?
+        byCategoryloadMore,
+    required TResult orElse(),
+  }) {
+    if (latestLoad != null) {
+      return latestLoad();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadEvent value) popularLoad,
+    required TResult Function(_LoadMoreEvent value) popularLoadMore,
+    required TResult Function(_LatestEvent value) latestLoad,
+    required TResult Function(_LatestMoreEvent value) latestLoadMore,
+    required TResult Function(_ByCategoryLoadEvent value) byCategoryload,
+    required TResult Function(_ByCategoryLoadMoreEvent value)
+        byCategoryloadMore,
+  }) {
+    return latestLoad(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadEvent value)? popularLoad,
+    TResult? Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult? Function(_LatestEvent value)? latestLoad,
+    TResult? Function(_LatestMoreEvent value)? latestLoadMore,
+    TResult? Function(_ByCategoryLoadEvent value)? byCategoryload,
+    TResult? Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
+  }) {
+    return latestLoad?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadEvent value)? popularLoad,
+    TResult Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult Function(_LatestEvent value)? latestLoad,
+    TResult Function(_LatestMoreEvent value)? latestLoadMore,
+    TResult Function(_ByCategoryLoadEvent value)? byCategoryload,
+    TResult Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
+    required TResult orElse(),
+  }) {
+    if (latestLoad != null) {
+      return latestLoad(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LatestEvent implements VideoListEvent {
+  const factory _LatestEvent() = _$_LatestEvent;
+}
+
+/// @nodoc
+abstract class _$$_LatestMoreEventCopyWith<$Res> {
+  factory _$$_LatestMoreEventCopyWith(
+          _$_LatestMoreEvent value, $Res Function(_$_LatestMoreEvent) then) =
+      __$$_LatestMoreEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Video> latestVideos});
+}
+
+/// @nodoc
+class __$$_LatestMoreEventCopyWithImpl<$Res>
+    extends _$VideoListEventCopyWithImpl<$Res, _$_LatestMoreEvent>
+    implements _$$_LatestMoreEventCopyWith<$Res> {
+  __$$_LatestMoreEventCopyWithImpl(
+      _$_LatestMoreEvent _value, $Res Function(_$_LatestMoreEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? latestVideos = null,
+  }) {
+    return _then(_$_LatestMoreEvent(
+      latestVideos: null == latestVideos
+          ? _value._latestVideos
+          : latestVideos // ignore: cast_nullable_to_non_nullable
+              as List<Video>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_LatestMoreEvent implements _LatestMoreEvent {
+  const _$_LatestMoreEvent({required final List<Video> latestVideos})
+      : _latestVideos = latestVideos;
+
+  final List<Video> _latestVideos;
+  @override
+  List<Video> get latestVideos {
+    if (_latestVideos is EqualUnmodifiableListView) return _latestVideos;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_latestVideos);
+  }
+
+  @override
+  String toString() {
+    return 'VideoListEvent.latestLoadMore(latestVideos: $latestVideos)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_LatestMoreEvent &&
+            const DeepCollectionEquality()
+                .equals(other._latestVideos, _latestVideos));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_latestVideos));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_LatestMoreEventCopyWith<_$_LatestMoreEvent> get copyWith =>
+      __$$_LatestMoreEventCopyWithImpl<_$_LatestMoreEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() popularLoad,
+    required TResult Function(List<Video> oldVideos) popularLoadMore,
+    required TResult Function() latestLoad,
+    required TResult Function(List<Video> latestVideos) latestLoadMore,
+    required TResult Function(VideoCategory category) byCategoryload,
+    required TResult Function(List<Video> oldVideos, VideoCategory category)
+        byCategoryloadMore,
+  }) {
+    return latestLoadMore(latestVideos);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? popularLoad,
+    TResult? Function(List<Video> oldVideos)? popularLoadMore,
+    TResult? Function()? latestLoad,
+    TResult? Function(List<Video> latestVideos)? latestLoadMore,
+    TResult? Function(VideoCategory category)? byCategoryload,
+    TResult? Function(List<Video> oldVideos, VideoCategory category)?
+        byCategoryloadMore,
+  }) {
+    return latestLoadMore?.call(latestVideos);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? popularLoad,
+    TResult Function(List<Video> oldVideos)? popularLoadMore,
+    TResult Function()? latestLoad,
+    TResult Function(List<Video> latestVideos)? latestLoadMore,
+    TResult Function(VideoCategory category)? byCategoryload,
+    TResult Function(List<Video> oldVideos, VideoCategory category)?
+        byCategoryloadMore,
+    required TResult orElse(),
+  }) {
+    if (latestLoadMore != null) {
+      return latestLoadMore(latestVideos);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LoadEvent value) popularLoad,
+    required TResult Function(_LoadMoreEvent value) popularLoadMore,
+    required TResult Function(_LatestEvent value) latestLoad,
+    required TResult Function(_LatestMoreEvent value) latestLoadMore,
+    required TResult Function(_ByCategoryLoadEvent value) byCategoryload,
+    required TResult Function(_ByCategoryLoadMoreEvent value)
+        byCategoryloadMore,
+  }) {
+    return latestLoadMore(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LoadEvent value)? popularLoad,
+    TResult? Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult? Function(_LatestEvent value)? latestLoad,
+    TResult? Function(_LatestMoreEvent value)? latestLoadMore,
+    TResult? Function(_ByCategoryLoadEvent value)? byCategoryload,
+    TResult? Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
+  }) {
+    return latestLoadMore?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LoadEvent value)? popularLoad,
+    TResult Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult Function(_LatestEvent value)? latestLoad,
+    TResult Function(_LatestMoreEvent value)? latestLoadMore,
+    TResult Function(_ByCategoryLoadEvent value)? byCategoryload,
+    TResult Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
+    required TResult orElse(),
+  }) {
+    if (latestLoadMore != null) {
+      return latestLoadMore(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LatestMoreEvent implements VideoListEvent {
+  const factory _LatestMoreEvent({required final List<Video> latestVideos}) =
+      _$_LatestMoreEvent;
+
+  List<Video> get latestVideos;
+  @JsonKey(ignore: true)
+  _$$_LatestMoreEventCopyWith<_$_LatestMoreEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -434,6 +770,8 @@ class _$_ByCategoryLoadEvent implements _ByCategoryLoadEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() popularLoad,
     required TResult Function(List<Video> oldVideos) popularLoadMore,
+    required TResult Function() latestLoad,
+    required TResult Function(List<Video> latestVideos) latestLoadMore,
     required TResult Function(VideoCategory category) byCategoryload,
     required TResult Function(List<Video> oldVideos, VideoCategory category)
         byCategoryloadMore,
@@ -446,6 +784,8 @@ class _$_ByCategoryLoadEvent implements _ByCategoryLoadEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? popularLoad,
     TResult? Function(List<Video> oldVideos)? popularLoadMore,
+    TResult? Function()? latestLoad,
+    TResult? Function(List<Video> latestVideos)? latestLoadMore,
     TResult? Function(VideoCategory category)? byCategoryload,
     TResult? Function(List<Video> oldVideos, VideoCategory category)?
         byCategoryloadMore,
@@ -458,6 +798,8 @@ class _$_ByCategoryLoadEvent implements _ByCategoryLoadEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? popularLoad,
     TResult Function(List<Video> oldVideos)? popularLoadMore,
+    TResult Function()? latestLoad,
+    TResult Function(List<Video> latestVideos)? latestLoadMore,
     TResult Function(VideoCategory category)? byCategoryload,
     TResult Function(List<Video> oldVideos, VideoCategory category)?
         byCategoryloadMore,
@@ -474,6 +816,8 @@ class _$_ByCategoryLoadEvent implements _ByCategoryLoadEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadEvent value) popularLoad,
     required TResult Function(_LoadMoreEvent value) popularLoadMore,
+    required TResult Function(_LatestEvent value) latestLoad,
+    required TResult Function(_LatestMoreEvent value) latestLoadMore,
     required TResult Function(_ByCategoryLoadEvent value) byCategoryload,
     required TResult Function(_ByCategoryLoadMoreEvent value)
         byCategoryloadMore,
@@ -486,6 +830,8 @@ class _$_ByCategoryLoadEvent implements _ByCategoryLoadEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadEvent value)? popularLoad,
     TResult? Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult? Function(_LatestEvent value)? latestLoad,
+    TResult? Function(_LatestMoreEvent value)? latestLoadMore,
     TResult? Function(_ByCategoryLoadEvent value)? byCategoryload,
     TResult? Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
   }) {
@@ -497,6 +843,8 @@ class _$_ByCategoryLoadEvent implements _ByCategoryLoadEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadEvent value)? popularLoad,
     TResult Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult Function(_LatestEvent value)? latestLoad,
+    TResult Function(_LatestMoreEvent value)? latestLoadMore,
     TResult Function(_ByCategoryLoadEvent value)? byCategoryload,
     TResult Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
     required TResult orElse(),
@@ -605,6 +953,8 @@ class _$_ByCategoryLoadMoreEvent implements _ByCategoryLoadMoreEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() popularLoad,
     required TResult Function(List<Video> oldVideos) popularLoadMore,
+    required TResult Function() latestLoad,
+    required TResult Function(List<Video> latestVideos) latestLoadMore,
     required TResult Function(VideoCategory category) byCategoryload,
     required TResult Function(List<Video> oldVideos, VideoCategory category)
         byCategoryloadMore,
@@ -617,6 +967,8 @@ class _$_ByCategoryLoadMoreEvent implements _ByCategoryLoadMoreEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? popularLoad,
     TResult? Function(List<Video> oldVideos)? popularLoadMore,
+    TResult? Function()? latestLoad,
+    TResult? Function(List<Video> latestVideos)? latestLoadMore,
     TResult? Function(VideoCategory category)? byCategoryload,
     TResult? Function(List<Video> oldVideos, VideoCategory category)?
         byCategoryloadMore,
@@ -629,6 +981,8 @@ class _$_ByCategoryLoadMoreEvent implements _ByCategoryLoadMoreEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? popularLoad,
     TResult Function(List<Video> oldVideos)? popularLoadMore,
+    TResult Function()? latestLoad,
+    TResult Function(List<Video> latestVideos)? latestLoadMore,
     TResult Function(VideoCategory category)? byCategoryload,
     TResult Function(List<Video> oldVideos, VideoCategory category)?
         byCategoryloadMore,
@@ -645,6 +999,8 @@ class _$_ByCategoryLoadMoreEvent implements _ByCategoryLoadMoreEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_LoadEvent value) popularLoad,
     required TResult Function(_LoadMoreEvent value) popularLoadMore,
+    required TResult Function(_LatestEvent value) latestLoad,
+    required TResult Function(_LatestMoreEvent value) latestLoadMore,
     required TResult Function(_ByCategoryLoadEvent value) byCategoryload,
     required TResult Function(_ByCategoryLoadMoreEvent value)
         byCategoryloadMore,
@@ -657,6 +1013,8 @@ class _$_ByCategoryLoadMoreEvent implements _ByCategoryLoadMoreEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoadEvent value)? popularLoad,
     TResult? Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult? Function(_LatestEvent value)? latestLoad,
+    TResult? Function(_LatestMoreEvent value)? latestLoadMore,
     TResult? Function(_ByCategoryLoadEvent value)? byCategoryload,
     TResult? Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
   }) {
@@ -668,6 +1026,8 @@ class _$_ByCategoryLoadMoreEvent implements _ByCategoryLoadMoreEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoadEvent value)? popularLoad,
     TResult Function(_LoadMoreEvent value)? popularLoadMore,
+    TResult Function(_LatestEvent value)? latestLoad,
+    TResult Function(_LatestMoreEvent value)? latestLoadMore,
     TResult Function(_ByCategoryLoadEvent value)? byCategoryload,
     TResult Function(_ByCategoryLoadMoreEvent value)? byCategoryloadMore,
     required TResult orElse(),
@@ -698,6 +1058,9 @@ mixin _$VideoListState {
     required TResult Function(List<Video> oldVideos) popularLoading,
     required TResult Function(List<Video> videos, bool hasReachedMax)
         popularLoaded,
+    required TResult Function(List<Video> latestVideos) latestLoading,
+    required TResult Function(List<Video> latestVideos, bool hasReachedMax)
+        latestLoaded,
     required TResult Function(List<Video> oldVideos, VideoCategory? category)
         categoryLoading,
     required TResult Function(
@@ -712,6 +1075,9 @@ mixin _$VideoListState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Video> oldVideos)? popularLoading,
     TResult? Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult? Function(List<Video> latestVideos)? latestLoading,
+    TResult? Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult? Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult? Function(
@@ -726,6 +1092,9 @@ mixin _$VideoListState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Video> oldVideos)? popularLoading,
     TResult Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult Function(List<Video> latestVideos)? latestLoading,
+    TResult Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult Function(
@@ -741,6 +1110,8 @@ mixin _$VideoListState {
   TResult map<TResult extends Object?>({
     required TResult Function(_PopularLoadingState value) popularLoading,
     required TResult Function(_PopularLoadedState value) popularLoaded,
+    required TResult Function(_LatestLoadingState value) latestLoading,
+    required TResult Function(_LatestLoadedState value) latestLoaded,
     required TResult Function(_ByCategoryLoadingState value) categoryLoading,
     required TResult Function(_ByCategoryLoadedState value) byCategoryLoaded,
     required TResult Function(_ErrorState value) error,
@@ -750,6 +1121,8 @@ mixin _$VideoListState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PopularLoadingState value)? popularLoading,
     TResult? Function(_PopularLoadedState value)? popularLoaded,
+    TResult? Function(_LatestLoadingState value)? latestLoading,
+    TResult? Function(_LatestLoadedState value)? latestLoaded,
     TResult? Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult? Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult? Function(_ErrorState value)? error,
@@ -759,6 +1132,8 @@ mixin _$VideoListState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PopularLoadingState value)? popularLoading,
     TResult Function(_PopularLoadedState value)? popularLoaded,
+    TResult Function(_LatestLoadingState value)? latestLoading,
+    TResult Function(_LatestLoadedState value)? latestLoaded,
     TResult Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult Function(_ErrorState value)? error,
@@ -861,6 +1236,9 @@ class _$_PopularLoadingState implements _PopularLoadingState {
     required TResult Function(List<Video> oldVideos) popularLoading,
     required TResult Function(List<Video> videos, bool hasReachedMax)
         popularLoaded,
+    required TResult Function(List<Video> latestVideos) latestLoading,
+    required TResult Function(List<Video> latestVideos, bool hasReachedMax)
+        latestLoaded,
     required TResult Function(List<Video> oldVideos, VideoCategory? category)
         categoryLoading,
     required TResult Function(
@@ -878,6 +1256,9 @@ class _$_PopularLoadingState implements _PopularLoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Video> oldVideos)? popularLoading,
     TResult? Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult? Function(List<Video> latestVideos)? latestLoading,
+    TResult? Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult? Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult? Function(
@@ -895,6 +1276,9 @@ class _$_PopularLoadingState implements _PopularLoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Video> oldVideos)? popularLoading,
     TResult Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult Function(List<Video> latestVideos)? latestLoading,
+    TResult Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult Function(
@@ -916,6 +1300,8 @@ class _$_PopularLoadingState implements _PopularLoadingState {
   TResult map<TResult extends Object?>({
     required TResult Function(_PopularLoadingState value) popularLoading,
     required TResult Function(_PopularLoadedState value) popularLoaded,
+    required TResult Function(_LatestLoadingState value) latestLoading,
+    required TResult Function(_LatestLoadedState value) latestLoaded,
     required TResult Function(_ByCategoryLoadingState value) categoryLoading,
     required TResult Function(_ByCategoryLoadedState value) byCategoryLoaded,
     required TResult Function(_ErrorState value) error,
@@ -928,6 +1314,8 @@ class _$_PopularLoadingState implements _PopularLoadingState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PopularLoadingState value)? popularLoading,
     TResult? Function(_PopularLoadedState value)? popularLoaded,
+    TResult? Function(_LatestLoadingState value)? latestLoading,
+    TResult? Function(_LatestLoadedState value)? latestLoaded,
     TResult? Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult? Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult? Function(_ErrorState value)? error,
@@ -940,6 +1328,8 @@ class _$_PopularLoadingState implements _PopularLoadingState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PopularLoadingState value)? popularLoading,
     TResult Function(_PopularLoadedState value)? popularLoaded,
+    TResult Function(_LatestLoadingState value)? latestLoading,
+    TResult Function(_LatestLoadedState value)? latestLoaded,
     TResult Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult Function(_ErrorState value)? error,
@@ -1048,6 +1438,9 @@ class _$_PopularLoadedState implements _PopularLoadedState {
     required TResult Function(List<Video> oldVideos) popularLoading,
     required TResult Function(List<Video> videos, bool hasReachedMax)
         popularLoaded,
+    required TResult Function(List<Video> latestVideos) latestLoading,
+    required TResult Function(List<Video> latestVideos, bool hasReachedMax)
+        latestLoaded,
     required TResult Function(List<Video> oldVideos, VideoCategory? category)
         categoryLoading,
     required TResult Function(
@@ -1065,6 +1458,9 @@ class _$_PopularLoadedState implements _PopularLoadedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Video> oldVideos)? popularLoading,
     TResult? Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult? Function(List<Video> latestVideos)? latestLoading,
+    TResult? Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult? Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult? Function(
@@ -1082,6 +1478,9 @@ class _$_PopularLoadedState implements _PopularLoadedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Video> oldVideos)? popularLoading,
     TResult Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult Function(List<Video> latestVideos)? latestLoading,
+    TResult Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult Function(
@@ -1103,6 +1502,8 @@ class _$_PopularLoadedState implements _PopularLoadedState {
   TResult map<TResult extends Object?>({
     required TResult Function(_PopularLoadingState value) popularLoading,
     required TResult Function(_PopularLoadedState value) popularLoaded,
+    required TResult Function(_LatestLoadingState value) latestLoading,
+    required TResult Function(_LatestLoadedState value) latestLoaded,
     required TResult Function(_ByCategoryLoadingState value) categoryLoading,
     required TResult Function(_ByCategoryLoadedState value) byCategoryLoaded,
     required TResult Function(_ErrorState value) error,
@@ -1115,6 +1516,8 @@ class _$_PopularLoadedState implements _PopularLoadedState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PopularLoadingState value)? popularLoading,
     TResult? Function(_PopularLoadedState value)? popularLoaded,
+    TResult? Function(_LatestLoadingState value)? latestLoading,
+    TResult? Function(_LatestLoadedState value)? latestLoaded,
     TResult? Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult? Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult? Function(_ErrorState value)? error,
@@ -1127,6 +1530,8 @@ class _$_PopularLoadedState implements _PopularLoadedState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PopularLoadingState value)? popularLoading,
     TResult Function(_PopularLoadedState value)? popularLoaded,
+    TResult Function(_LatestLoadingState value)? latestLoading,
+    TResult Function(_LatestLoadedState value)? latestLoaded,
     TResult Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult Function(_ErrorState value)? error,
@@ -1148,6 +1553,403 @@ abstract class _PopularLoadedState implements VideoListState {
   bool get hasReachedMax;
   @JsonKey(ignore: true)
   _$$_PopularLoadedStateCopyWith<_$_PopularLoadedState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_LatestLoadingStateCopyWith<$Res> {
+  factory _$$_LatestLoadingStateCopyWith(_$_LatestLoadingState value,
+          $Res Function(_$_LatestLoadingState) then) =
+      __$$_LatestLoadingStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Video> latestVideos});
+}
+
+/// @nodoc
+class __$$_LatestLoadingStateCopyWithImpl<$Res>
+    extends _$VideoListStateCopyWithImpl<$Res, _$_LatestLoadingState>
+    implements _$$_LatestLoadingStateCopyWith<$Res> {
+  __$$_LatestLoadingStateCopyWithImpl(
+      _$_LatestLoadingState _value, $Res Function(_$_LatestLoadingState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? latestVideos = null,
+  }) {
+    return _then(_$_LatestLoadingState(
+      latestVideos: null == latestVideos
+          ? _value._latestVideos
+          : latestVideos // ignore: cast_nullable_to_non_nullable
+              as List<Video>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_LatestLoadingState implements _LatestLoadingState {
+  const _$_LatestLoadingState({required final List<Video> latestVideos})
+      : _latestVideos = latestVideos;
+
+  final List<Video> _latestVideos;
+  @override
+  List<Video> get latestVideos {
+    if (_latestVideos is EqualUnmodifiableListView) return _latestVideos;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_latestVideos);
+  }
+
+  @override
+  String toString() {
+    return 'VideoListState.latestLoading(latestVideos: $latestVideos)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_LatestLoadingState &&
+            const DeepCollectionEquality()
+                .equals(other._latestVideos, _latestVideos));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_latestVideos));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_LatestLoadingStateCopyWith<_$_LatestLoadingState> get copyWith =>
+      __$$_LatestLoadingStateCopyWithImpl<_$_LatestLoadingState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Video> oldVideos) popularLoading,
+    required TResult Function(List<Video> videos, bool hasReachedMax)
+        popularLoaded,
+    required TResult Function(List<Video> latestVideos) latestLoading,
+    required TResult Function(List<Video> latestVideos, bool hasReachedMax)
+        latestLoaded,
+    required TResult Function(List<Video> oldVideos, VideoCategory? category)
+        categoryLoading,
+    required TResult Function(
+            List<Video> videos, VideoCategory category, bool hasReachedMax)
+        byCategoryLoaded,
+    required TResult Function(
+            List<Video> oldVideos, Failure falure, VideoListEvent lastEvent)
+        error,
+  }) {
+    return latestLoading(latestVideos);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Video> oldVideos)? popularLoading,
+    TResult? Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult? Function(List<Video> latestVideos)? latestLoading,
+    TResult? Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
+    TResult? Function(List<Video> oldVideos, VideoCategory? category)?
+        categoryLoading,
+    TResult? Function(
+            List<Video> videos, VideoCategory category, bool hasReachedMax)?
+        byCategoryLoaded,
+    TResult? Function(
+            List<Video> oldVideos, Failure falure, VideoListEvent lastEvent)?
+        error,
+  }) {
+    return latestLoading?.call(latestVideos);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Video> oldVideos)? popularLoading,
+    TResult Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult Function(List<Video> latestVideos)? latestLoading,
+    TResult Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
+    TResult Function(List<Video> oldVideos, VideoCategory? category)?
+        categoryLoading,
+    TResult Function(
+            List<Video> videos, VideoCategory category, bool hasReachedMax)?
+        byCategoryLoaded,
+    TResult Function(
+            List<Video> oldVideos, Failure falure, VideoListEvent lastEvent)?
+        error,
+    required TResult orElse(),
+  }) {
+    if (latestLoading != null) {
+      return latestLoading(latestVideos);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PopularLoadingState value) popularLoading,
+    required TResult Function(_PopularLoadedState value) popularLoaded,
+    required TResult Function(_LatestLoadingState value) latestLoading,
+    required TResult Function(_LatestLoadedState value) latestLoaded,
+    required TResult Function(_ByCategoryLoadingState value) categoryLoading,
+    required TResult Function(_ByCategoryLoadedState value) byCategoryLoaded,
+    required TResult Function(_ErrorState value) error,
+  }) {
+    return latestLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PopularLoadingState value)? popularLoading,
+    TResult? Function(_PopularLoadedState value)? popularLoaded,
+    TResult? Function(_LatestLoadingState value)? latestLoading,
+    TResult? Function(_LatestLoadedState value)? latestLoaded,
+    TResult? Function(_ByCategoryLoadingState value)? categoryLoading,
+    TResult? Function(_ByCategoryLoadedState value)? byCategoryLoaded,
+    TResult? Function(_ErrorState value)? error,
+  }) {
+    return latestLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PopularLoadingState value)? popularLoading,
+    TResult Function(_PopularLoadedState value)? popularLoaded,
+    TResult Function(_LatestLoadingState value)? latestLoading,
+    TResult Function(_LatestLoadedState value)? latestLoaded,
+    TResult Function(_ByCategoryLoadingState value)? categoryLoading,
+    TResult Function(_ByCategoryLoadedState value)? byCategoryLoaded,
+    TResult Function(_ErrorState value)? error,
+    required TResult orElse(),
+  }) {
+    if (latestLoading != null) {
+      return latestLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LatestLoadingState implements VideoListState {
+  const factory _LatestLoadingState({required final List<Video> latestVideos}) =
+      _$_LatestLoadingState;
+
+  List<Video> get latestVideos;
+  @JsonKey(ignore: true)
+  _$$_LatestLoadingStateCopyWith<_$_LatestLoadingState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_LatestLoadedStateCopyWith<$Res> {
+  factory _$$_LatestLoadedStateCopyWith(_$_LatestLoadedState value,
+          $Res Function(_$_LatestLoadedState) then) =
+      __$$_LatestLoadedStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Video> latestVideos, bool hasReachedMax});
+}
+
+/// @nodoc
+class __$$_LatestLoadedStateCopyWithImpl<$Res>
+    extends _$VideoListStateCopyWithImpl<$Res, _$_LatestLoadedState>
+    implements _$$_LatestLoadedStateCopyWith<$Res> {
+  __$$_LatestLoadedStateCopyWithImpl(
+      _$_LatestLoadedState _value, $Res Function(_$_LatestLoadedState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? latestVideos = null,
+    Object? hasReachedMax = null,
+  }) {
+    return _then(_$_LatestLoadedState(
+      latestVideos: null == latestVideos
+          ? _value._latestVideos
+          : latestVideos // ignore: cast_nullable_to_non_nullable
+              as List<Video>,
+      hasReachedMax: null == hasReachedMax
+          ? _value.hasReachedMax
+          : hasReachedMax // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_LatestLoadedState implements _LatestLoadedState {
+  const _$_LatestLoadedState(
+      {required final List<Video> latestVideos, required this.hasReachedMax})
+      : _latestVideos = latestVideos;
+
+  final List<Video> _latestVideos;
+  @override
+  List<Video> get latestVideos {
+    if (_latestVideos is EqualUnmodifiableListView) return _latestVideos;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_latestVideos);
+  }
+
+  @override
+  final bool hasReachedMax;
+
+  @override
+  String toString() {
+    return 'VideoListState.latestLoaded(latestVideos: $latestVideos, hasReachedMax: $hasReachedMax)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_LatestLoadedState &&
+            const DeepCollectionEquality()
+                .equals(other._latestVideos, _latestVideos) &&
+            (identical(other.hasReachedMax, hasReachedMax) ||
+                other.hasReachedMax == hasReachedMax));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_latestVideos), hasReachedMax);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_LatestLoadedStateCopyWith<_$_LatestLoadedState> get copyWith =>
+      __$$_LatestLoadedStateCopyWithImpl<_$_LatestLoadedState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(List<Video> oldVideos) popularLoading,
+    required TResult Function(List<Video> videos, bool hasReachedMax)
+        popularLoaded,
+    required TResult Function(List<Video> latestVideos) latestLoading,
+    required TResult Function(List<Video> latestVideos, bool hasReachedMax)
+        latestLoaded,
+    required TResult Function(List<Video> oldVideos, VideoCategory? category)
+        categoryLoading,
+    required TResult Function(
+            List<Video> videos, VideoCategory category, bool hasReachedMax)
+        byCategoryLoaded,
+    required TResult Function(
+            List<Video> oldVideos, Failure falure, VideoListEvent lastEvent)
+        error,
+  }) {
+    return latestLoaded(latestVideos, hasReachedMax);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(List<Video> oldVideos)? popularLoading,
+    TResult? Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult? Function(List<Video> latestVideos)? latestLoading,
+    TResult? Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
+    TResult? Function(List<Video> oldVideos, VideoCategory? category)?
+        categoryLoading,
+    TResult? Function(
+            List<Video> videos, VideoCategory category, bool hasReachedMax)?
+        byCategoryLoaded,
+    TResult? Function(
+            List<Video> oldVideos, Failure falure, VideoListEvent lastEvent)?
+        error,
+  }) {
+    return latestLoaded?.call(latestVideos, hasReachedMax);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(List<Video> oldVideos)? popularLoading,
+    TResult Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult Function(List<Video> latestVideos)? latestLoading,
+    TResult Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
+    TResult Function(List<Video> oldVideos, VideoCategory? category)?
+        categoryLoading,
+    TResult Function(
+            List<Video> videos, VideoCategory category, bool hasReachedMax)?
+        byCategoryLoaded,
+    TResult Function(
+            List<Video> oldVideos, Failure falure, VideoListEvent lastEvent)?
+        error,
+    required TResult orElse(),
+  }) {
+    if (latestLoaded != null) {
+      return latestLoaded(latestVideos, hasReachedMax);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PopularLoadingState value) popularLoading,
+    required TResult Function(_PopularLoadedState value) popularLoaded,
+    required TResult Function(_LatestLoadingState value) latestLoading,
+    required TResult Function(_LatestLoadedState value) latestLoaded,
+    required TResult Function(_ByCategoryLoadingState value) categoryLoading,
+    required TResult Function(_ByCategoryLoadedState value) byCategoryLoaded,
+    required TResult Function(_ErrorState value) error,
+  }) {
+    return latestLoaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PopularLoadingState value)? popularLoading,
+    TResult? Function(_PopularLoadedState value)? popularLoaded,
+    TResult? Function(_LatestLoadingState value)? latestLoading,
+    TResult? Function(_LatestLoadedState value)? latestLoaded,
+    TResult? Function(_ByCategoryLoadingState value)? categoryLoading,
+    TResult? Function(_ByCategoryLoadedState value)? byCategoryLoaded,
+    TResult? Function(_ErrorState value)? error,
+  }) {
+    return latestLoaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PopularLoadingState value)? popularLoading,
+    TResult Function(_PopularLoadedState value)? popularLoaded,
+    TResult Function(_LatestLoadingState value)? latestLoading,
+    TResult Function(_LatestLoadedState value)? latestLoaded,
+    TResult Function(_ByCategoryLoadingState value)? categoryLoading,
+    TResult Function(_ByCategoryLoadedState value)? byCategoryLoaded,
+    TResult Function(_ErrorState value)? error,
+    required TResult orElse(),
+  }) {
+    if (latestLoaded != null) {
+      return latestLoaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LatestLoadedState implements VideoListState {
+  const factory _LatestLoadedState(
+      {required final List<Video> latestVideos,
+      required final bool hasReachedMax}) = _$_LatestLoadedState;
+
+  List<Video> get latestVideos;
+  bool get hasReachedMax;
+  @JsonKey(ignore: true)
+  _$$_LatestLoadedStateCopyWith<_$_LatestLoadedState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1238,6 +2040,9 @@ class _$_ByCategoryLoadingState implements _ByCategoryLoadingState {
     required TResult Function(List<Video> oldVideos) popularLoading,
     required TResult Function(List<Video> videos, bool hasReachedMax)
         popularLoaded,
+    required TResult Function(List<Video> latestVideos) latestLoading,
+    required TResult Function(List<Video> latestVideos, bool hasReachedMax)
+        latestLoaded,
     required TResult Function(List<Video> oldVideos, VideoCategory? category)
         categoryLoading,
     required TResult Function(
@@ -1255,6 +2060,9 @@ class _$_ByCategoryLoadingState implements _ByCategoryLoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Video> oldVideos)? popularLoading,
     TResult? Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult? Function(List<Video> latestVideos)? latestLoading,
+    TResult? Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult? Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult? Function(
@@ -1272,6 +2080,9 @@ class _$_ByCategoryLoadingState implements _ByCategoryLoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Video> oldVideos)? popularLoading,
     TResult Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult Function(List<Video> latestVideos)? latestLoading,
+    TResult Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult Function(
@@ -1293,6 +2104,8 @@ class _$_ByCategoryLoadingState implements _ByCategoryLoadingState {
   TResult map<TResult extends Object?>({
     required TResult Function(_PopularLoadingState value) popularLoading,
     required TResult Function(_PopularLoadedState value) popularLoaded,
+    required TResult Function(_LatestLoadingState value) latestLoading,
+    required TResult Function(_LatestLoadedState value) latestLoaded,
     required TResult Function(_ByCategoryLoadingState value) categoryLoading,
     required TResult Function(_ByCategoryLoadedState value) byCategoryLoaded,
     required TResult Function(_ErrorState value) error,
@@ -1305,6 +2118,8 @@ class _$_ByCategoryLoadingState implements _ByCategoryLoadingState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PopularLoadingState value)? popularLoading,
     TResult? Function(_PopularLoadedState value)? popularLoaded,
+    TResult? Function(_LatestLoadingState value)? latestLoading,
+    TResult? Function(_LatestLoadedState value)? latestLoaded,
     TResult? Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult? Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult? Function(_ErrorState value)? error,
@@ -1317,6 +2132,8 @@ class _$_ByCategoryLoadingState implements _ByCategoryLoadingState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PopularLoadingState value)? popularLoading,
     TResult Function(_PopularLoadedState value)? popularLoaded,
+    TResult Function(_LatestLoadingState value)? latestLoading,
+    TResult Function(_LatestLoadedState value)? latestLoaded,
     TResult Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult Function(_ErrorState value)? error,
@@ -1438,6 +2255,9 @@ class _$_ByCategoryLoadedState implements _ByCategoryLoadedState {
     required TResult Function(List<Video> oldVideos) popularLoading,
     required TResult Function(List<Video> videos, bool hasReachedMax)
         popularLoaded,
+    required TResult Function(List<Video> latestVideos) latestLoading,
+    required TResult Function(List<Video> latestVideos, bool hasReachedMax)
+        latestLoaded,
     required TResult Function(List<Video> oldVideos, VideoCategory? category)
         categoryLoading,
     required TResult Function(
@@ -1455,6 +2275,9 @@ class _$_ByCategoryLoadedState implements _ByCategoryLoadedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Video> oldVideos)? popularLoading,
     TResult? Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult? Function(List<Video> latestVideos)? latestLoading,
+    TResult? Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult? Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult? Function(
@@ -1472,6 +2295,9 @@ class _$_ByCategoryLoadedState implements _ByCategoryLoadedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Video> oldVideos)? popularLoading,
     TResult Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult Function(List<Video> latestVideos)? latestLoading,
+    TResult Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult Function(
@@ -1493,6 +2319,8 @@ class _$_ByCategoryLoadedState implements _ByCategoryLoadedState {
   TResult map<TResult extends Object?>({
     required TResult Function(_PopularLoadingState value) popularLoading,
     required TResult Function(_PopularLoadedState value) popularLoaded,
+    required TResult Function(_LatestLoadingState value) latestLoading,
+    required TResult Function(_LatestLoadedState value) latestLoaded,
     required TResult Function(_ByCategoryLoadingState value) categoryLoading,
     required TResult Function(_ByCategoryLoadedState value) byCategoryLoaded,
     required TResult Function(_ErrorState value) error,
@@ -1505,6 +2333,8 @@ class _$_ByCategoryLoadedState implements _ByCategoryLoadedState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PopularLoadingState value)? popularLoading,
     TResult? Function(_PopularLoadedState value)? popularLoaded,
+    TResult? Function(_LatestLoadingState value)? latestLoading,
+    TResult? Function(_LatestLoadedState value)? latestLoaded,
     TResult? Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult? Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult? Function(_ErrorState value)? error,
@@ -1517,6 +2347,8 @@ class _$_ByCategoryLoadedState implements _ByCategoryLoadedState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PopularLoadingState value)? popularLoading,
     TResult Function(_PopularLoadedState value)? popularLoaded,
+    TResult Function(_LatestLoadingState value)? latestLoading,
+    TResult Function(_LatestLoadedState value)? latestLoaded,
     TResult Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult Function(_ErrorState value)? error,
@@ -1649,6 +2481,9 @@ class _$_ErrorState implements _ErrorState {
     required TResult Function(List<Video> oldVideos) popularLoading,
     required TResult Function(List<Video> videos, bool hasReachedMax)
         popularLoaded,
+    required TResult Function(List<Video> latestVideos) latestLoading,
+    required TResult Function(List<Video> latestVideos, bool hasReachedMax)
+        latestLoaded,
     required TResult Function(List<Video> oldVideos, VideoCategory? category)
         categoryLoading,
     required TResult Function(
@@ -1666,6 +2501,9 @@ class _$_ErrorState implements _ErrorState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<Video> oldVideos)? popularLoading,
     TResult? Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult? Function(List<Video> latestVideos)? latestLoading,
+    TResult? Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult? Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult? Function(
@@ -1683,6 +2521,9 @@ class _$_ErrorState implements _ErrorState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<Video> oldVideos)? popularLoading,
     TResult Function(List<Video> videos, bool hasReachedMax)? popularLoaded,
+    TResult Function(List<Video> latestVideos)? latestLoading,
+    TResult Function(List<Video> latestVideos, bool hasReachedMax)?
+        latestLoaded,
     TResult Function(List<Video> oldVideos, VideoCategory? category)?
         categoryLoading,
     TResult Function(
@@ -1704,6 +2545,8 @@ class _$_ErrorState implements _ErrorState {
   TResult map<TResult extends Object?>({
     required TResult Function(_PopularLoadingState value) popularLoading,
     required TResult Function(_PopularLoadedState value) popularLoaded,
+    required TResult Function(_LatestLoadingState value) latestLoading,
+    required TResult Function(_LatestLoadedState value) latestLoaded,
     required TResult Function(_ByCategoryLoadingState value) categoryLoading,
     required TResult Function(_ByCategoryLoadedState value) byCategoryLoaded,
     required TResult Function(_ErrorState value) error,
@@ -1716,6 +2559,8 @@ class _$_ErrorState implements _ErrorState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PopularLoadingState value)? popularLoading,
     TResult? Function(_PopularLoadedState value)? popularLoaded,
+    TResult? Function(_LatestLoadingState value)? latestLoading,
+    TResult? Function(_LatestLoadedState value)? latestLoaded,
     TResult? Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult? Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult? Function(_ErrorState value)? error,
@@ -1728,6 +2573,8 @@ class _$_ErrorState implements _ErrorState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PopularLoadingState value)? popularLoading,
     TResult Function(_PopularLoadedState value)? popularLoaded,
+    TResult Function(_LatestLoadingState value)? latestLoading,
+    TResult Function(_LatestLoadedState value)? latestLoaded,
     TResult Function(_ByCategoryLoadingState value)? categoryLoading,
     TResult Function(_ByCategoryLoadedState value)? byCategoryLoaded,
     TResult Function(_ErrorState value)? error,

@@ -83,4 +83,26 @@ class HomeRepositoryImpl extends HomeRepository {
       return left(UnexpectedFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<Video>>> getLatestVideo(
+      {required int page, required int amount}) async {
+    try {
+      final videoList = await homeApiClient.getLatestVideos(
+        amount: amount,
+        page: page,
+      );
+      return right(videoList);
+    } on ServerException catch (_) {
+      return left(ServerFailure());
+    } on InternetException catch (_) {
+      return left(SocketFailure());
+    } on NotFoundException catch (_) {
+      return left(NotFoundFailure());
+    } on AuthenticationException catch (_) {
+      return left(AuthenticationFailure());
+    } catch (e) {
+      return left(UnexpectedFailure());
+    }
+  }
 }

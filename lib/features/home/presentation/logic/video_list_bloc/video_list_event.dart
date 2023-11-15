@@ -8,6 +8,12 @@ class VideoListEvent with _$VideoListEvent {
     required List<Video> oldVideos,
   }) = _LoadMoreEvent;
 
+  const factory VideoListEvent.latestLoad() = _LatestEvent;
+
+  const factory VideoListEvent.latestLoadMore({
+    required List<Video> latestVideos,
+  }) = _LatestMoreEvent;
+
   const factory VideoListEvent.byCategoryload({
     required VideoCategory category,
   }) = _ByCategoryLoadEvent;
