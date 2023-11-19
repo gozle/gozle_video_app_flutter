@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/global/domain/models/video_list_item_type.dart';
+import 'package:video_gozle/features/global/presentation/widget/channel_item_widget/channel_list_item_widget.dart';
 import 'package:video_gozle/features/global/presentation/widget/error_widget/sliver_error_widget.dart';
 import 'package:video_gozle/features/global/presentation/widget/ink_wrapper.dart';
 import 'package:video_gozle/features/global/presentation/widget/smart_refresher_footer.dart';
@@ -10,6 +11,7 @@ import 'package:video_gozle/features/home/presentation/widget/video_list_widget.
 import 'package:video_gozle/features/search/presentation/logic/seach_video_bloc/search_video_bloc.dart';
 import 'package:video_gozle/features/search/presentation/logic/search_history_cubit/search_history_cubit.dart';
 import 'package:video_gozle/features/search/presentation/widget/search_text_field.dart';
+import 'package:video_gozle/features/subscriptions/presentation/widget/channel_list_item_widget.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -20,7 +22,8 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderStateMixin {
+class _SearchScreenState extends State<SearchScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late ScrollController scrollController;
   late RefreshController refreshController;
@@ -32,7 +35,8 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
     scrollController = ScrollController();
     queryTC = TextEditingController();
     focusNode = FocusNode();
-    animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 200));
     refreshController = RefreshController(initialRefresh: false);
 
     Future.delayed(Duration.zero).then((value) {
@@ -58,8 +62,10 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
 
   void _onLoadMore() {
     context.read<SearchVideoBloc>().state.whenOrNull(
-      loaded: (videos, hasReachedMax, query) {
-        context.read<SearchVideoBloc>().add(SearchVideoEvent.loadMore(query, videos));
+      loaded: (videos, c, hasReachedMax, query) {
+        context
+            .read<SearchVideoBloc>()
+            .add(SearchVideoEvent.loadMore(query, videos, c));
       },
     );
   }
@@ -69,7 +75,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
     return WillPopScope(
       onWillPop: () async {
         return context.read<SearchVideoBloc>().state.maybeWhen(
-          loaded: (videos, hasReachedMax, query) {
+          loaded: (videos, channels, hasReachedMax, query) {
             if (videos.isNotEmpty) {
               if (animationController.value == 1) {
                 animationController.reverse();
@@ -124,7 +130,9 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
               focusNode: focusNode,
               onSubmitted: (value) async {
                 if (value?.isNotEmpty == true) {
-                  context.read<SearchVideoBloc>().add(SearchVideoEvent.search('$value'));
+                  context
+                      .read<SearchVideoBloc>()
+                      .add(SearchVideoEvent.search('$value'));
                   animationController.reverse().then((_) {
                     context.read<SearchHistoryCubit>().add(history: '$value');
                   });
@@ -137,7 +145,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
         body: BlocConsumer<SearchVideoBloc, SearchVideoState>(
           listener: (context, state) {
             state.whenOrNull(
-              loaded: (videos, hasReachedMax, query) {
+              loaded: (videos, channels, hasReachedMax, query) {
                 refreshController.loadComplete();
               },
               error: (falure, oldVideos, lastEvent) {
@@ -155,14 +163,30 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                   enablePullUp: true,
                   enablePullDown: false,
                   footer: const SmartRefresherFooter(),
-                  child: CustomScrollView(controller: scrollController, slivers: [
+                  child:
+                      CustomScrollView(controller: scrollController, slivers: [
+                    state.maybeWhen(
+                        loaded: (v, channels, h, q) {
+                          if (channels.isNotEmpty) {
+                            return SliverList.builder(
+                              itemCount: channels.length,
+                              itemBuilder: (context, index) {
+                                return ChannelListItemWidget(
+                                  channel: channels[index],
+                                );
+                              },
+                            );
+                          }
+                          return Container();
+                        },
+                        orElse: () => SliverToBoxAdapter(child: Container())),
                     state.when(
                       initial: () {
                         return const SliverToBoxAdapter(
                           child: Center(),
                         );
                       },
-                      loaded: (videos, hasReachedMax, query) {
+                      loaded: (videos, channels, hasReachedMax, query) {
                         if (videos.isNotEmpty) {
                           return VideoListWidget(
                             videos: videos,
@@ -202,7 +226,9 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                   animationController: animationController,
                   onItemSelected: (historyItem) {
                     animationController.reverse();
-                    context.read<SearchVideoBloc>().add(SearchVideoEvent.search(historyItem));
+                    context
+                        .read<SearchVideoBloc>()
+                        .add(SearchVideoEvent.search(historyItem));
                     queryTC.text = historyItem;
                     focusNode.unfocus();
                     setState(() {});
@@ -240,7 +266,9 @@ class SearchHistoryWidget extends StatelessWidget {
               builder: (context, child) {
                 return Opacity(
                   opacity: animationController.value,
-                  child: animationController.value > 0.0 ? child : const SizedBox.shrink(),
+                  child: animationController.value > 0.0
+                      ? child
+                      : const SizedBox.shrink(),
                 );
               },
               child: Material(
@@ -258,7 +286,8 @@ class SearchHistoryWidget extends StatelessWidget {
                             },
                             child: Container(
                               height: 55,
-                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
                               width: double.infinity,
                               child: Row(
                                 children: [
@@ -269,7 +298,9 @@ class SearchHistoryWidget extends StatelessWidget {
                                       historyItem,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context).textTheme.titleMedium,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
                                     ),
                                   ),
                                 ],

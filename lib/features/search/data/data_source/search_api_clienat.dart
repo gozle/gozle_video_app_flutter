@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:video_gozle/core/exception/exception_utils.dart';
+import 'package:video_gozle/features/channel/domain/models/channel_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_model.dart';
 
 class SearchApiClient {
@@ -23,7 +24,36 @@ class SearchApiClient {
         if ('${response.data}' == '{}') return [];
 
         final videoJsonList = response.data as List<dynamic>;
-        return videoJsonList.map((videoJson) => Video.fromJson(videoJson)).toList();
+        return videoJsonList
+            .map((videoJson) => Video.fromJson(videoJson))
+            .toList();
+      } else {
+        throw ExceptionUtils.dioStatusCodeErrorHandle(response.statusCode);
+      }
+    } on DioException catch (e, stacktrace) {
+      throw ExceptionUtils.dioErrorHandle(e, stacktrace);
+    }
+  }
+
+  Future<List<Channel>> getChannelByQuery({
+    required String query,
+    required int page,
+    required int amount,
+  }) async {
+    try {
+      const url = "/channels";
+      final response = await dio.get(url, queryParameters: {
+        "query": query,
+        "page": page,
+        "amount": amount,
+      });
+      if (response.statusCode == 200) {
+        if ('${response.data}' == '{}') return [];
+
+        final videoJsonList = response.data as List<dynamic>;
+        return videoJsonList
+            .map((videoJson) => Channel.fromJson(videoJson))
+            .toList();
       } else {
         throw ExceptionUtils.dioStatusCodeErrorHandle(response.statusCode);
       }

@@ -20,19 +20,25 @@ mixin _$SearchVideoEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String query) search,
-    required TResult Function(String query, List<Video> oldVideos) loadMore,
+    required TResult Function(
+            String query, List<Video> oldVideos, List<Channel> oldChannels)
+        loadMore,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String query)? search,
-    TResult? Function(String query, List<Video> oldVideos)? loadMore,
+    TResult? Function(
+            String query, List<Video> oldVideos, List<Channel> oldChannels)?
+        loadMore,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? search,
-    TResult Function(String query, List<Video> oldVideos)? loadMore,
+    TResult Function(
+            String query, List<Video> oldVideos, List<Channel> oldChannels)?
+        loadMore,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -161,7 +167,9 @@ class _$_SearchEvent implements _SearchEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String query) search,
-    required TResult Function(String query, List<Video> oldVideos) loadMore,
+    required TResult Function(
+            String query, List<Video> oldVideos, List<Channel> oldChannels)
+        loadMore,
   }) {
     return search(query);
   }
@@ -170,7 +178,9 @@ class _$_SearchEvent implements _SearchEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String query)? search,
-    TResult? Function(String query, List<Video> oldVideos)? loadMore,
+    TResult? Function(
+            String query, List<Video> oldVideos, List<Channel> oldChannels)?
+        loadMore,
   }) {
     return search?.call(query);
   }
@@ -179,7 +189,9 @@ class _$_SearchEvent implements _SearchEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? search,
-    TResult Function(String query, List<Video> oldVideos)? loadMore,
+    TResult Function(
+            String query, List<Video> oldVideos, List<Channel> oldChannels)?
+        loadMore,
     required TResult orElse(),
   }) {
     if (search != null) {
@@ -239,7 +251,7 @@ abstract class _$$_LoadMoreEventCopyWith<$Res>
       __$$_LoadMoreEventCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String query, List<Video> oldVideos});
+  $Res call({String query, List<Video> oldVideos, List<Channel> oldChannels});
 }
 
 /// @nodoc
@@ -255,6 +267,7 @@ class __$$_LoadMoreEventCopyWithImpl<$Res>
   $Res call({
     Object? query = null,
     Object? oldVideos = null,
+    Object? oldChannels = null,
   }) {
     return _then(_$_LoadMoreEvent(
       null == query
@@ -265,6 +278,10 @@ class __$$_LoadMoreEventCopyWithImpl<$Res>
           ? _value._oldVideos
           : oldVideos // ignore: cast_nullable_to_non_nullable
               as List<Video>,
+      null == oldChannels
+          ? _value._oldChannels
+          : oldChannels // ignore: cast_nullable_to_non_nullable
+              as List<Channel>,
     ));
   }
 }
@@ -272,8 +289,10 @@ class __$$_LoadMoreEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoadMoreEvent implements _LoadMoreEvent {
-  const _$_LoadMoreEvent(this.query, final List<Video> oldVideos)
-      : _oldVideos = oldVideos;
+  const _$_LoadMoreEvent(
+      this.query, final List<Video> oldVideos, final List<Channel> oldChannels)
+      : _oldVideos = oldVideos,
+        _oldChannels = oldChannels;
 
   @override
   final String query;
@@ -285,9 +304,17 @@ class _$_LoadMoreEvent implements _LoadMoreEvent {
     return EqualUnmodifiableListView(_oldVideos);
   }
 
+  final List<Channel> _oldChannels;
+  @override
+  List<Channel> get oldChannels {
+    if (_oldChannels is EqualUnmodifiableListView) return _oldChannels;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_oldChannels);
+  }
+
   @override
   String toString() {
-    return 'SearchVideoEvent.loadMore(query: $query, oldVideos: $oldVideos)';
+    return 'SearchVideoEvent.loadMore(query: $query, oldVideos: $oldVideos, oldChannels: $oldChannels)';
   }
 
   @override
@@ -297,12 +324,17 @@ class _$_LoadMoreEvent implements _LoadMoreEvent {
             other is _$_LoadMoreEvent &&
             (identical(other.query, query) || other.query == query) &&
             const DeepCollectionEquality()
-                .equals(other._oldVideos, _oldVideos));
+                .equals(other._oldVideos, _oldVideos) &&
+            const DeepCollectionEquality()
+                .equals(other._oldChannels, _oldChannels));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, query, const DeepCollectionEquality().hash(_oldVideos));
+      runtimeType,
+      query,
+      const DeepCollectionEquality().hash(_oldVideos),
+      const DeepCollectionEquality().hash(_oldChannels));
 
   @JsonKey(ignore: true)
   @override
@@ -314,29 +346,35 @@ class _$_LoadMoreEvent implements _LoadMoreEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String query) search,
-    required TResult Function(String query, List<Video> oldVideos) loadMore,
+    required TResult Function(
+            String query, List<Video> oldVideos, List<Channel> oldChannels)
+        loadMore,
   }) {
-    return loadMore(query, oldVideos);
+    return loadMore(query, oldVideos, oldChannels);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String query)? search,
-    TResult? Function(String query, List<Video> oldVideos)? loadMore,
+    TResult? Function(
+            String query, List<Video> oldVideos, List<Channel> oldChannels)?
+        loadMore,
   }) {
-    return loadMore?.call(query, oldVideos);
+    return loadMore?.call(query, oldVideos, oldChannels);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? search,
-    TResult Function(String query, List<Video> oldVideos)? loadMore,
+    TResult Function(
+            String query, List<Video> oldVideos, List<Channel> oldChannels)?
+        loadMore,
     required TResult orElse(),
   }) {
     if (loadMore != null) {
-      return loadMore(query, oldVideos);
+      return loadMore(query, oldVideos, oldChannels);
     }
     return orElse();
   }
@@ -374,12 +412,13 @@ class _$_LoadMoreEvent implements _LoadMoreEvent {
 }
 
 abstract class _LoadMoreEvent implements SearchVideoEvent {
-  const factory _LoadMoreEvent(
-      final String query, final List<Video> oldVideos) = _$_LoadMoreEvent;
+  const factory _LoadMoreEvent(final String query, final List<Video> oldVideos,
+      final List<Channel> oldChannels) = _$_LoadMoreEvent;
 
   @override
   String get query;
   List<Video> get oldVideos;
+  List<Channel> get oldChannels;
   @override
   @JsonKey(ignore: true)
   _$$_LoadMoreEventCopyWith<_$_LoadMoreEvent> get copyWith =>
@@ -392,8 +431,8 @@ mixin _$SearchVideoState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(List<Video> oldVideos) loading,
-    required TResult Function(
-            List<Video> videos, bool hasReachedMax, String query)
+    required TResult Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)
         loaded,
     required TResult Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)
@@ -404,7 +443,8 @@ mixin _$SearchVideoState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(List<Video> oldVideos)? loading,
-    TResult? Function(List<Video> videos, bool hasReachedMax, String query)?
+    TResult? Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)?
         loaded,
     TResult? Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)?
@@ -415,7 +455,8 @@ mixin _$SearchVideoState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(List<Video> oldVideos)? loading,
-    TResult Function(List<Video> videos, bool hasReachedMax, String query)?
+    TResult Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)?
         loaded,
     TResult Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)?
@@ -507,8 +548,8 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(List<Video> oldVideos) loading,
-    required TResult Function(
-            List<Video> videos, bool hasReachedMax, String query)
+    required TResult Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)
         loaded,
     required TResult Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)
@@ -522,7 +563,8 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(List<Video> oldVideos)? loading,
-    TResult? Function(List<Video> videos, bool hasReachedMax, String query)?
+    TResult? Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)?
         loaded,
     TResult? Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)?
@@ -536,7 +578,8 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(List<Video> oldVideos)? loading,
-    TResult Function(List<Video> videos, bool hasReachedMax, String query)?
+    TResult Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)?
         loaded,
     TResult Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)?
@@ -664,8 +707,8 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(List<Video> oldVideos) loading,
-    required TResult Function(
-            List<Video> videos, bool hasReachedMax, String query)
+    required TResult Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)
         loaded,
     required TResult Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)
@@ -679,7 +722,8 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(List<Video> oldVideos)? loading,
-    TResult? Function(List<Video> videos, bool hasReachedMax, String query)?
+    TResult? Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)?
         loaded,
     TResult? Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)?
@@ -693,7 +737,8 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(List<Video> oldVideos)? loading,
-    TResult Function(List<Video> videos, bool hasReachedMax, String query)?
+    TResult Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)?
         loaded,
     TResult Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)?
@@ -758,7 +803,11 @@ abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Video> videos, bool hasReachedMax, String query});
+  $Res call(
+      {List<Video> videos,
+      List<Channel> channels,
+      bool hasReachedMax,
+      String query});
 }
 
 /// @nodoc
@@ -772,6 +821,7 @@ class __$$_LoadedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? videos = null,
+    Object? channels = null,
     Object? hasReachedMax = null,
     Object? query = null,
   }) {
@@ -780,6 +830,10 @@ class __$$_LoadedCopyWithImpl<$Res>
           ? _value._videos
           : videos // ignore: cast_nullable_to_non_nullable
               as List<Video>,
+      channels: null == channels
+          ? _value._channels
+          : channels // ignore: cast_nullable_to_non_nullable
+              as List<Channel>,
       hasReachedMax: null == hasReachedMax
           ? _value.hasReachedMax
           : hasReachedMax // ignore: cast_nullable_to_non_nullable
@@ -797,9 +851,11 @@ class __$$_LoadedCopyWithImpl<$Res>
 class _$_Loaded implements _Loaded {
   const _$_Loaded(
       {required final List<Video> videos,
+      required final List<Channel> channels,
       required this.hasReachedMax,
       required this.query})
-      : _videos = videos;
+      : _videos = videos,
+        _channels = channels;
 
   final List<Video> _videos;
   @override
@@ -809,6 +865,14 @@ class _$_Loaded implements _Loaded {
     return EqualUnmodifiableListView(_videos);
   }
 
+  final List<Channel> _channels;
+  @override
+  List<Channel> get channels {
+    if (_channels is EqualUnmodifiableListView) return _channels;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_channels);
+  }
+
   @override
   final bool hasReachedMax;
   @override
@@ -816,7 +880,7 @@ class _$_Loaded implements _Loaded {
 
   @override
   String toString() {
-    return 'SearchVideoState.loaded(videos: $videos, hasReachedMax: $hasReachedMax, query: $query)';
+    return 'SearchVideoState.loaded(videos: $videos, channels: $channels, hasReachedMax: $hasReachedMax, query: $query)';
   }
 
   @override
@@ -825,14 +889,19 @@ class _$_Loaded implements _Loaded {
         (other.runtimeType == runtimeType &&
             other is _$_Loaded &&
             const DeepCollectionEquality().equals(other._videos, _videos) &&
+            const DeepCollectionEquality().equals(other._channels, _channels) &&
             (identical(other.hasReachedMax, hasReachedMax) ||
                 other.hasReachedMax == hasReachedMax) &&
             (identical(other.query, query) || other.query == query));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_videos), hasReachedMax, query);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_videos),
+      const DeepCollectionEquality().hash(_channels),
+      hasReachedMax,
+      query);
 
   @JsonKey(ignore: true)
   @override
@@ -845,14 +914,14 @@ class _$_Loaded implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(List<Video> oldVideos) loading,
-    required TResult Function(
-            List<Video> videos, bool hasReachedMax, String query)
+    required TResult Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)
         loaded,
     required TResult Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)
         error,
   }) {
-    return loaded(videos, hasReachedMax, query);
+    return loaded(videos, channels, hasReachedMax, query);
   }
 
   @override
@@ -860,13 +929,14 @@ class _$_Loaded implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(List<Video> oldVideos)? loading,
-    TResult? Function(List<Video> videos, bool hasReachedMax, String query)?
+    TResult? Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)?
         loaded,
     TResult? Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)?
         error,
   }) {
-    return loaded?.call(videos, hasReachedMax, query);
+    return loaded?.call(videos, channels, hasReachedMax, query);
   }
 
   @override
@@ -874,7 +944,8 @@ class _$_Loaded implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(List<Video> oldVideos)? loading,
-    TResult Function(List<Video> videos, bool hasReachedMax, String query)?
+    TResult Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)?
         loaded,
     TResult Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)?
@@ -882,7 +953,7 @@ class _$_Loaded implements _Loaded {
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(videos, hasReachedMax, query);
+      return loaded(videos, channels, hasReachedMax, query);
     }
     return orElse();
   }
@@ -928,10 +999,12 @@ class _$_Loaded implements _Loaded {
 abstract class _Loaded implements SearchVideoState {
   const factory _Loaded(
       {required final List<Video> videos,
+      required final List<Channel> channels,
       required final bool hasReachedMax,
       required final String query}) = _$_Loaded;
 
   List<Video> get videos;
+  List<Channel> get channels;
   bool get hasReachedMax;
   String get query;
   @JsonKey(ignore: true)
@@ -1043,8 +1116,8 @@ class _$_Error implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(List<Video> oldVideos) loading,
-    required TResult Function(
-            List<Video> videos, bool hasReachedMax, String query)
+    required TResult Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)
         loaded,
     required TResult Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)
@@ -1058,7 +1131,8 @@ class _$_Error implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(List<Video> oldVideos)? loading,
-    TResult? Function(List<Video> videos, bool hasReachedMax, String query)?
+    TResult? Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)?
         loaded,
     TResult? Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)?
@@ -1072,7 +1146,8 @@ class _$_Error implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(List<Video> oldVideos)? loading,
-    TResult Function(List<Video> videos, bool hasReachedMax, String query)?
+    TResult Function(List<Video> videos, List<Channel> channels,
+            bool hasReachedMax, String query)?
         loaded,
     TResult Function(
             Failure falure, List<Video> oldVideos, SearchVideoEvent lastEvent)?
