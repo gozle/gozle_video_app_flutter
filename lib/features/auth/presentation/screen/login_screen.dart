@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_gozle/core/app_assets.dart';
 import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/auth/presentation/logic/user_bloc/user_bloc.dart';
 import 'package:video_gozle/features/global/presentation/widget/custom_snack_bar.dart';
 import 'package:video_gozle/features/nav/presentation/screen/nav_screen.dart';
+import 'package:video_gozle/features/settings/presentation/logic/settings/settings_provider.dart';
+import 'package:video_gozle/features/settings/presentation/widget/choose_locale_dialog.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -27,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
             notification: (errorMessage) {
               CustomSnackBar.show(context, message: errorMessage);
             },
-            authenticated: (user) {
+            authenticated: (_) {
               Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
             },
           );
@@ -37,6 +40,44 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        ChooseLocaleDialog.show(context);
+                      },
+                      child: Consumer<SettingsProvider>(
+                          builder: (context, provider, _) {
+                        return Text(provider.locale.languageCode.toUpperCase());
+                      }),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(const Color(0xffF5F5F5)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    side: BorderSide(
+                                        color: const Color(0xffF5F5F5)))),
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.fromLTRB(8, 12, 8, 12)),
+                      )),
+                  const Spacer(),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(NavScreen.routeName);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(S.current.skip),
+                          const Icon(Icons.arrow_forward_ios)
+                        ],
+                      ))
+                ],
+              ),
               const Spacer(),
               Image.asset(
                 AppAssets.loginImage,
@@ -69,7 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   return ElevatedButton(
                     onPressed: oAuthClientData != null
                         ? () {
-                            context.read<UserBloc>().add(UserEvent.login(oAuthClientData: oAuthClientData));
+                            context.read<UserBloc>().add(UserEvent.login(
+                                oAuthClientData: oAuthClientData));
                           }
                         : null,
                     child: Text(S.current.login_or_register_with_gozle_id),

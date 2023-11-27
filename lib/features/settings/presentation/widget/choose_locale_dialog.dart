@@ -13,7 +13,8 @@ class ChooseLocaleDialog {
       builder: (context) {
         return AlertDialog(
           title: Text(S.current.language),
-          titlePadding: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 12),
+          titlePadding:
+              EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 12),
           contentPadding: EdgeInsets.only(left: 24, right: 24, bottom: 24),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -28,7 +29,7 @@ class ChooseLocaleDialog {
                 locale: AppConstants.englishLocale,
               ),
               LangItemWidget(
-                localeName: 'Turkmen',
+                localeName: 'Türkmen',
                 locale: AppConstants.turkmenLocale,
               ),
             ],
@@ -83,9 +84,9 @@ class LangItemWidget extends StatelessWidget {
           onTap: () {
             provider.changeLocale(locale);
 
-            Navigator.of(context).maybePop();
+            // Navigator.of(context).maybePop();
 
-            Restart.restartApp();
+            //  Restart.restartApp();
           },
         );
       },
