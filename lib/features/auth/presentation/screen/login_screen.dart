@@ -79,12 +79,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               const Spacer(),
-              Image.asset(
-                AppAssets.loginImage,
-                fit: BoxFit.cover,
-                height: MediaQuery.of(context).size.height / 2,
-              ),
-              const Spacer(),
               Text(
                 S.current.welcome_to_gozle_video,
                 style: context.textTheme.titleLarge?.copyWith(fontSize: 28),

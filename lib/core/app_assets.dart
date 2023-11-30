@@ -1,7 +1,8 @@
 class AppAssets {
   static const String homeIcon = 'assets/icons/menu/ic_home.svg';
 
-  static const String subscriptionsIcon = 'assets/icons/menu/ic_subscriptions.svg';
+  static const String subscriptionsIcon =
+      'assets/icons/menu/ic_subscriptions.svg';
 
   static const String libraryIcon = 'assets/icons/menu/ic_library.svg';
 
@@ -31,7 +32,8 @@ class AppAssets {
 
   static const String repeatOneIcon = 'assets/icons/ic_repeat_one.svg';
 
-  static const String appBarLightLogo = 'assets/icons/ic_app_bar_light_logo.svg';
+  static const String appBarLightLogo =
+      'assets/icons/ic_app_bar_light_logo.svg';
 
   static const String appBarDarkLogo = 'assets/icons/ic_app_bar_dark_logo.svg';
 
@@ -42,6 +44,8 @@ class AppAssets {
   ];
 
   static String loginImage = 'assets/images/login_image.png';
+
+  static String signInImage = 'assets/images/sign_in.png';
 
   static String pauseIcon = 'assets/icons/ic_pause.svg';
 
@@ -62,4 +66,8 @@ class AppAssets {
   static String likeFilledIcon = 'assets/icons/ic_like_filled.svg';
 
   static String reportIcon = 'assets/icons/ic_report.svg';
+
+  static String rocketIcon = 'assets/icons/rocket-02.svg';
+
+  static String clockRewindIcon = 'assets/icons/clock-rewind.svg';
 }

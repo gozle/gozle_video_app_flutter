@@ -6,7 +6,7 @@ abstract class AppColors {
   static const Color GOZLE_COLOR = Color(0xff00acee);
 
   // lightPrimaryOne Color Swatch
-  static const Color lightBackground = Color(0xffFAFAFF);
+  static const Color lightBackground = Color(0xffF5F5F5);
 
   static const Color lightPrimary = GOZLE_COLOR;
 
@@ -92,7 +92,8 @@ class AppTheme {
         fontWeight: FontWeight.w500,
       ),
     ),
-    chipTheme: ChipThemeData(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+    chipTheme: ChipThemeData(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
     secondaryHeaderColor: AppColors.lightSecondaryHeader,
     textTheme: const TextTheme(
       titleLarge: TextStyle(
@@ -130,7 +131,8 @@ class AppTheme {
       style: ButtonStyle(
         foregroundColor: const MaterialStatePropertyAll(Colors.white),
         backgroundColor: const MaterialStatePropertyAll(AppColors.GOZLE_COLOR),
-        overlayColor: const MaterialStatePropertyAll(AppColors.lightOverlayColor),
+        overlayColor:
+            const MaterialStatePropertyAll(AppColors.lightOverlayColor),
         shape: MaterialStatePropertyAll(defaultShape),
       ),
     ),
@@ -168,7 +170,9 @@ class AppTheme {
       surfaceTintColor: AppColors.lightBarColor,
       labelTextStyle: MaterialStateProperty.resolveWith(
         (states) => TextStyle(
-          color: states.contains(MaterialState.selected) ? AppColors.GOZLE_COLOR : lightTheme.disabledColor,
+          color: states.contains(MaterialState.selected)
+              ? AppColors.GOZLE_COLOR
+              : lightTheme.disabledColor,
           fontSize: 10,
           fontWeight: FontWeight.w700,
         ),
@@ -202,7 +206,8 @@ class AppTheme {
       ),
     ),
     iconTheme: const IconThemeData(color: AppColors.darkIconsColor),
-    chipTheme: ChipThemeData(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+    chipTheme: ChipThemeData(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
     secondaryHeaderColor: AppColors.darkSecondaryHeader,
     textTheme: const TextTheme(
       titleLarge: TextStyle(
@@ -262,12 +267,16 @@ class AppTheme {
       surfaceTintColor: AppColors.darkBarColor,
       iconTheme: MaterialStateProperty.resolveWith(
         (states) => IconThemeData(
-          color: states.contains(MaterialState.selected) ? AppColors.darkPrimary : darkTheme.disabledColor,
+          color: states.contains(MaterialState.selected)
+              ? AppColors.darkPrimary
+              : darkTheme.disabledColor,
         ),
       ),
       labelTextStyle: MaterialStateProperty.resolveWith(
         (states) => TextStyle(
-          color: states.contains(MaterialState.selected) ? AppColors.darkPrimary : darkTheme.disabledColor,
+          color: states.contains(MaterialState.selected)
+              ? AppColors.darkPrimary
+              : darkTheme.disabledColor,
           fontSize: 10,
           fontWeight: FontWeight.w700,
         ),

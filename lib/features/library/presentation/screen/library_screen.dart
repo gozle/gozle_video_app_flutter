@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:video_gozle/core/app_assets.dart';
 import 'package:video_gozle/core/constants.dart';
 import 'package:video_gozle/features/auth/presentation/logic/user_bloc/user_bloc.dart';
+import 'package:video_gozle/features/auth/presentation/screen/login_screen.dart';
 import 'package:video_gozle/features/global/presentation/widget/smart_refresher_header.dart';
 import 'package:video_gozle/features/library/presentation/widget/account_card_widget.dart';
 import 'package:video_gozle/features/auth/presentation/widget/logout_alert_dialog.dart';
@@ -53,7 +55,44 @@ class LibraryScreenState extends State<LibraryScreen> {
         builder: (context, state) {
           return state.maybeWhen(
             orElse: () {
-              return ElevatedButton(onPressed: () {}, child: Text(S.current.retry));
+              return CustomScrollView(
+                slivers: [
+                  SliverList.list(children: [
+                    Image.asset(
+                      AppAssets.signInImage,
+                      fit: BoxFit.fitHeight,
+                      height: MediaQuery.of(context).size.height / 3,
+                    ),
+                    const Spacer(),
+                    ElevatedButton(
+                      style: const ButtonStyle(
+                          alignment: Alignment.center,
+                          minimumSize: MaterialStatePropertyAll(Size(50, 40))),
+                      onPressed: () {
+                        // Navigator.of(context).pop();
+
+                        Navigator.of(context, rootNavigator: true)
+                            .pushReplacementNamed(LoginScreen.routeName);
+                      },
+                      child: Text(S.current.login_or_register_with_gozle_id),
+                    ),
+                    const Spacer(),
+                    MenuItemWidget(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const SettingsScreen()));
+                      },
+                      label: S.current.settings,
+                    ),
+                    MenuItemWidget(
+                      onTap: () {
+                        launchUrlString(AppConstants.supportLink);
+                      },
+                      label: S.current.help,
+                    )
+                  ]),
+                ],
+              );
             },
             authenticated: (user) {
               return SmartRefresher(
@@ -65,11 +104,14 @@ class LibraryScreenState extends State<LibraryScreen> {
                 child: CustomScrollView(
                   slivers: [
                     SliverPadding(
-                      padding: const EdgeInsets.only(left: 24, right: 24, top: 24),
-                      sliver: SliverToBoxAdapter(child: AccountCardWidget(user: user)),
+                      padding:
+                          const EdgeInsets.only(left: 24, right: 24, top: 24),
+                      sliver: SliverToBoxAdapter(
+                          child: AccountCardWidget(user: user)),
                     ),
                     SliverPadding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
                       sliver: SliverToBoxAdapter(
                         child: Text(
                           S.current.history,
@@ -99,7 +141,8 @@ class LibraryScreenState extends State<LibraryScreen> {
                               loaded: (videos, hasReachedMax) {
                                 return ListView.separated(
                                   itemCount: videos.length,
-                                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 24),
                                   scrollDirection: Axis.horizontal,
                                   separatorBuilder: (context, index) {
                                     return const SizedBox(width: 10);
@@ -118,8 +161,10 @@ class LibraryScreenState extends State<LibraryScreen> {
                                   itemBuilder: (context, index) {
                                     return Container(
                                       margin: EdgeInsets.only(
-                                          left: index == 0 ? 24 : 0, right: index + 1 == 5 ? 24 : 10),
-                                      child: SmallVideoItemWidget.placeHolder(context),
+                                          left: index == 0 ? 24 : 0,
+                                          right: index + 1 == 5 ? 24 : 10),
+                                      child: SmallVideoItemWidget.placeHolder(
+                                          context),
                                     );
                                   },
                                 );
@@ -142,8 +187,8 @@ class LibraryScreenState extends State<LibraryScreen> {
                     SliverToBoxAdapter(
                       child: MenuItemWidget(
                         onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const SettingsScreen()));
                         },
                         label: S.current.settings,
                       ),

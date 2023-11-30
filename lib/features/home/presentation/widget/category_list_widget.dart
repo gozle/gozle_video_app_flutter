@@ -26,7 +26,8 @@ class CategoryListWidget extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 18),
-        itemCount: categories.isEmpty && enablePlaceHolder ? 4 : categories.length,
+        itemCount:
+            categories.isEmpty && enablePlaceHolder ? 4 : categories.length,
         separatorBuilder: (context, index) {
           return const SizedBox(width: 10);
         },
@@ -47,6 +48,7 @@ class CategoryListWidget extends StatelessWidget {
               },
               isSelected: selectedCategory == categories[index],
               name: categories[index].verbose ?? categories[index].name ?? '',
+              iconAsset: categories[index].iconAsset,
             );
           }
         },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:video_gozle/core/app_assets.dart';
 import 'package:video_gozle/features/global/domain/models/video_category_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_list_item_type.dart';
 import 'package:video_gozle/features/global/presentation/widget/error_widget/sliver_error_widget.dart';
@@ -120,9 +121,15 @@ class _HomeScreenState extends State<HomeScreen> {
               child: BlocBuilder<VideoCategoryCubit, VideoCategoryState>(
                 builder: (context, videoCategoryState) {
                   final popularVideoCategory = VideoCategory(
-                      pk: 0, name: 'popular', verbose: S.current.popular);
+                      pk: 0,
+                      name: 'popular',
+                      verbose: S.current.popular,
+                      iconAsset: AppAssets.rocketIcon);
                   final latestVideoCategory = VideoCategory(
-                      pk: -1, name: 'latest', verbose: S.current.latest);
+                      pk: -1,
+                      name: 'latest',
+                      verbose: S.current.latest,
+                      iconAsset: AppAssets.clockRewindIcon);
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: CategoryListWidget(
