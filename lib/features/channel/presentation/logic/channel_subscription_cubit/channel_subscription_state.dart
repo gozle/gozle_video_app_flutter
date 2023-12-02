@@ -4,4 +4,5 @@ part of 'channel_subscription_cubit.dart';
 class ChannelSubscriptionState with _$ChannelSubscriptionState {
   const factory ChannelSubscriptionState.subscribed() = _Subscribed;
   const factory ChannelSubscriptionState.unsubscribed() = _Unsubscribed;
+  const factory ChannelSubscriptionState.unauthenticated() = _UnAuthenticated;
 }

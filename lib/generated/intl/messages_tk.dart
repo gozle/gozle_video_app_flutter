@@ -79,7 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "lang": MessageLookupByLibrary.simpleMessage("tk"),
         "language": MessageLookupByLibrary.simpleMessage("Dil"),
         "last": MessageLookupByLibrary.simpleMessage("Iň soňky"),
-        "latest": MessageLookupByLibrary.simpleMessage("Soňkular"),
+        "latest": MessageLookupByLibrary.simpleMessage("Soňkylar"),
         "learning_and_entertainment_service":
             MessageLookupByLibrary.simpleMessage("Bilim we güýmenje serwisi"),
         "leave_review": MessageLookupByLibrary.simpleMessage("Baha bermek"),
@@ -119,7 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Satyn almak we tölegli aýratynlyklar"),
         "quality": MessageLookupByLibrary.simpleMessage("Hil"),
         "query_not_found": m0,
-        "recently_uploaded": MessageLookupByLibrary.simpleMessage("Soňkular"),
+        "recently_uploaded": MessageLookupByLibrary.simpleMessage("Soňkylar"),
         "recommended":
             MessageLookupByLibrary.simpleMessage("Maslahat berilýär"),
         "refresh_complete_text":

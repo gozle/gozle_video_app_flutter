@@ -20,18 +20,21 @@ mixin _$ChannelSubscriptionState {
   TResult when<TResult extends Object?>({
     required TResult Function() subscribed,
     required TResult Function() unsubscribed,
+    required TResult Function() unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? subscribed,
     TResult? Function()? unsubscribed,
+    TResult? Function()? unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? subscribed,
     TResult Function()? unsubscribed,
+    TResult Function()? unauthenticated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$ChannelSubscriptionState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Subscribed value) subscribed,
     required TResult Function(_Unsubscribed value) unsubscribed,
+    required TResult Function(_UnAuthenticated value) unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Subscribed value)? subscribed,
     TResult? Function(_Unsubscribed value)? unsubscribed,
+    TResult? Function(_UnAuthenticated value)? unauthenticated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Subscribed value)? subscribed,
     TResult Function(_Unsubscribed value)? unsubscribed,
+    TResult Function(_UnAuthenticated value)? unauthenticated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -115,6 +121,7 @@ class _$_Subscribed implements _Subscribed {
   TResult when<TResult extends Object?>({
     required TResult Function() subscribed,
     required TResult Function() unsubscribed,
+    required TResult Function() unauthenticated,
   }) {
     return subscribed();
   }
@@ -124,6 +131,7 @@ class _$_Subscribed implements _Subscribed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? subscribed,
     TResult? Function()? unsubscribed,
+    TResult? Function()? unauthenticated,
   }) {
     return subscribed?.call();
   }
@@ -133,6 +141,7 @@ class _$_Subscribed implements _Subscribed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? subscribed,
     TResult Function()? unsubscribed,
+    TResult Function()? unauthenticated,
     required TResult orElse(),
   }) {
     if (subscribed != null) {
@@ -146,6 +155,7 @@ class _$_Subscribed implements _Subscribed {
   TResult map<TResult extends Object?>({
     required TResult Function(_Subscribed value) subscribed,
     required TResult Function(_Unsubscribed value) unsubscribed,
+    required TResult Function(_UnAuthenticated value) unauthenticated,
   }) {
     return subscribed(this);
   }
@@ -155,6 +165,7 @@ class _$_Subscribed implements _Subscribed {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Subscribed value)? subscribed,
     TResult? Function(_Unsubscribed value)? unsubscribed,
+    TResult? Function(_UnAuthenticated value)? unauthenticated,
   }) {
     return subscribed?.call(this);
   }
@@ -164,6 +175,7 @@ class _$_Subscribed implements _Subscribed {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Subscribed value)? subscribed,
     TResult Function(_Unsubscribed value)? unsubscribed,
+    TResult Function(_UnAuthenticated value)? unauthenticated,
     required TResult orElse(),
   }) {
     if (subscribed != null) {
@@ -217,6 +229,7 @@ class _$_Unsubscribed implements _Unsubscribed {
   TResult when<TResult extends Object?>({
     required TResult Function() subscribed,
     required TResult Function() unsubscribed,
+    required TResult Function() unauthenticated,
   }) {
     return unsubscribed();
   }
@@ -226,6 +239,7 @@ class _$_Unsubscribed implements _Unsubscribed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? subscribed,
     TResult? Function()? unsubscribed,
+    TResult? Function()? unauthenticated,
   }) {
     return unsubscribed?.call();
   }
@@ -235,6 +249,7 @@ class _$_Unsubscribed implements _Unsubscribed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? subscribed,
     TResult Function()? unsubscribed,
+    TResult Function()? unauthenticated,
     required TResult orElse(),
   }) {
     if (unsubscribed != null) {
@@ -248,6 +263,7 @@ class _$_Unsubscribed implements _Unsubscribed {
   TResult map<TResult extends Object?>({
     required TResult Function(_Subscribed value) subscribed,
     required TResult Function(_Unsubscribed value) unsubscribed,
+    required TResult Function(_UnAuthenticated value) unauthenticated,
   }) {
     return unsubscribed(this);
   }
@@ -257,6 +273,7 @@ class _$_Unsubscribed implements _Unsubscribed {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Subscribed value)? subscribed,
     TResult? Function(_Unsubscribed value)? unsubscribed,
+    TResult? Function(_UnAuthenticated value)? unauthenticated,
   }) {
     return unsubscribed?.call(this);
   }
@@ -266,6 +283,7 @@ class _$_Unsubscribed implements _Unsubscribed {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Subscribed value)? subscribed,
     TResult Function(_Unsubscribed value)? unsubscribed,
+    TResult Function(_UnAuthenticated value)? unauthenticated,
     required TResult orElse(),
   }) {
     if (unsubscribed != null) {
@@ -277,4 +295,112 @@ class _$_Unsubscribed implements _Unsubscribed {
 
 abstract class _Unsubscribed implements ChannelSubscriptionState {
   const factory _Unsubscribed() = _$_Unsubscribed;
+}
+
+/// @nodoc
+abstract class _$$_UnAuthenticatedCopyWith<$Res> {
+  factory _$$_UnAuthenticatedCopyWith(
+          _$_UnAuthenticated value, $Res Function(_$_UnAuthenticated) then) =
+      __$$_UnAuthenticatedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_UnAuthenticatedCopyWithImpl<$Res>
+    extends _$ChannelSubscriptionStateCopyWithImpl<$Res, _$_UnAuthenticated>
+    implements _$$_UnAuthenticatedCopyWith<$Res> {
+  __$$_UnAuthenticatedCopyWithImpl(
+      _$_UnAuthenticated _value, $Res Function(_$_UnAuthenticated) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_UnAuthenticated implements _UnAuthenticated {
+  const _$_UnAuthenticated();
+
+  @override
+  String toString() {
+    return 'ChannelSubscriptionState.unauthenticated()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_UnAuthenticated);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() subscribed,
+    required TResult Function() unsubscribed,
+    required TResult Function() unauthenticated,
+  }) {
+    return unauthenticated();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? subscribed,
+    TResult? Function()? unsubscribed,
+    TResult? Function()? unauthenticated,
+  }) {
+    return unauthenticated?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? subscribed,
+    TResult Function()? unsubscribed,
+    TResult Function()? unauthenticated,
+    required TResult orElse(),
+  }) {
+    if (unauthenticated != null) {
+      return unauthenticated();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Subscribed value) subscribed,
+    required TResult Function(_Unsubscribed value) unsubscribed,
+    required TResult Function(_UnAuthenticated value) unauthenticated,
+  }) {
+    return unauthenticated(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Subscribed value)? subscribed,
+    TResult? Function(_Unsubscribed value)? unsubscribed,
+    TResult? Function(_UnAuthenticated value)? unauthenticated,
+  }) {
+    return unauthenticated?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Subscribed value)? subscribed,
+    TResult Function(_Unsubscribed value)? unsubscribed,
+    TResult Function(_UnAuthenticated value)? unauthenticated,
+    required TResult orElse(),
+  }) {
+    if (unauthenticated != null) {
+      return unauthenticated(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UnAuthenticated implements ChannelSubscriptionState {
+  const factory _UnAuthenticated() = _$_UnAuthenticated;
 }
