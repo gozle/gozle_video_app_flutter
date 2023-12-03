@@ -23,6 +23,25 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    var lightStyle = ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(const Color(0xffF5F5F5)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              side: const BorderSide(color: Color(0xffF5F5F5)))),
+      padding:
+          MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)),
+    );
+    var darkCategoryStyle = ButtonStyle(
+        backgroundColor:
+            MaterialStatePropertyAll(Theme.of(context).secondaryHeaderColor),
+        foregroundColor: const MaterialStatePropertyAll(Color(0xffF5F5F5)),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                side: const BorderSide(color: Color(0xffF5F5F5)))),
+        padding:
+            MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)));
     return Scaffold(
       body: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) {
@@ -44,25 +63,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                      onPressed: () {
-                        ChooseLocaleDialog.show(context);
-                      },
-                      child: Consumer<SettingsProvider>(
-                          builder: (context, provider, _) {
-                        return Text(provider.locale.languageCode.toUpperCase());
-                      }),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(const Color(0xffF5F5F5)),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    side: BorderSide(
-                                        color: const Color(0xffF5F5F5)))),
-                        padding: MaterialStateProperty.all(
-                            EdgeInsets.fromLTRB(8, 12, 8, 12)),
-                      )),
+                    onPressed: () {
+                      ChooseLocaleDialog.show(context);
+                    },
+                    child: Consumer<SettingsProvider>(
+                        builder: (context, provider, _) {
+                      return Text(provider.locale.languageCode.toUpperCase());
+                    }),
+                    style: context.theme.brightness == Brightness.dark
+                        ? darkCategoryStyle
+                        : lightStyle,
+                  ),
                   const Spacer(),
                   TextButton(
                       onPressed: () {
