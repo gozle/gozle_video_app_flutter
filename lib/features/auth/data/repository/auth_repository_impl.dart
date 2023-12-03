@@ -117,4 +117,14 @@ class AuthRepositoryImpl implements AuthRepository {
       return left(UnexpectedFailure());
     }
   }
+
+  @override
+  Future<bool?> getSkippedLogin() async {
+    return authStorage.readSkippedLogin();
+  }
+
+  @override
+  Future<void> updateSkippedLogin({required bool skipped}) async {
+    await authStorage.writeSkippedLogin(skipped: skipped);
+  }
 }

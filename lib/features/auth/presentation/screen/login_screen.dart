@@ -25,23 +25,16 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     var lightStyle = ButtonStyle(
       backgroundColor: MaterialStateProperty.all(const Color(0xffF5F5F5)),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              side: const BorderSide(color: Color(0xffF5F5F5)))),
-      padding:
-          MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: Color(0xffF5F5F5)))),
+      padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)),
     );
     var darkCategoryStyle = ButtonStyle(
-        backgroundColor:
-            MaterialStatePropertyAll(Theme.of(context).secondaryHeaderColor),
+        backgroundColor: MaterialStatePropertyAll(Theme.of(context).secondaryHeaderColor),
         foregroundColor: const MaterialStatePropertyAll(Color(0xffF5F5F5)),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                side: const BorderSide(color: Color(0xffF5F5F5)))),
-        padding:
-            MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)));
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: Color(0xffF5F5F5)))),
+        padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)));
     return Scaffold(
       body: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) {
@@ -51,6 +44,9 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             authenticated: (_) {
               Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
+            },
+            skippedLogin: (skipped) => {
+              if (skipped) {Navigator.of(context).pushReplacementNamed(NavScreen.routeName)}
             },
           );
         },
@@ -66,26 +62,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       ChooseLocaleDialog.show(context);
                     },
-                    child: Consumer<SettingsProvider>(
-                        builder: (context, provider, _) {
+                    style: context.theme.brightness == Brightness.dark ? darkCategoryStyle : lightStyle,
+                    child: Consumer<SettingsProvider>(builder: (context, provider, _) {
                       return Text(provider.locale.languageCode.toUpperCase());
                     }),
-                    style: context.theme.brightness == Brightness.dark
-                        ? darkCategoryStyle
-                        : lightStyle,
                   ),
                   const Spacer(),
                   TextButton(
                       onPressed: () {
-                        Navigator.of(context)
-                            .pushReplacementNamed(NavScreen.routeName);
+                        context.read<UserBloc>().add(const UserEvent.skipLogin(skipped: true));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(S.current.skip),
-                          const Icon(Icons.arrow_forward_ios)
-                        ],
+                        children: [Text(S.current.skip), const Icon(Icons.arrow_forward_ios)],
                       ))
                 ],
               ),
@@ -111,12 +100,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: CircularProgressIndicator.adaptive(),
                   );
                 },
+                skippedLogin: (skipped) {
+                  return ElevatedButton(
+                    onPressed: null,
+                    child: Text(S.current.login_or_register_with_gozle_id),
+                  );
+                },
                 unauthenticated: (oAuthClientData) {
                   return ElevatedButton(
                     onPressed: oAuthClientData != null
                         ? () {
-                            context.read<UserBloc>().add(UserEvent.login(
-                                oAuthClientData: oAuthClientData));
+                            context.read<UserBloc>().add(UserEvent.login(oAuthClientData: oAuthClientData));
                           }
                         : null,
                     child: Text(S.current.login_or_register_with_gozle_id),

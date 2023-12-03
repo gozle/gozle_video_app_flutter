@@ -74,6 +74,9 @@ class _SplashScreenState extends State<SplashScreen> {
           authenticated: (user) {
             Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
           },
+          skippedLogin: (skipped) => {
+            if (skipped) {Navigator.of(context).pushReplacementNamed(NavScreen.routeName)}
+          },
           unauthenticated: (oAuthClientData) {
             Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
           },

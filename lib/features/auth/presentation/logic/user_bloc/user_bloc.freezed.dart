@@ -23,6 +23,7 @@ mixin _$UserEvent {
     required TResult Function(OAuthClient oAuthClientData) login,
     required TResult Function() update,
     required TResult Function(String? exceptionMessage) logout,
+    required TResult Function(bool skipped) skipLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,6 +33,7 @@ mixin _$UserEvent {
     TResult? Function(OAuthClient oAuthClientData)? login,
     TResult? Function()? update,
     TResult? Function(String? exceptionMessage)? logout,
+    TResult? Function(bool skipped)? skipLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +43,7 @@ mixin _$UserEvent {
     TResult Function(OAuthClient oAuthClientData)? login,
     TResult Function()? update,
     TResult Function(String? exceptionMessage)? logout,
+    TResult Function(bool skipped)? skipLogin,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -51,6 +54,7 @@ mixin _$UserEvent {
     required TResult Function(_UserLoginEvent value) login,
     required TResult Function(_UserUpdateEvent value) update,
     required TResult Function(_UserLogoutEvent value) logout,
+    required TResult Function(_UserSkippedLoginEvent value) skipLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,6 +64,7 @@ mixin _$UserEvent {
     TResult? Function(_UserLoginEvent value)? login,
     TResult? Function(_UserUpdateEvent value)? update,
     TResult? Function(_UserLogoutEvent value)? logout,
+    TResult? Function(_UserSkippedLoginEvent value)? skipLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,6 +74,7 @@ mixin _$UserEvent {
     TResult Function(_UserLoginEvent value)? login,
     TResult Function(_UserUpdateEvent value)? update,
     TResult Function(_UserLogoutEvent value)? logout,
+    TResult Function(_UserSkippedLoginEvent value)? skipLogin,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -134,6 +140,7 @@ class _$_UserInitEvent implements _UserInitEvent {
     required TResult Function(OAuthClient oAuthClientData) login,
     required TResult Function() update,
     required TResult Function(String? exceptionMessage) logout,
+    required TResult Function(bool skipped) skipLogin,
   }) {
     return init();
   }
@@ -146,6 +153,7 @@ class _$_UserInitEvent implements _UserInitEvent {
     TResult? Function(OAuthClient oAuthClientData)? login,
     TResult? Function()? update,
     TResult? Function(String? exceptionMessage)? logout,
+    TResult? Function(bool skipped)? skipLogin,
   }) {
     return init?.call();
   }
@@ -158,6 +166,7 @@ class _$_UserInitEvent implements _UserInitEvent {
     TResult Function(OAuthClient oAuthClientData)? login,
     TResult Function()? update,
     TResult Function(String? exceptionMessage)? logout,
+    TResult Function(bool skipped)? skipLogin,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -174,6 +183,7 @@ class _$_UserInitEvent implements _UserInitEvent {
     required TResult Function(_UserLoginEvent value) login,
     required TResult Function(_UserUpdateEvent value) update,
     required TResult Function(_UserLogoutEvent value) logout,
+    required TResult Function(_UserSkippedLoginEvent value) skipLogin,
   }) {
     return init(this);
   }
@@ -186,6 +196,7 @@ class _$_UserInitEvent implements _UserInitEvent {
     TResult? Function(_UserLoginEvent value)? login,
     TResult? Function(_UserUpdateEvent value)? update,
     TResult? Function(_UserLogoutEvent value)? logout,
+    TResult? Function(_UserSkippedLoginEvent value)? skipLogin,
   }) {
     return init?.call(this);
   }
@@ -198,6 +209,7 @@ class _$_UserInitEvent implements _UserInitEvent {
     TResult Function(_UserLoginEvent value)? login,
     TResult Function(_UserUpdateEvent value)? update,
     TResult Function(_UserLogoutEvent value)? logout,
+    TResult Function(_UserSkippedLoginEvent value)? skipLogin,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -254,6 +266,7 @@ class _$_UserRestoreEvent implements _UserRestoreEvent {
     required TResult Function(OAuthClient oAuthClientData) login,
     required TResult Function() update,
     required TResult Function(String? exceptionMessage) logout,
+    required TResult Function(bool skipped) skipLogin,
   }) {
     return restore();
   }
@@ -266,6 +279,7 @@ class _$_UserRestoreEvent implements _UserRestoreEvent {
     TResult? Function(OAuthClient oAuthClientData)? login,
     TResult? Function()? update,
     TResult? Function(String? exceptionMessage)? logout,
+    TResult? Function(bool skipped)? skipLogin,
   }) {
     return restore?.call();
   }
@@ -278,6 +292,7 @@ class _$_UserRestoreEvent implements _UserRestoreEvent {
     TResult Function(OAuthClient oAuthClientData)? login,
     TResult Function()? update,
     TResult Function(String? exceptionMessage)? logout,
+    TResult Function(bool skipped)? skipLogin,
     required TResult orElse(),
   }) {
     if (restore != null) {
@@ -294,6 +309,7 @@ class _$_UserRestoreEvent implements _UserRestoreEvent {
     required TResult Function(_UserLoginEvent value) login,
     required TResult Function(_UserUpdateEvent value) update,
     required TResult Function(_UserLogoutEvent value) logout,
+    required TResult Function(_UserSkippedLoginEvent value) skipLogin,
   }) {
     return restore(this);
   }
@@ -306,6 +322,7 @@ class _$_UserRestoreEvent implements _UserRestoreEvent {
     TResult? Function(_UserLoginEvent value)? login,
     TResult? Function(_UserUpdateEvent value)? update,
     TResult? Function(_UserLogoutEvent value)? logout,
+    TResult? Function(_UserSkippedLoginEvent value)? skipLogin,
   }) {
     return restore?.call(this);
   }
@@ -318,6 +335,7 @@ class _$_UserRestoreEvent implements _UserRestoreEvent {
     TResult Function(_UserLoginEvent value)? login,
     TResult Function(_UserUpdateEvent value)? update,
     TResult Function(_UserLogoutEvent value)? logout,
+    TResult Function(_UserSkippedLoginEvent value)? skipLogin,
     required TResult orElse(),
   }) {
     if (restore != null) {
@@ -401,6 +419,7 @@ class _$_UserLoginEvent implements _UserLoginEvent {
     required TResult Function(OAuthClient oAuthClientData) login,
     required TResult Function() update,
     required TResult Function(String? exceptionMessage) logout,
+    required TResult Function(bool skipped) skipLogin,
   }) {
     return login(oAuthClientData);
   }
@@ -413,6 +432,7 @@ class _$_UserLoginEvent implements _UserLoginEvent {
     TResult? Function(OAuthClient oAuthClientData)? login,
     TResult? Function()? update,
     TResult? Function(String? exceptionMessage)? logout,
+    TResult? Function(bool skipped)? skipLogin,
   }) {
     return login?.call(oAuthClientData);
   }
@@ -425,6 +445,7 @@ class _$_UserLoginEvent implements _UserLoginEvent {
     TResult Function(OAuthClient oAuthClientData)? login,
     TResult Function()? update,
     TResult Function(String? exceptionMessage)? logout,
+    TResult Function(bool skipped)? skipLogin,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -441,6 +462,7 @@ class _$_UserLoginEvent implements _UserLoginEvent {
     required TResult Function(_UserLoginEvent value) login,
     required TResult Function(_UserUpdateEvent value) update,
     required TResult Function(_UserLogoutEvent value) logout,
+    required TResult Function(_UserSkippedLoginEvent value) skipLogin,
   }) {
     return login(this);
   }
@@ -453,6 +475,7 @@ class _$_UserLoginEvent implements _UserLoginEvent {
     TResult? Function(_UserLoginEvent value)? login,
     TResult? Function(_UserUpdateEvent value)? update,
     TResult? Function(_UserLogoutEvent value)? logout,
+    TResult? Function(_UserSkippedLoginEvent value)? skipLogin,
   }) {
     return login?.call(this);
   }
@@ -465,6 +488,7 @@ class _$_UserLoginEvent implements _UserLoginEvent {
     TResult Function(_UserLoginEvent value)? login,
     TResult Function(_UserUpdateEvent value)? update,
     TResult Function(_UserLogoutEvent value)? logout,
+    TResult Function(_UserSkippedLoginEvent value)? skipLogin,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -527,6 +551,7 @@ class _$_UserUpdateEvent implements _UserUpdateEvent {
     required TResult Function(OAuthClient oAuthClientData) login,
     required TResult Function() update,
     required TResult Function(String? exceptionMessage) logout,
+    required TResult Function(bool skipped) skipLogin,
   }) {
     return update();
   }
@@ -539,6 +564,7 @@ class _$_UserUpdateEvent implements _UserUpdateEvent {
     TResult? Function(OAuthClient oAuthClientData)? login,
     TResult? Function()? update,
     TResult? Function(String? exceptionMessage)? logout,
+    TResult? Function(bool skipped)? skipLogin,
   }) {
     return update?.call();
   }
@@ -551,6 +577,7 @@ class _$_UserUpdateEvent implements _UserUpdateEvent {
     TResult Function(OAuthClient oAuthClientData)? login,
     TResult Function()? update,
     TResult Function(String? exceptionMessage)? logout,
+    TResult Function(bool skipped)? skipLogin,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -567,6 +594,7 @@ class _$_UserUpdateEvent implements _UserUpdateEvent {
     required TResult Function(_UserLoginEvent value) login,
     required TResult Function(_UserUpdateEvent value) update,
     required TResult Function(_UserLogoutEvent value) logout,
+    required TResult Function(_UserSkippedLoginEvent value) skipLogin,
   }) {
     return update(this);
   }
@@ -579,6 +607,7 @@ class _$_UserUpdateEvent implements _UserUpdateEvent {
     TResult? Function(_UserLoginEvent value)? login,
     TResult? Function(_UserUpdateEvent value)? update,
     TResult? Function(_UserLogoutEvent value)? logout,
+    TResult? Function(_UserSkippedLoginEvent value)? skipLogin,
   }) {
     return update?.call(this);
   }
@@ -591,6 +620,7 @@ class _$_UserUpdateEvent implements _UserUpdateEvent {
     TResult Function(_UserLoginEvent value)? login,
     TResult Function(_UserUpdateEvent value)? update,
     TResult Function(_UserLogoutEvent value)? logout,
+    TResult Function(_UserSkippedLoginEvent value)? skipLogin,
     required TResult orElse(),
   }) {
     if (update != null) {
@@ -674,6 +704,7 @@ class _$_UserLogoutEvent implements _UserLogoutEvent {
     required TResult Function(OAuthClient oAuthClientData) login,
     required TResult Function() update,
     required TResult Function(String? exceptionMessage) logout,
+    required TResult Function(bool skipped) skipLogin,
   }) {
     return logout(exceptionMessage);
   }
@@ -686,6 +717,7 @@ class _$_UserLogoutEvent implements _UserLogoutEvent {
     TResult? Function(OAuthClient oAuthClientData)? login,
     TResult? Function()? update,
     TResult? Function(String? exceptionMessage)? logout,
+    TResult? Function(bool skipped)? skipLogin,
   }) {
     return logout?.call(exceptionMessage);
   }
@@ -698,6 +730,7 @@ class _$_UserLogoutEvent implements _UserLogoutEvent {
     TResult Function(OAuthClient oAuthClientData)? login,
     TResult Function()? update,
     TResult Function(String? exceptionMessage)? logout,
+    TResult Function(bool skipped)? skipLogin,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -714,6 +747,7 @@ class _$_UserLogoutEvent implements _UserLogoutEvent {
     required TResult Function(_UserLoginEvent value) login,
     required TResult Function(_UserUpdateEvent value) update,
     required TResult Function(_UserLogoutEvent value) logout,
+    required TResult Function(_UserSkippedLoginEvent value) skipLogin,
   }) {
     return logout(this);
   }
@@ -726,6 +760,7 @@ class _$_UserLogoutEvent implements _UserLogoutEvent {
     TResult? Function(_UserLoginEvent value)? login,
     TResult? Function(_UserUpdateEvent value)? update,
     TResult? Function(_UserLogoutEvent value)? logout,
+    TResult? Function(_UserSkippedLoginEvent value)? skipLogin,
   }) {
     return logout?.call(this);
   }
@@ -738,6 +773,7 @@ class _$_UserLogoutEvent implements _UserLogoutEvent {
     TResult Function(_UserLoginEvent value)? login,
     TResult Function(_UserUpdateEvent value)? update,
     TResult Function(_UserLogoutEvent value)? logout,
+    TResult Function(_UserSkippedLoginEvent value)? skipLogin,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -758,6 +794,165 @@ abstract class _UserLogoutEvent implements UserEvent {
 }
 
 /// @nodoc
+abstract class _$$_UserSkippedLoginEventCopyWith<$Res> {
+  factory _$$_UserSkippedLoginEventCopyWith(_$_UserSkippedLoginEvent value,
+          $Res Function(_$_UserSkippedLoginEvent) then) =
+      __$$_UserSkippedLoginEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool skipped});
+}
+
+/// @nodoc
+class __$$_UserSkippedLoginEventCopyWithImpl<$Res>
+    extends _$UserEventCopyWithImpl<$Res, _$_UserSkippedLoginEvent>
+    implements _$$_UserSkippedLoginEventCopyWith<$Res> {
+  __$$_UserSkippedLoginEventCopyWithImpl(_$_UserSkippedLoginEvent _value,
+      $Res Function(_$_UserSkippedLoginEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? skipped = null,
+  }) {
+    return _then(_$_UserSkippedLoginEvent(
+      skipped: null == skipped
+          ? _value.skipped
+          : skipped // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_UserSkippedLoginEvent implements _UserSkippedLoginEvent {
+  const _$_UserSkippedLoginEvent({required this.skipped});
+
+  @override
+  final bool skipped;
+
+  @override
+  String toString() {
+    return 'UserEvent.skipLogin(skipped: $skipped)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UserSkippedLoginEvent &&
+            (identical(other.skipped, skipped) || other.skipped == skipped));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, skipped);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UserSkippedLoginEventCopyWith<_$_UserSkippedLoginEvent> get copyWith =>
+      __$$_UserSkippedLoginEventCopyWithImpl<_$_UserSkippedLoginEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function() restore,
+    required TResult Function(OAuthClient oAuthClientData) login,
+    required TResult Function() update,
+    required TResult Function(String? exceptionMessage) logout,
+    required TResult Function(bool skipped) skipLogin,
+  }) {
+    return skipLogin(skipped);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function()? restore,
+    TResult? Function(OAuthClient oAuthClientData)? login,
+    TResult? Function()? update,
+    TResult? Function(String? exceptionMessage)? logout,
+    TResult? Function(bool skipped)? skipLogin,
+  }) {
+    return skipLogin?.call(skipped);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function()? restore,
+    TResult Function(OAuthClient oAuthClientData)? login,
+    TResult Function()? update,
+    TResult Function(String? exceptionMessage)? logout,
+    TResult Function(bool skipped)? skipLogin,
+    required TResult orElse(),
+  }) {
+    if (skipLogin != null) {
+      return skipLogin(skipped);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UserInitEvent value) init,
+    required TResult Function(_UserRestoreEvent value) restore,
+    required TResult Function(_UserLoginEvent value) login,
+    required TResult Function(_UserUpdateEvent value) update,
+    required TResult Function(_UserLogoutEvent value) logout,
+    required TResult Function(_UserSkippedLoginEvent value) skipLogin,
+  }) {
+    return skipLogin(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UserInitEvent value)? init,
+    TResult? Function(_UserRestoreEvent value)? restore,
+    TResult? Function(_UserLoginEvent value)? login,
+    TResult? Function(_UserUpdateEvent value)? update,
+    TResult? Function(_UserLogoutEvent value)? logout,
+    TResult? Function(_UserSkippedLoginEvent value)? skipLogin,
+  }) {
+    return skipLogin?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UserInitEvent value)? init,
+    TResult Function(_UserRestoreEvent value)? restore,
+    TResult Function(_UserLoginEvent value)? login,
+    TResult Function(_UserUpdateEvent value)? update,
+    TResult Function(_UserLogoutEvent value)? logout,
+    TResult Function(_UserSkippedLoginEvent value)? skipLogin,
+    required TResult orElse(),
+  }) {
+    if (skipLogin != null) {
+      return skipLogin(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UserSkippedLoginEvent implements UserEvent {
+  const factory _UserSkippedLoginEvent({required final bool skipped}) =
+      _$_UserSkippedLoginEvent;
+
+  bool get skipped;
+  @JsonKey(ignore: true)
+  _$$_UserSkippedLoginEventCopyWith<_$_UserSkippedLoginEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$UserState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -765,6 +960,7 @@ mixin _$UserState {
     required TResult Function() loading,
     required TResult Function(User user) authenticated,
     required TResult Function(String errorMessage) notification,
+    required TResult Function(bool skipped) skippedLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -773,6 +969,7 @@ mixin _$UserState {
     TResult? Function()? loading,
     TResult? Function(User user)? authenticated,
     TResult? Function(String errorMessage)? notification,
+    TResult? Function(bool skipped)? skippedLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -781,6 +978,7 @@ mixin _$UserState {
     TResult Function()? loading,
     TResult Function(User user)? authenticated,
     TResult Function(String errorMessage)? notification,
+    TResult Function(bool skipped)? skippedLogin,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -790,6 +988,7 @@ mixin _$UserState {
     required TResult Function(_UserLoadingState value) loading,
     required TResult Function(_UserAuthenticatedState value) authenticated,
     required TResult Function(_UserNotificationState value) notification,
+    required TResult Function(_UserSkippedLogin value) skippedLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -798,6 +997,7 @@ mixin _$UserState {
     TResult? Function(_UserLoadingState value)? loading,
     TResult? Function(_UserAuthenticatedState value)? authenticated,
     TResult? Function(_UserNotificationState value)? notification,
+    TResult? Function(_UserSkippedLogin value)? skippedLogin,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -806,6 +1006,7 @@ mixin _$UserState {
     TResult Function(_UserLoadingState value)? loading,
     TResult Function(_UserAuthenticatedState value)? authenticated,
     TResult Function(_UserNotificationState value)? notification,
+    TResult Function(_UserSkippedLogin value)? skippedLogin,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -899,6 +1100,7 @@ class _$_UserUnauthenticatedState implements _UserUnauthenticatedState {
     required TResult Function() loading,
     required TResult Function(User user) authenticated,
     required TResult Function(String errorMessage) notification,
+    required TResult Function(bool skipped) skippedLogin,
   }) {
     return unauthenticated(oAuthClientData);
   }
@@ -910,6 +1112,7 @@ class _$_UserUnauthenticatedState implements _UserUnauthenticatedState {
     TResult? Function()? loading,
     TResult? Function(User user)? authenticated,
     TResult? Function(String errorMessage)? notification,
+    TResult? Function(bool skipped)? skippedLogin,
   }) {
     return unauthenticated?.call(oAuthClientData);
   }
@@ -921,6 +1124,7 @@ class _$_UserUnauthenticatedState implements _UserUnauthenticatedState {
     TResult Function()? loading,
     TResult Function(User user)? authenticated,
     TResult Function(String errorMessage)? notification,
+    TResult Function(bool skipped)? skippedLogin,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -936,6 +1140,7 @@ class _$_UserUnauthenticatedState implements _UserUnauthenticatedState {
     required TResult Function(_UserLoadingState value) loading,
     required TResult Function(_UserAuthenticatedState value) authenticated,
     required TResult Function(_UserNotificationState value) notification,
+    required TResult Function(_UserSkippedLogin value) skippedLogin,
   }) {
     return unauthenticated(this);
   }
@@ -947,6 +1152,7 @@ class _$_UserUnauthenticatedState implements _UserUnauthenticatedState {
     TResult? Function(_UserLoadingState value)? loading,
     TResult? Function(_UserAuthenticatedState value)? authenticated,
     TResult? Function(_UserNotificationState value)? notification,
+    TResult? Function(_UserSkippedLogin value)? skippedLogin,
   }) {
     return unauthenticated?.call(this);
   }
@@ -958,6 +1164,7 @@ class _$_UserUnauthenticatedState implements _UserUnauthenticatedState {
     TResult Function(_UserLoadingState value)? loading,
     TResult Function(_UserAuthenticatedState value)? authenticated,
     TResult Function(_UserNotificationState value)? notification,
+    TResult Function(_UserSkippedLogin value)? skippedLogin,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -1019,6 +1226,7 @@ class _$_UserLoadingState implements _UserLoadingState {
     required TResult Function() loading,
     required TResult Function(User user) authenticated,
     required TResult Function(String errorMessage) notification,
+    required TResult Function(bool skipped) skippedLogin,
   }) {
     return loading();
   }
@@ -1030,6 +1238,7 @@ class _$_UserLoadingState implements _UserLoadingState {
     TResult? Function()? loading,
     TResult? Function(User user)? authenticated,
     TResult? Function(String errorMessage)? notification,
+    TResult? Function(bool skipped)? skippedLogin,
   }) {
     return loading?.call();
   }
@@ -1041,6 +1250,7 @@ class _$_UserLoadingState implements _UserLoadingState {
     TResult Function()? loading,
     TResult Function(User user)? authenticated,
     TResult Function(String errorMessage)? notification,
+    TResult Function(bool skipped)? skippedLogin,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1056,6 +1266,7 @@ class _$_UserLoadingState implements _UserLoadingState {
     required TResult Function(_UserLoadingState value) loading,
     required TResult Function(_UserAuthenticatedState value) authenticated,
     required TResult Function(_UserNotificationState value) notification,
+    required TResult Function(_UserSkippedLogin value) skippedLogin,
   }) {
     return loading(this);
   }
@@ -1067,6 +1278,7 @@ class _$_UserLoadingState implements _UserLoadingState {
     TResult? Function(_UserLoadingState value)? loading,
     TResult? Function(_UserAuthenticatedState value)? authenticated,
     TResult? Function(_UserNotificationState value)? notification,
+    TResult? Function(_UserSkippedLogin value)? skippedLogin,
   }) {
     return loading?.call(this);
   }
@@ -1078,6 +1290,7 @@ class _$_UserLoadingState implements _UserLoadingState {
     TResult Function(_UserLoadingState value)? loading,
     TResult Function(_UserAuthenticatedState value)? authenticated,
     TResult Function(_UserNotificationState value)? notification,
+    TResult Function(_UserSkippedLogin value)? skippedLogin,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1160,6 +1373,7 @@ class _$_UserAuthenticatedState implements _UserAuthenticatedState {
     required TResult Function() loading,
     required TResult Function(User user) authenticated,
     required TResult Function(String errorMessage) notification,
+    required TResult Function(bool skipped) skippedLogin,
   }) {
     return authenticated(user);
   }
@@ -1171,6 +1385,7 @@ class _$_UserAuthenticatedState implements _UserAuthenticatedState {
     TResult? Function()? loading,
     TResult? Function(User user)? authenticated,
     TResult? Function(String errorMessage)? notification,
+    TResult? Function(bool skipped)? skippedLogin,
   }) {
     return authenticated?.call(user);
   }
@@ -1182,6 +1397,7 @@ class _$_UserAuthenticatedState implements _UserAuthenticatedState {
     TResult Function()? loading,
     TResult Function(User user)? authenticated,
     TResult Function(String errorMessage)? notification,
+    TResult Function(bool skipped)? skippedLogin,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -1197,6 +1413,7 @@ class _$_UserAuthenticatedState implements _UserAuthenticatedState {
     required TResult Function(_UserLoadingState value) loading,
     required TResult Function(_UserAuthenticatedState value) authenticated,
     required TResult Function(_UserNotificationState value) notification,
+    required TResult Function(_UserSkippedLogin value) skippedLogin,
   }) {
     return authenticated(this);
   }
@@ -1208,6 +1425,7 @@ class _$_UserAuthenticatedState implements _UserAuthenticatedState {
     TResult? Function(_UserLoadingState value)? loading,
     TResult? Function(_UserAuthenticatedState value)? authenticated,
     TResult? Function(_UserNotificationState value)? notification,
+    TResult? Function(_UserSkippedLogin value)? skippedLogin,
   }) {
     return authenticated?.call(this);
   }
@@ -1219,6 +1437,7 @@ class _$_UserAuthenticatedState implements _UserAuthenticatedState {
     TResult Function(_UserLoadingState value)? loading,
     TResult Function(_UserAuthenticatedState value)? authenticated,
     TResult Function(_UserNotificationState value)? notification,
+    TResult Function(_UserSkippedLogin value)? skippedLogin,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -1308,6 +1527,7 @@ class _$_UserNotificationState implements _UserNotificationState {
     required TResult Function() loading,
     required TResult Function(User user) authenticated,
     required TResult Function(String errorMessage) notification,
+    required TResult Function(bool skipped) skippedLogin,
   }) {
     return notification(errorMessage);
   }
@@ -1319,6 +1539,7 @@ class _$_UserNotificationState implements _UserNotificationState {
     TResult? Function()? loading,
     TResult? Function(User user)? authenticated,
     TResult? Function(String errorMessage)? notification,
+    TResult? Function(bool skipped)? skippedLogin,
   }) {
     return notification?.call(errorMessage);
   }
@@ -1330,6 +1551,7 @@ class _$_UserNotificationState implements _UserNotificationState {
     TResult Function()? loading,
     TResult Function(User user)? authenticated,
     TResult Function(String errorMessage)? notification,
+    TResult Function(bool skipped)? skippedLogin,
     required TResult orElse(),
   }) {
     if (notification != null) {
@@ -1345,6 +1567,7 @@ class _$_UserNotificationState implements _UserNotificationState {
     required TResult Function(_UserLoadingState value) loading,
     required TResult Function(_UserAuthenticatedState value) authenticated,
     required TResult Function(_UserNotificationState value) notification,
+    required TResult Function(_UserSkippedLogin value) skippedLogin,
   }) {
     return notification(this);
   }
@@ -1356,6 +1579,7 @@ class _$_UserNotificationState implements _UserNotificationState {
     TResult? Function(_UserLoadingState value)? loading,
     TResult? Function(_UserAuthenticatedState value)? authenticated,
     TResult? Function(_UserNotificationState value)? notification,
+    TResult? Function(_UserSkippedLogin value)? skippedLogin,
   }) {
     return notification?.call(this);
   }
@@ -1367,6 +1591,7 @@ class _$_UserNotificationState implements _UserNotificationState {
     TResult Function(_UserLoadingState value)? loading,
     TResult Function(_UserAuthenticatedState value)? authenticated,
     TResult Function(_UserNotificationState value)? notification,
+    TResult Function(_UserSkippedLogin value)? skippedLogin,
     required TResult orElse(),
   }) {
     if (notification != null) {
@@ -1383,5 +1608,157 @@ abstract class _UserNotificationState implements UserState {
   String get errorMessage;
   @JsonKey(ignore: true)
   _$$_UserNotificationStateCopyWith<_$_UserNotificationState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_UserSkippedLoginCopyWith<$Res> {
+  factory _$$_UserSkippedLoginCopyWith(
+          _$_UserSkippedLogin value, $Res Function(_$_UserSkippedLogin) then) =
+      __$$_UserSkippedLoginCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool skipped});
+}
+
+/// @nodoc
+class __$$_UserSkippedLoginCopyWithImpl<$Res>
+    extends _$UserStateCopyWithImpl<$Res, _$_UserSkippedLogin>
+    implements _$$_UserSkippedLoginCopyWith<$Res> {
+  __$$_UserSkippedLoginCopyWithImpl(
+      _$_UserSkippedLogin _value, $Res Function(_$_UserSkippedLogin) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? skipped = null,
+  }) {
+    return _then(_$_UserSkippedLogin(
+      skipped: null == skipped
+          ? _value.skipped
+          : skipped // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_UserSkippedLogin implements _UserSkippedLogin {
+  const _$_UserSkippedLogin({required this.skipped});
+
+  @override
+  final bool skipped;
+
+  @override
+  String toString() {
+    return 'UserState.skippedLogin(skipped: $skipped)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UserSkippedLogin &&
+            (identical(other.skipped, skipped) || other.skipped == skipped));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, skipped);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UserSkippedLoginCopyWith<_$_UserSkippedLogin> get copyWith =>
+      __$$_UserSkippedLoginCopyWithImpl<_$_UserSkippedLogin>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(OAuthClient? oAuthClientData) unauthenticated,
+    required TResult Function() loading,
+    required TResult Function(User user) authenticated,
+    required TResult Function(String errorMessage) notification,
+    required TResult Function(bool skipped) skippedLogin,
+  }) {
+    return skippedLogin(skipped);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(OAuthClient? oAuthClientData)? unauthenticated,
+    TResult? Function()? loading,
+    TResult? Function(User user)? authenticated,
+    TResult? Function(String errorMessage)? notification,
+    TResult? Function(bool skipped)? skippedLogin,
+  }) {
+    return skippedLogin?.call(skipped);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(OAuthClient? oAuthClientData)? unauthenticated,
+    TResult Function()? loading,
+    TResult Function(User user)? authenticated,
+    TResult Function(String errorMessage)? notification,
+    TResult Function(bool skipped)? skippedLogin,
+    required TResult orElse(),
+  }) {
+    if (skippedLogin != null) {
+      return skippedLogin(skipped);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UserUnauthenticatedState value) unauthenticated,
+    required TResult Function(_UserLoadingState value) loading,
+    required TResult Function(_UserAuthenticatedState value) authenticated,
+    required TResult Function(_UserNotificationState value) notification,
+    required TResult Function(_UserSkippedLogin value) skippedLogin,
+  }) {
+    return skippedLogin(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UserUnauthenticatedState value)? unauthenticated,
+    TResult? Function(_UserLoadingState value)? loading,
+    TResult? Function(_UserAuthenticatedState value)? authenticated,
+    TResult? Function(_UserNotificationState value)? notification,
+    TResult? Function(_UserSkippedLogin value)? skippedLogin,
+  }) {
+    return skippedLogin?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UserUnauthenticatedState value)? unauthenticated,
+    TResult Function(_UserLoadingState value)? loading,
+    TResult Function(_UserAuthenticatedState value)? authenticated,
+    TResult Function(_UserNotificationState value)? notification,
+    TResult Function(_UserSkippedLogin value)? skippedLogin,
+    required TResult orElse(),
+  }) {
+    if (skippedLogin != null) {
+      return skippedLogin(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UserSkippedLogin implements UserState {
+  const factory _UserSkippedLogin({required final bool skipped}) =
+      _$_UserSkippedLogin;
+
+  bool get skipped;
+  @JsonKey(ignore: true)
+  _$$_UserSkippedLoginCopyWith<_$_UserSkippedLogin> get copyWith =>
       throw _privateConstructorUsedError;
 }

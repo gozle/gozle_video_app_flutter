@@ -20,4 +20,6 @@ abstract class AuthRepository {
   });
 
   Future<Either<Failure, User>> updateUser();
+  Future<bool?> getSkippedLogin();
+  Future<void> updateSkippedLogin({required bool skipped});
 }

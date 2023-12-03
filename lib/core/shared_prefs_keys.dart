@@ -5,4 +5,5 @@ abstract class SharedPrefKeys {
   static const String authCookie = 'auth-cookie';
   static const String themeCode = 'theme-code';
   static const String searchHistory = 'search-history';
+  static const String skippedLogin = 'skipped-login';
 }

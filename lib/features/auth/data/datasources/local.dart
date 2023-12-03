@@ -45,6 +45,14 @@ class AuthStorage {
     return authCookie;
   }
 
+  bool? readSkippedLogin() {
+    return prefs.getBool(SharedPrefKeys.skippedLogin);
+  }
+
+  Future<void> writeSkippedLogin({required bool skipped}) async {
+    await prefs.setBool(SharedPrefKeys.skippedLogin, skipped);
+  }
+
   Future<void> removeAuthCookie() async {
     await prefs.remove(
       SharedPrefKeys.authCookie,

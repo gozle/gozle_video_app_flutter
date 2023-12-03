@@ -23,6 +23,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<_UserLoginEvent>(_onLogin);
     on<_UserUpdateEvent>(_onUpdate);
     on<_UserLogoutEvent>(_onLogout);
+    on<_UserSkippedLoginEvent>(_onSkippedLogin);
   }
 
   AuthUseCases get authUseCases => locator<AuthUseCases>();
@@ -34,6 +35,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserState.authenticated(user: user));
       add(const UserEvent.update());
     } else {
+      var skipped = await authUseCases.getSkippedLogin();
+      if (skipped == true) {
+        add(const UserEvent.init());
+        emit(const UserState.skippedLogin(skipped: true));
+        return;
+      }
       add(const UserEvent.init());
       emit(const UserState.unauthenticated());
     }
@@ -137,5 +144,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(const UserState.unauthenticated());
 
     add(const UserEvent.init());
+  }
+
+  FutureOr<void> _onSkippedLogin(_UserSkippedLoginEvent event, Emitter<UserState> emit) async {
+    await authUseCases.updateSkippedLogin(skipped: event.skipped);
+    emit(const UserState.skippedLogin(skipped: true));
   }
 }

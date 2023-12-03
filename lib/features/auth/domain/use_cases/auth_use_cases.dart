@@ -40,4 +40,12 @@ class AuthUseCases {
   Future<Either<Failure, User>> updateUser() async {
     return await authRepository.updateUser();
   }
+
+  Future<bool?> getSkippedLogin() async {
+    return authRepository.getSkippedLogin();
+  }
+
+  Future<void> updateSkippedLogin({required bool skipped}) async {
+    await authRepository.updateSkippedLogin(skipped: skipped);
+  }
 }
