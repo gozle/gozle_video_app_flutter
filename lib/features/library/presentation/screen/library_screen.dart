@@ -61,34 +61,33 @@ class LibraryScreenState extends State<LibraryScreen> {
                     Image.asset(
                       AppAssets.signInImage,
                       fit: BoxFit.fitHeight,
-                      height: MediaQuery.of(context).size.height / 3,
+                      height: MediaQuery.of(context).size.height / 4,
                     ),
                     const Spacer(),
-                    ElevatedButton(
-                      style: const ButtonStyle(
-                          alignment: Alignment.center,
-                          minimumSize: MaterialStatePropertyAll(Size(50, 40))),
-                      onPressed: () {
-                        // Navigator.of(context).pop();
-                        context.read<UserBloc>().state.whenOrNull(
-                            unauthenticated: (oAuthClientData) {
-                          oAuthClientData != null
-                              ? () {
-                                  context.read<UserBloc>().add(UserEvent.login(
-                                      oAuthClientData: oAuthClientData));
-                                }
-                              : null;
-                        });
-                        Navigator.of(context, rootNavigator: true)
-                            .pushReplacementNamed(LoginScreen.routeName);
-                      },
-                      child: Text(S.current.login_or_register_with_gozle_id),
-                    ),
+                    Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          style: const ButtonStyle(
+                              alignment: Alignment.center,
+                              minimumSize: MaterialStatePropertyAll(Size(50, 40))),
+                          onPressed: () {
+                            // context.read<UserBloc>().state.whenOrNull(unauthenticated: (oAuthClientData) {
+                            //   if (oAuthClientData != null) {
+                            //     context
+                            //         .read<UserBloc>()
+                            //         .add(UserEvent.login(oAuthClientData: oAuthClientData));
+                            //   }
+                            // });
+                            Navigator.of(context, rootNavigator: true)
+                                .pushReplacementNamed(LoginScreen.routeName);
+                          },
+                          child: Text(S.current.sign_in),
+                        )),
                     const Spacer(),
                     MenuItemWidget(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const SettingsScreen()));
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) => const SettingsScreen()));
                       },
                       label: S.current.settings,
                     ),
@@ -112,14 +111,11 @@ class LibraryScreenState extends State<LibraryScreen> {
                 child: CustomScrollView(
                   slivers: [
                     SliverPadding(
-                      padding:
-                          const EdgeInsets.only(left: 24, right: 24, top: 24),
-                      sliver: SliverToBoxAdapter(
-                          child: AccountCardWidget(user: user)),
+                      padding: const EdgeInsets.only(left: 24, right: 24, top: 24),
+                      sliver: SliverToBoxAdapter(child: AccountCardWidget(user: user)),
                     ),
                     SliverPadding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 24, vertical: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       sliver: SliverToBoxAdapter(
                         child: Text(
                           S.current.history,
@@ -149,8 +145,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                               loaded: (videos, hasReachedMax) {
                                 return ListView.separated(
                                   itemCount: videos.length,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 24),
+                                  padding: const EdgeInsets.symmetric(horizontal: 24),
                                   scrollDirection: Axis.horizontal,
                                   separatorBuilder: (context, index) {
                                     return const SizedBox(width: 10);
@@ -169,10 +164,8 @@ class LibraryScreenState extends State<LibraryScreen> {
                                   itemBuilder: (context, index) {
                                     return Container(
                                       margin: EdgeInsets.only(
-                                          left: index == 0 ? 24 : 0,
-                                          right: index + 1 == 5 ? 24 : 10),
-                                      child: SmallVideoItemWidget.placeHolder(
-                                          context),
+                                          left: index == 0 ? 24 : 0, right: index + 1 == 5 ? 24 : 10),
+                                      child: SmallVideoItemWidget.placeHolder(context),
                                     );
                                   },
                                 );
@@ -195,8 +188,8 @@ class LibraryScreenState extends State<LibraryScreen> {
                     SliverToBoxAdapter(
                       child: MenuItemWidget(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const SettingsScreen()));
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) => const SettingsScreen()));
                         },
                         label: S.current.settings,
                       ),

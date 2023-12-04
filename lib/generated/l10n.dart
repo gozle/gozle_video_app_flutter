@@ -26,9 +26,7 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -1107,6 +1105,15 @@ class S {
     return Intl.message(
       'An unexpected issue occurred. Please try again',
       name: 'undefined_issue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get sign_in {
+    return Intl.message(
+      'Sign in',
+      name: 'sign_in',
       desc: '',
       args: [],
     );

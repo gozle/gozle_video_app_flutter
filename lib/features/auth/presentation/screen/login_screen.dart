@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_gozle/core/app_assets.dart';
@@ -25,11 +26,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     var lightStyle = ButtonStyle(
       backgroundColor: MaterialStateProperty.all(const Color(0xffF5F5F5)),
+      textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18)),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: Color(0xffF5F5F5)))),
       padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)),
     );
     var darkCategoryStyle = ButtonStyle(
+        textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18)),
         backgroundColor: MaterialStatePropertyAll(Theme.of(context).secondaryHeaderColor),
         foregroundColor: const MaterialStatePropertyAll(Color(0xffF5F5F5)),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
@@ -55,43 +58,60 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      ChooseLocaleDialog.show(context);
-                    },
-                    style: context.theme.brightness == Brightness.dark ? darkCategoryStyle : lightStyle,
-                    child: Consumer<SettingsProvider>(builder: (context, provider, _) {
-                      return Text(provider.locale.languageCode.toUpperCase());
-                    }),
-                  ),
-                  const Spacer(),
-                  TextButton(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
                       onPressed: () {
-                        context.read<UserBloc>().add(const UserEvent.skipLogin(skipped: true));
+                        ChooseLocaleDialog.show(context);
                       },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [Text(S.current.skip), const Icon(Icons.arrow_forward_ios)],
-                      ))
-                ],
+                      style: context.theme.brightness == Brightness.dark ? darkCategoryStyle : lightStyle,
+                      child: Consumer<SettingsProvider>(builder: (context, provider, _) {
+                        return Text(provider.locale.languageCode.toUpperCase());
+                      }),
+                    ),
+                    const Spacer(),
+                    TextButton(
+                        style:
+                            ButtonStyle(textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))),
+                        onPressed: () {
+                          context.read<UserBloc>().add(const UserEvent.skipLogin(skipped: true));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [Text(S.current.skip), const Icon(Icons.arrow_forward_ios)],
+                        ))
+                  ],
+                ),
               ),
               const Spacer(),
-              Text(
-                S.current.welcome_to_gozle_video,
-                style: context.textTheme.titleLarge?.copyWith(fontSize: 28),
-                textAlign: TextAlign.center,
+              Column(
+                children: [
+                  SvgPicture.asset(
+                    Theme.of(context).brightness == Brightness.dark
+                        ? AppAssets.appBarDarkLogo
+                        : AppAssets.appBarLightLogo,
+                    height: 60,
+                  ),
+                ],
               ),
               const SizedBox(height: 15),
               Text(
                 S.current.learning_and_entertainment_service,
                 style: context.textTheme.bodyLarge?.copyWith(
-                  fontSize: 18,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
                 textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 5, width: double.infinity),
+              TextButton(
+                onPressed: () {
+                  launchUrlString('https://id.gozle.com.tm');
+                },
+                child: InkWell(child: Text(S.current.why_need_gozle_id_account)),
               ),
               const Spacer(),
               state.maybeWhen(
@@ -100,29 +120,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: CircularProgressIndicator.adaptive(),
                   );
                 },
-                skippedLogin: (skipped) {
-                  return ElevatedButton(
-                    onPressed: null,
-                    child: Text(S.current.login_or_register_with_gozle_id),
-                  );
-                },
                 unauthenticated: (oAuthClientData) {
-                  return ElevatedButton(
-                    onPressed: oAuthClientData != null
-                        ? () {
-                            context.read<UserBloc>().add(UserEvent.login(oAuthClientData: oAuthClientData));
-                          }
-                        : null,
-                    child: Text(S.current.login_or_register_with_gozle_id),
+                  return Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: ElevatedButton(
+                      style: const ButtonStyle(
+                          alignment: Alignment.center,
+                          minimumSize: MaterialStatePropertyAll(Size.fromHeight(50)),
+                          textStyle: MaterialStatePropertyAll(const TextStyle(fontSize: 18))),
+                      onPressed: oAuthClientData != null
+                          ? () {
+                              context.read<UserBloc>().add(UserEvent.login(oAuthClientData: oAuthClientData));
+                            }
+                          : null,
+                      child: Text(S.current.sign_in),
+                    ),
                   );
                 },
-              ),
-              const SizedBox(height: 5, width: double.infinity),
-              TextButton(
-                onPressed: () {
-                  launchUrlString('https://id.gozle.com.tm');
-                },
-                child: Text(S.current.why_need_gozle_id_account),
               ),
               const SizedBox(height: 5),
             ],

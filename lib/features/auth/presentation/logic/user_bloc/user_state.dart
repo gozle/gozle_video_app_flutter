@@ -9,5 +9,6 @@ class UserState with _$UserState {
   const factory UserState.authenticated({required User user}) = _UserAuthenticatedState;
 
   const factory UserState.notification(String errorMessage) = _UserNotificationState;
+
   const factory UserState.skippedLogin({required bool skipped}) = _UserSkippedLogin;
 }
