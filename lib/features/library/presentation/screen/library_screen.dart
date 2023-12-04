@@ -70,7 +70,15 @@ class LibraryScreenState extends State<LibraryScreen> {
                           minimumSize: MaterialStatePropertyAll(Size(50, 40))),
                       onPressed: () {
                         // Navigator.of(context).pop();
-
+                        context.read<UserBloc>().state.whenOrNull(
+                            unauthenticated: (oAuthClientData) {
+                          oAuthClientData != null
+                              ? () {
+                                  context.read<UserBloc>().add(UserEvent.login(
+                                      oAuthClientData: oAuthClientData));
+                                }
+                              : null;
+                        });
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacementNamed(LoginScreen.routeName);
                       },
