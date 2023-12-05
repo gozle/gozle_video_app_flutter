@@ -1118,6 +1118,24 @@ class S {
       args: [],
     );
   }
+
+  String get sign_in_gozle_account {
+    return Intl.message(
+      'Sign in to Gozle Account',
+      name: 'sign_in_gozle_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get without_sign_missing_features {
+    return Intl.message(
+      'Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience.',
+      name: 'without_sign_missing_features',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -44,6 +44,11 @@ class CategoryItemWidget extends StatelessWidget {
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
       ),
     );
+    var iconColor = isSelected
+        ? (context.theme.brightness == Brightness.dark
+            ? Theme.of(context).secondaryHeaderColor
+            : Colors.white)
+        : (context.theme.brightness == Brightness.dark ? Colors.white : Color(0xFF292D32));
     return ElevatedButton(
       onPressed: onTap,
       style: context.theme.brightness == Brightness.dark ? darkCategoryStyle : lightCategoryStyle,
@@ -55,6 +60,7 @@ class CategoryItemWidget extends StatelessWidget {
                   iconAsset ?? '',
                   height: 20,
                   width: 20,
+                  color: iconColor,
                 )
               : const SizedBox(),
           Offstage(

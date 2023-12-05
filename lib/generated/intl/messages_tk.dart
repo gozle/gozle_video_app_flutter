@@ -143,6 +143,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "watch_later": MessageLookupByLibrary.simpleMessage("Soň görmek"),
         "welcome_to_gozle_video": MessageLookupByLibrary.simpleMessage("Hoşgeldiňiz !"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Ulgama girmek"),
+        "sign_in_gozle_account": MessageLookupByLibrary.simpleMessage("Sign in to Gozle Account"),
+        "without_sign_missing_features": MessageLookupByLibrary.simpleMessage(
+            "Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience."),
         "why_need_gozle_id_account": MessageLookupByLibrary.simpleMessage("Näme üçin Gozle ID hasaby gerek?")
       };
 }

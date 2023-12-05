@@ -58,31 +58,54 @@ class LibraryScreenState extends State<LibraryScreen> {
               return CustomScrollView(
                 slivers: [
                   SliverList.list(children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Image.asset(
                       AppAssets.signInImage,
                       fit: BoxFit.fitHeight,
                       height: MediaQuery.of(context).size.height / 4,
                     ),
-                    const Spacer(),
-                    Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: ElevatedButton(
-                          style: const ButtonStyle(
-                              alignment: Alignment.center,
-                              minimumSize: MaterialStatePropertyAll(Size(50, 40))),
-                          onPressed: () {
-                            // context.read<UserBloc>().state.whenOrNull(unauthenticated: (oAuthClientData) {
-                            //   if (oAuthClientData != null) {
-                            //     context
-                            //         .read<UserBloc>()
-                            //         .add(UserEvent.login(oAuthClientData: oAuthClientData));
-                            //   }
-                            // });
-                            Navigator.of(context, rootNavigator: true)
-                                .pushReplacementNamed(LoginScreen.routeName);
-                          },
-                          child: Text(S.current.sign_in),
-                        )),
+                    Container(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            S.current.sign_in_gozle_account,
+                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            S.current.without_sign_missing_features,
+                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ElevatedButton(
+                            style: const ButtonStyle(
+                                alignment: Alignment.center,
+                                minimumSize: MaterialStatePropertyAll(Size.fromHeight(40))),
+                            onPressed: () {
+                              context.read<UserBloc>().state.whenOrNull(unauthenticated: (oAuthClientData) {
+                                if (oAuthClientData != null) {
+                                  context
+                                      .read<UserBloc>()
+                                      .add(UserEvent.login(oAuthClientData: oAuthClientData));
+                                }
+                              });
+                              // Navigator.of(context, rootNavigator: true)
+                              //     .pushReplacementNamed(LoginScreen.routeName);
+                            },
+                            child: Text(S.current.sign_in),
+                          )
+                        ],
+                      ),
+                    ),
                     const Spacer(),
                     MenuItemWidget(
                       onTap: () {
