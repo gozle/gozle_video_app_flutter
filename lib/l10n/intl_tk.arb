@@ -123,7 +123,9 @@
     "exclude_video_from_preferences": "Видео будет исключено из ваших предпочтений",
     "welcome_to_gozle_video": "Hoşgeldiňiz !",
     "learning_and_entertainment_service": "Bilim we güýmenje serwisi",
-
+    "without_sign_missing_features":"Abuna ýazylmak, halaýan goýmak we şahsy taryhy aýratynlyklaryny açmak üçin ulgama giriň. Hasabyňyz bolmazdan, bu möhüm täsirleri we aýratyn tejribäni ýitirersiňiz.",
+    "sign_in": "Ulgama girmek",
+    "sign_in_gozle_account":"Gözle akkaunta girmek",
     "server_error": "Ошибка сервера",
     "internet_connection_issues": "Связь с сервером устанавливалась слишком долго, время ожидания истекло.м",
     "authentication_failure": "Ошибка аутентификации",

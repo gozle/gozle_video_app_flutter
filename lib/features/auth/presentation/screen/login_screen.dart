@@ -27,17 +27,24 @@ class _LoginScreenState extends State<LoginScreen> {
     var lightStyle = ButtonStyle(
       backgroundColor: MaterialStateProperty.all(const Color(0xffF5F5F5)),
       textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18)),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: Color(0xffF5F5F5)))),
-      padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              side: const BorderSide(color: Color(0xffF5F5F5)))),
+      padding:
+          MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)),
     );
     var darkCategoryStyle = ButtonStyle(
         textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18)),
-        backgroundColor: MaterialStatePropertyAll(Theme.of(context).secondaryHeaderColor),
+        backgroundColor:
+            MaterialStatePropertyAll(Theme.of(context).secondaryHeaderColor),
         foregroundColor: const MaterialStatePropertyAll(Color(0xffF5F5F5)),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: Color(0xffF5F5F5)))),
-        padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)));
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                side: const BorderSide(color: Color(0xffF5F5F5)))),
+        padding:
+            MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)));
     return Scaffold(
       body: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) {
@@ -49,7 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
             },
             skippedLogin: (skipped) => {
-              if (skipped) {Navigator.of(context).pushReplacementNamed(NavScreen.routeName)}
+              if (skipped)
+                {
+                  Navigator.of(context)
+                      .pushReplacementNamed(NavScreen.routeName)
+                }
             },
           );
         },
@@ -59,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -67,21 +78,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         ChooseLocaleDialog.show(context);
                       },
-                      style: context.theme.brightness == Brightness.dark ? darkCategoryStyle : lightStyle,
-                      child: Consumer<SettingsProvider>(builder: (context, provider, _) {
+                      style: context.theme.brightness == Brightness.dark
+                          ? darkCategoryStyle
+                          : lightStyle,
+                      child: Consumer<SettingsProvider>(
+                          builder: (context, provider, _) {
                         return Text(provider.locale.languageCode.toUpperCase());
                       }),
                     ),
                     const Spacer(),
                     TextButton(
-                        style:
-                            ButtonStyle(textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))),
+                        style: ButtonStyle(
+                            textStyle: MaterialStateProperty.all(
+                                const TextStyle(fontSize: 18))),
                         onPressed: () {
-                          context.read<UserBloc>().add(const UserEvent.skipLogin(skipped: true));
+                          context
+                              .read<UserBloc>()
+                              .add(const UserEvent.skipLogin(skipped: true));
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: [Text(S.current.skip), const Icon(Icons.arrow_forward_ios)],
+                          children: [
+                            Text(S.current.skip),
+                            const Icon(Icons.arrow_forward_ios)
+                          ],
                         ))
                   ],
                 ),
@@ -111,7 +131,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   launchUrlString('https://id.gozle.com.tm');
                 },
-                child: InkWell(child: Text(S.current.why_need_gozle_id_account)),
+                child:
+                    InkWell(child: Text(S.current.why_need_gozle_id_account)),
               ),
               const Spacer(),
               state.maybeWhen(
@@ -126,11 +147,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       style: const ButtonStyle(
                           alignment: Alignment.center,
-                          minimumSize: MaterialStatePropertyAll(Size.fromHeight(50)),
-                          textStyle: MaterialStatePropertyAll(const TextStyle(fontSize: 18))),
+                          minimumSize:
+                              MaterialStatePropertyAll(Size.fromHeight(50)),
+                          textStyle: MaterialStatePropertyAll(
+                              const TextStyle(fontSize: 18))),
                       onPressed: oAuthClientData != null
                           ? () {
-                              context.read<UserBloc>().add(UserEvent.login(oAuthClientData: oAuthClientData));
+                              context.read<UserBloc>().add(UserEvent.login(
+                                  oAuthClientData: oAuthClientData));
                             }
                           : null,
                       child: Text(S.current.sign_in),

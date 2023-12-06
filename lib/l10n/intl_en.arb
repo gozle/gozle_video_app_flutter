@@ -90,7 +90,6 @@
     "system": "System",
     "dark": "Dark",
     "light": "Light",
-    "//":"",
     "can_loading_text": "Release to load more",
     "can_refresh_text": "Release to refresh",
     "can_two_level_text": "Release to enter secondfloor",
@@ -102,7 +101,6 @@
     "refresh_complete_text": "Refresh completed",
     "refresh_failed_text": "Refresh failed",
     "refreshing_text": "Refreshing…",
-    "//":"",
     "login_or_register_with_gozle_id": "Log in or register with Gozle ID",
     "why_need_gozle_id_account": "Why do you need a Gozle ID account?",
     "history": "History",
@@ -124,8 +122,9 @@
     "exclude_video_from_preferences": "Video will be excluded from your preferences",
     "welcome_to_gozle_video": "Welcome to Gozle Video !",
     "learning_and_entertainment_service": "Service for learning and entertainment.",
-    
-    
+    "sign_in": "Sign in",
+    "sign_in_gozle_account":"Sign in to Gozle Account",
+    "without_sign_missing_features": "Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience.",
     "server_error": "Server Error",
     "internet_connection_issues": "We are experiencing some issues with your internet connection",
     "authentication_failure": "Authentication Failure",

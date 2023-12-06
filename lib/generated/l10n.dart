@@ -26,7 +26,9 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -738,8 +740,6 @@ class S {
     );
   }
 
-  // skipped getter for the '//' key
-
   /// `Release to load more`
   String get can_loading_text {
     return Intl.message(
@@ -1060,6 +1060,36 @@ class S {
     );
   }
 
+  /// `Sign in`
+  String get sign_in {
+    return Intl.message(
+      'Sign in',
+      name: 'sign_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in to Gozle Account`
+  String get sign_in_gozle_account {
+    return Intl.message(
+      'Sign in to Gozle Account',
+      name: 'sign_in_gozle_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience.`
+  String get without_sign_missing_features {
+    return Intl.message(
+      'Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience.',
+      name: 'without_sign_missing_features',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Server Error`
   String get server_error {
     return Intl.message(
@@ -1105,33 +1135,6 @@ class S {
     return Intl.message(
       'An unexpected issue occurred. Please try again',
       name: 'undefined_issue',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get sign_in {
-    return Intl.message(
-      'Sign in',
-      name: 'sign_in',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get sign_in_gozle_account {
-    return Intl.message(
-      'Sign in to Gozle Account',
-      name: 'sign_in_gozle_account',
-      desc: '',
-      args: [],
-    );
-  }
-
-  String get without_sign_missing_features {
-    return Intl.message(
-      'Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience.',
-      name: 'without_sign_missing_features',
       desc: '',
       args: [],
     );
