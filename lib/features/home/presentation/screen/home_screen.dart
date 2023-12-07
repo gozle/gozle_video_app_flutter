@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:video_gozle/core/app_assets.dart';
 import 'package:video_gozle/features/global/domain/models/video_category_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_list_item_type.dart';
@@ -11,6 +12,7 @@ import 'package:video_gozle/features/home/presentation/logic/video_category_cubi
 import 'package:video_gozle/features/home/presentation/logic/video_list_bloc/video_list_bloc.dart';
 import 'package:video_gozle/features/home/presentation/widget/video_list_widget.dart';
 import 'package:video_gozle/features/nav/presentation/widget/main_app_bar.dart';
+import 'package:video_gozle/features/settings/presentation/logic/settings/settings_provider.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
 import '../widget/category_list_widget.dart';
@@ -94,26 +96,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<VideoListBloc, VideoListState>(
-      listener: (context, state) {
-        state.whenOrNull(
-          byCategoryLoaded: (videos, category, hasReachedMax) {
-            refreshController.refreshCompleted();
-            refreshController.loadComplete();
-          },
-          popularLoaded: (videos, hasReachedMax) {
-            refreshController.refreshCompleted();
-            refreshController.loadComplete();
-          },
-          latestLoaded: ((latestVideos, hasReachedMax) {
-            refreshController.refreshCompleted();
-            refreshController.loadComplete();
-          }),
-          error: (oldVideos, message, lastEvent) {
-            refreshController.loadFailed();
-          },
-        );
-      },
-      builder: (context, state) {
+        listener: (context, state) {
+      state.whenOrNull(
+        byCategoryLoaded: (videos, category, hasReachedMax) {
+          refreshController.refreshCompleted();
+          refreshController.loadComplete();
+        },
+        popularLoaded: (videos, hasReachedMax) {
+          refreshController.refreshCompleted();
+          refreshController.loadComplete();
+        },
+        latestLoaded: ((latestVideos, hasReachedMax) {
+          refreshController.refreshCompleted();
+          refreshController.loadComplete();
+        }),
+        error: (oldVideos, message, lastEvent) {
+          refreshController.loadFailed();
+        },
+      );
+    }, builder: (context, state) {
+      return Consumer<SettingsProvider>(builder: (_, __, ___) {
         return Scaffold(
           appBar: MainAppBar(
             bottom: PreferredSize(
@@ -251,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           )),
         );
-      },
-    );
+      });
+    });
   }
 }
