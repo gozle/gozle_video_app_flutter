@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/auth/presentation/screen/login_screen.dart';
 import 'package:video_gozle/features/channel/presentation/logic/channel_subscription_cubit/channel_subscription_cubit.dart';
+import 'package:video_gozle/features/library/presentation/screen/library_screen.dart';
+import 'package:video_gozle/features/nav/presentation/screen/nav_screen.dart';
 import 'package:video_gozle/features/subscriptions/presentation/logic/subscribed_channel_list_bloc/subscribed_channel_list_bloc.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
@@ -21,15 +23,18 @@ class SubscribeButton extends StatelessWidget {
           unauthenticated: () => null,
         );
         if (isSubscribed == null) {
-          Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(
-            LoginScreen.routeName,
-            (route) => false,
-          );
+          var nav = Navigator.of(context, rootNavigator: true);
+          nav.pushNamed(LibraryScreen.routeName);
+          // nav.pop();
+          // nav.push(MaterialPageRoute(
+          //     builder: (c) => NavScreen(),
+          //     settings: RouteSettings(name: LibraryScreen.routeName)));
           return Container();
         }
         return ElevatedButton(
           style: ButtonStyle(
-            padding: const MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 20)),
+            padding: const MaterialStatePropertyAll(
+                EdgeInsets.symmetric(horizontal: 20)),
             backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
             elevation: const MaterialStatePropertyAll(0),
             foregroundColor: isSubscribed
@@ -50,7 +55,9 @@ class SubscribeButton extends StatelessWidget {
             } else {
               await context.read<ChannelSubscriptionCubit>().subscribe();
             }
-            context.read<SubscribedChannelListBloc>().add(const SubscribedChannelListEvent.load());
+            context
+                .read<SubscribedChannelListBloc>()
+                .add(const SubscribedChannelListEvent.load());
           },
           child: Text(
             isSubscribed ? S.current.subscribed : S.current.subscribe,

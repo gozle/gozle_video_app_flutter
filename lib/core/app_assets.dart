@@ -46,6 +46,7 @@ class AppAssets {
   static String loginImage = 'assets/images/login_image.png';
 
   static String signInImage = 'assets/images/sign_in.png';
+  static String userUnsigned = 'assets/icons/menu/user-unsigned.svg';
 
   static String pauseIcon = 'assets/icons/ic_pause.svg';
 

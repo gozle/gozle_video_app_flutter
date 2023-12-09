@@ -54,6 +54,7 @@ class LibraryScreenState extends State<LibraryScreen> {
     return Consumer<SettingsProvider>(builder: (_, __, ___) {
       return Scaffold(
         appBar: const MainAppBar(),
+        backgroundColor: Colors.white,
         body: BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {
             return state.maybeWhen(

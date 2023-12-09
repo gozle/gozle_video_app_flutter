@@ -26,7 +26,8 @@ class NavScreen extends StatefulWidget {
   State<NavScreen> createState() => _NavScreenState();
 }
 
-class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMixin {
+class _NavScreenState extends State<NavScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController miniplayerAnimationController;
   late PanelController miniplayerController;
 
@@ -142,7 +143,8 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (miniplayerController.isAttached && miniplayerController.isPanelOpen) {
+        if (miniplayerController.isAttached &&
+            miniplayerController.isPanelOpen) {
           miniplayerController.close();
           return false;
         } else {
@@ -155,7 +157,8 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
         }
       },
       child: Scaffold(
-        appBar: CustomAppBar(miniplayerAnimationController: miniplayerAnimationController),
+        appBar: CustomAppBar(
+            miniplayerAnimationController: miniplayerAnimationController),
         body: Stack(
           children: [
             FadeIndexedStack(
@@ -190,13 +193,15 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                       orElse: () {
                         return MiniplayerWidget(
                           panelController: miniplayerController,
-                          miniplayerAnimationController: miniplayerAnimationController,
+                          miniplayerAnimationController:
+                              miniplayerAnimationController,
                         );
                       },
                       error: (message, _) {
                         return MiniplayerWidget(
                           panelController: miniplayerController,
-                          miniplayerAnimationController: miniplayerAnimationController,
+                          miniplayerAnimationController:
+                              miniplayerAnimationController,
                         );
                       },
                       initial: () {
@@ -221,21 +226,30 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
               CurvedAnimation(
                 parent: miniplayerAnimationController,
                 curve: Interval(
-                  MediaQuery.of(context).orientation == Orientation.portrait ? 0.0 : 0.4,
-                  MediaQuery.of(context).orientation == Orientation.portrait ? 0.5 : 0.9,
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? 0.0
+                      : 0.4,
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? 0.5
+                      : 0.9,
                 ),
               ),
             );
 
             final heightStagger = Tween<double>(
-              begin: bottomNabBarMinHeight + MediaQuery.of(context).padding.bottom,
+              begin:
+                  bottomNabBarMinHeight + MediaQuery.of(context).padding.bottom,
               end: 0,
             ).animate(
               CurvedAnimation(
                 parent: miniplayerAnimationController,
                 curve: Interval(
-                  MediaQuery.of(context).orientation == Orientation.portrait ? 0.0 : 0.4,
-                  MediaQuery.of(context).orientation == Orientation.portrait ? 0.5 : 0.9,
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? 0.0
+                      : 0.4,
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? 0.5
+                      : 0.9,
                 ),
               ),
             );
@@ -291,12 +305,31 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                             label: S.current.subscriptions,
                           ),
                           NavigationDestination(
-                            icon: CircleAvatar(
-                              radius: 15,
-                              backgroundColor: Theme.of(context).secondaryHeaderColor,
-                              backgroundImage: Image.network(
-                                      state.whenOrNull(authenticated: (user) => user.avatar ?? '') ?? '')
-                                  .image,
+                            selectedIcon: SvgPicture.asset(
+                              AppAssets.userUnsigned,
+                              colorFilter: ColorFilter.mode(
+                                Theme.of(context).primaryColor,
+                                BlendMode.srcIn,
+                              ),
+                            ),
+                            icon: state.maybeWhen(
+                              orElse: () => SvgPicture.asset(
+                                AppAssets.userUnsigned,
+                                colorFilter: ColorFilter.mode(
+                                  Theme.of(context).disabledColor,
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                              authenticated: (user) => CircleAvatar(
+                                radius: 150,
+                                // backgroundColor: state.maybeWhen(orElse: () {
+                                //   return Colors.white;
+                                // }, authenticated: (_) {
+                                //   return Theme.of(context).secondaryHeaderColor;
+                                // }),
+                                backgroundImage:
+                                    Image.network(user.avatar ?? '').image,
+                              ),
                             ),
                             label: S.current.profile,
                           )
@@ -324,8 +357,10 @@ class CustomAppBar extends AnimatedWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    Animation<Color?> statusBarColor =
-        ColorTween(begin: Theme.of(context).appBarTheme.backgroundColor, end: Colors.black).animate(
+    Animation<Color?> statusBarColor = ColorTween(
+            begin: Theme.of(context).appBarTheme.backgroundColor,
+            end: Colors.black)
+        .animate(
       CurvedAnimation(
         parent: miniplayerAnimationController,
         curve: const Interval(0, 1.0),

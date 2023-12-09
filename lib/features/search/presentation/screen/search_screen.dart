@@ -11,7 +11,6 @@ import 'package:video_gozle/features/home/presentation/widget/video_list_widget.
 import 'package:video_gozle/features/search/presentation/logic/seach_video_bloc/search_video_bloc.dart';
 import 'package:video_gozle/features/search/presentation/logic/search_history_cubit/search_history_cubit.dart';
 import 'package:video_gozle/features/search/presentation/widget/search_text_field.dart';
-import 'package:video_gozle/features/subscriptions/presentation/widget/channel_list_item_widget.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
 class SearchScreen extends StatefulWidget {
