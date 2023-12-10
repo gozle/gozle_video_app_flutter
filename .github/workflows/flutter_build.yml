@@ -15,7 +15,7 @@ jobs:
 
     - name: Update Flutter and Dart
       run: |
-        cd /opt/hostedtoolcache/flutter/stable-3.7.7-x64
+        cd $RUNNER_WORKSPACE/flutter
         git pull
         flutter upgrade
 
