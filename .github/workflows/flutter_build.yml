@@ -1,4 +1,4 @@
-name: Flutter Build
+name: Update Flutter, Dart, and Build APK
 
 on:
   push:
@@ -6,27 +6,29 @@ on:
       - main
 
 jobs:
-  build:
+  update-flutter-dart-and-build-apk:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.7.7'  # Замените на актуальную версию Flutter
+    - name: Update Flutter and Dart
+      run: |
+        cd /opt/hostedtoolcache/flutter/stable-3.7.7-x64
+        git pull
+        flutter upgrade
 
-    - name: Install Dependencies
-      run: flutter pub get
+    - name: Clean Flutter Cache and Get Dependencies
+      run: |
+        flutter clean
+        flutter pub get
 
     - name: Build APK
       run: flutter build apk
 
-    - name: Archive Artifacts
+    - name: Archive APK
       uses: actions/upload-artifact@v2
       with:
         name: app-release
         path: build/app/outputs/flutter-apk/app-release.apk
-
