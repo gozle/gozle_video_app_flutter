@@ -1,25 +1,37 @@
-name: Build Debug APK
+name: Build and Test
 
 on:
   push:
     branches:
-      - main
+      - main  # Измените на вашу основную ветку
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '2.x'
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '2.18.0'
 
-      - name: Install dependencies
-        run: flutter pub get
+    - name: Upgrade Flutter packages
+      run: flutter pub upgrade
 
-      - name: Build Debug APK
-        run: flutter build apk --debug
+    - name: Repair Flutter cache
+      run: flutter pub cache repair
+
+    - name: Build APK
+      run: flutter build apk
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: app-release
+        path: build/app/outputs/flutter-apk
+
+    - name: Cleanup
+      run: flutter clean
