@@ -26,7 +26,8 @@ jobs:
     - name: Установка Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '2.18.0'
+        channel: stable
+        version: '2.18.0'
 
     - name: Сборка APK
       run: flutter build apk
