@@ -15,8 +15,8 @@ jobs:
 
     - name: Update Flutter and Dart
       run: |
-        cd $GITHUB_WORKSPACE
-        git -C flutter pull
+        cd $GITHUB_WORKSPACE/flutter
+        git pull
         flutter_upgrade_result=$(flutter upgrade 2>&1) || echo $flutter_upgrade_result
 
     - name: Update Dart SDK
