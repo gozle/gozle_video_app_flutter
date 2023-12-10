@@ -64,6 +64,8 @@ class WorldVideoPlayerController extends ValueNotifier<WorldVideoPlayerValue> {
       throw 'Неизвестный формат видео ${uri.pathSegments.last}';
     }
 
+    print(videoType);
+
     updateValue(value.copyWith(videoType: videoType));
 
     if (videoType == VideoType.HLS) {
@@ -92,7 +94,8 @@ class WorldVideoPlayerController extends ValueNotifier<WorldVideoPlayerValue> {
     double? aspectRatio,
     required ControlsType controlsType,
   }) : super(WorldVideoPlayerValue()) {
-    updateValue(value.copyWith(title: title, thumbnail: thumbnail, aspectRatio: aspectRatio));
+    updateValue(value.copyWith(
+        title: title, thumbnail: thumbnail, aspectRatio: aspectRatio));
 
     updateValue(value.copyWith(videoType: VideoType.FILE));
 
@@ -113,7 +116,8 @@ class WorldVideoPlayerController extends ValueNotifier<WorldVideoPlayerValue> {
     required ControlsType controlsType,
     Widget? customControls,
   }) : super(WorldVideoPlayerValue()) {
-    updateValue(value.copyWith(title: title, thumbnail: thumbnail, aspectRatio: aspectRatio));
+    updateValue(value.copyWith(
+        title: title, thumbnail: thumbnail, aspectRatio: aspectRatio));
 
     updateValue(value.copyWith(videoType: VideoType.ASSET));
 
@@ -130,7 +134,8 @@ class WorldVideoPlayerController extends ValueNotifier<WorldVideoPlayerValue> {
     required ControlsType controlsType,
     Widget? customControls,
   }) : super(WorldVideoPlayerValue()) {
-    updateValue(value.copyWith(title: title, thumbnail: thumbnail, aspectRatio: aspectRatio));
+    updateValue(value.copyWith(
+        title: title, thumbnail: thumbnail, aspectRatio: aspectRatio));
 
     updateValue(value.copyWith(videoType: VideoType.CASHED));
   }
@@ -181,7 +186,8 @@ class WorldVideoPlayerController extends ValueNotifier<WorldVideoPlayerValue> {
       value.copyWith(
         position: videoPlayerController.value.position,
         totalDuration: videoPlayerController.value.duration,
-        buffered: videoPlayerController.value.buffered.lastOrNull?.end ?? Duration.zero,
+        buffered: videoPlayerController.value.buffered.lastOrNull?.end ??
+            Duration.zero,
         playerState: playerState,
       ),
     );
@@ -206,7 +212,8 @@ class WorldVideoPlayerController extends ValueNotifier<WorldVideoPlayerValue> {
       playerState: PlayerState.initing,
     ));
 
-    final newVideoPlayerController = VideoPlayerController.networkUrl(Uri.parse(m3u8data.dataURL!));
+    final newVideoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(m3u8data.dataURL!));
 
     videoPlayerController = newVideoPlayerController;
 

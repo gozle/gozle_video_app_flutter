@@ -9,6 +9,8 @@ class VideoEvent with _$VideoEvent {
     String? url,
   }) = _PlayNetwork;
 
+  const factory VideoEvent.closeAdd() = _CloseAdd;
+
   const factory VideoEvent.playCashedVideo({
     required Video video,
   }) = _PlayCashed;

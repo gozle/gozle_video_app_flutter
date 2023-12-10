@@ -26,10 +26,16 @@ class MiniplayerWidget extends StatelessWidget {
         color: Theme.of(context).navigationBarTheme.backgroundColor!,
         minHeight: 55,
         onPanelOpened: () async {
-          context.read<VideoPlayerProvider>().worldVideoPlayerController.enableControls();
+          context
+              .read<VideoPlayerProvider>()
+              .worldVideoPlayerController
+              ?.enableControls();
 
           if (MediaQuery.of(context).orientation == Orientation.landscape) {
-            await context.read<VideoPlayerProvider>().worldVideoPlayerController.enableFullScreen();
+            await context
+                .read<VideoPlayerProvider>()
+                .worldVideoPlayerController
+                ?.enableFullScreen();
           } else {
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.portraitUp,
@@ -40,7 +46,10 @@ class MiniplayerWidget extends StatelessWidget {
           miniplayerAnimationController.animateTo(position);
         },
         onPanelClosed: () async {
-          await context.read<VideoPlayerProvider>().worldVideoPlayerController.disableControls();
+          await context
+              .read<VideoPlayerProvider>()
+              .worldVideoPlayerController
+              ?.disableControls();
 
           SystemChrome.setPreferredOrientations([
             DeviceOrientation.portraitUp,
@@ -49,7 +58,8 @@ class MiniplayerWidget extends StatelessWidget {
           ]);
         },
         defaultPanelState: PanelState.CLOSED,
-        maxHeight: MediaQuery.of(context).size.height - (Scaffold.of(context).appBarMaxHeight ?? 0),
+        maxHeight: MediaQuery.of(context).size.height -
+            (Scaffold.of(context).appBarMaxHeight ?? 0),
         controller: panelController,
         backdropColor: Colors.black,
         backdropEnabled: true,
@@ -59,10 +69,14 @@ class MiniplayerWidget extends StatelessWidget {
         panel: MainVideoWidget(
           context: context,
           miniplayerAnimationController: miniplayerAnimationController,
-          panelMaxHeight:
-              MediaQuery.of(context).size.height - (Scaffold.of(context).appBarMaxHeight ?? 0) - 50,
-          expansion:
-              context.read<VideoBloc>().state.whenOrNull(loaded: (video) => video.expansion) ?? Expansion(),
+          panelMaxHeight: MediaQuery.of(context).size.height -
+              (Scaffold.of(context).appBarMaxHeight ?? 0) -
+              50,
+          expansion: context
+                  .read<VideoBloc>()
+                  .state
+                  .whenOrNull(loaded: (video) => video.expansion) ??
+              Expansion(),
         ),
       ),
     );

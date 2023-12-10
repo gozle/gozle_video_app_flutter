@@ -3,8 +3,12 @@ import 'package:video_gozle/core/failure/failure.dart';
 import 'package:video_gozle/features/global/domain/models/video_category_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_model.dart';
 
+import '../model/video_ads_model.dart';
+
 abstract class VideoRepository {
   Future<Either<Failure, Video>> getVideoDetails({required String videoId});
+
+  Future<Either<Failure, VideoAdsModel>> getVideoAd();
 
   Future<Either<Failure, List<Video>>> getSuggestedVideos({
     required String channelId,
@@ -22,7 +26,8 @@ abstract class VideoRepository {
 
   Future<Either<Failure, void>> removeLike({required String videoId});
 
-  getCommentsByVideo({required String videoId, required int amount, required int page}) {}
+  getCommentsByVideo(
+      {required String videoId, required int amount, required int page}) {}
 
   postComment({required String message, required String videoId}) {}
 }

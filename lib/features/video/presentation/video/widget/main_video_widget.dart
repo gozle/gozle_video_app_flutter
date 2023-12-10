@@ -7,9 +7,11 @@ import 'package:video_gozle/features/global/presentation/widget/error_widget/cus
 import 'package:video_gozle/features/video/presentation/miniplayer/widget/miniplayer_title_widget.dart';
 import 'package:video_gozle/features/video/presentation/video/logic/suggested_video_list_bloc/suggested_video_list_bloc.dart';
 import 'package:video_gozle/features/video/presentation/video/logic/video_bloc/video_bloc.dart';
+import 'package:video_gozle/features/video/presentation/video/widget/advertisementLoaded/advertisement_loaded_widget.dart';
 import 'package:video_gozle/features/video/presentation/video/widget/loaded/loaded_video_details_widget.dart';
 import 'package:video_gozle/features/video/presentation/video/widget/loading/loading_video_details_widget.dart';
 import 'package:video_gozle/features/video/presentation/video_player/controls/gozle_video/gozle_video_controls.dart';
+import 'package:video_gozle/features/video/presentation/video_player/controls/gozle_video/video_ad_controls.dart';
 import 'package:video_gozle/features/video/presentation/video_player/controls/gozle_video/widgets/widgets.dart';
 import 'package:video_gozle/features/video/presentation/video_player/logic/video_player_provider.dart';
 
@@ -29,7 +31,8 @@ class MainVideoWidget extends AnimatedWidget {
     required this.panelMaxHeight,
   })  : playerHeight = Tween<double>(
           begin: minHeight,
-          end: (MediaQuery.of(context).size.width / expansion.aspectRatio).clamp(
+          end:
+              (MediaQuery.of(context).size.width / expansion.aspectRatio).clamp(
             MediaQuery.of(context).size.width * 9 / 16,
             MediaQuery.of(context).size.width * 4 / 3.5,
           ),
@@ -47,7 +50,9 @@ class MainVideoWidget extends AnimatedWidget {
             parent: miniplayerAnimationController,
             curve: Interval(
               0,
-              MediaQuery.of(context).orientation == Orientation.portrait ? 0.1 : 0.7,
+              MediaQuery.of(context).orientation == Orientation.portrait
+                  ? 0.1
+                  : 0.7,
             ),
           ),
         ),
@@ -66,27 +71,77 @@ class MainVideoWidget extends AnimatedWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Consumer<VideoPlayerProvider>(
-          builder: (BuildContext context, VideoPlayerProvider videoPlayerProvider, Widget? child) {
-            return Row(
-              children: [
-                WorldVideoPlayer(
-                  controller: videoPlayerProvider.worldVideoPlayerController,
-                  expansionHeight: expansion.height,
-                  expansionWidth: expansion.width,
-                  customControls: GozleVideoControls(
-                    onMinimizeTap: () {
-                      context.read<VideoBloc>().add(const VideoEvent.minimize());
-                    },
-                    progressBarTheme: ProgressBarTheme(),
-                    controller: videoPlayerProvider.worldVideoPlayerController,
+          builder: (BuildContext context,
+              VideoPlayerProvider videoPlayerProvider, Widget? child) {
+            if (videoPlayerProvider.isAdPlaying &&
+                videoPlayerProvider.adsVideoController != null) {
+              return Row(
+                children: [
+                  WorldVideoPlayer(
+                    controller: videoPlayerProvider.adsVideoController!,
+                    expansionHeight: expansion.height,
+                    expansionWidth: expansion.width,
+                    customControls: VideoAdControls(
+                      onMinimizeTap: () {
+                        context
+                            .read<VideoBloc>()
+                            .add(const VideoEvent.minimize());
+                      },
+                      onSkip: () {
+                        context
+                            .read<VideoBloc>()
+                            .add(const VideoEvent.closeAdd());
+                      },
+                      skipDurationInSec: videoPlayerProvider.skipDuration,
+                      progressBarTheme: ProgressBarTheme(
+                        collapsedProgressBarColor: Colors.red,
+                        expandedProgressBarColor: Colors.red,
+                        collapsedThumbColor: Colors.red,
+                      ),
+                      controller: videoPlayerProvider.adsVideoController!,
+                    ),
+                    size: Size(
+                      playerWidth.value,
+                      playerHeight.value,
+                    ),
                   ),
-                  size: Size(
-                    playerWidth.value,
-                    playerHeight.value,
+                  MiniplayerTitle(
+                    controller: videoPlayerProvider.adsVideoController!,
                   ),
-                ),
-                MiniplayerTitle(controller: videoPlayerProvider.worldVideoPlayerController),
-              ],
+                ],
+              );
+            }
+            if (videoPlayerProvider.worldVideoPlayerController != null) {
+              return Row(
+                children: [
+                  WorldVideoPlayer(
+                    controller: videoPlayerProvider.worldVideoPlayerController!,
+                    expansionHeight: expansion.height,
+                    expansionWidth: expansion.width,
+                    customControls: GozleVideoControls(
+                      onMinimizeTap: () {
+                        context
+                            .read<VideoBloc>()
+                            .add(const VideoEvent.minimize());
+                      },
+                      progressBarTheme: ProgressBarTheme(),
+                      controller:
+                          videoPlayerProvider.worldVideoPlayerController!,
+                    ),
+                    size: Size(
+                      playerWidth.value,
+                      playerHeight.value,
+                    ),
+                  ),
+                  MiniplayerTitle(
+                    controller: videoPlayerProvider.worldVideoPlayerController!,
+                  ),
+                ],
+              );
+            }
+            return const AspectRatio(
+              aspectRatio: 16 / 9,
+              child: SizedBox(),
             );
           },
         ),
@@ -96,31 +151,41 @@ class MainVideoWidget extends AnimatedWidget {
               return Opacity(
                 opacity: miniplayerAnimationController.value,
                 child: state.maybeWhen(
+                  advertisementLoaded: (ad) {
+                    return AdvertisementLoadedWidget(videoAd: ad);
+                  },
                   loaded: (video) {
                     return MultiBlocProvider(
                       providers: [
-                        //
-                        BlocProvider(create: (context) => SuggestedVideoListBloc(channelId: video.channelId)),
+                        BlocProvider(
+                            create: (context) => SuggestedVideoListBloc(
+                                channelId: video.channelId)),
                         // чтобы получить данные о категориях и подписан ли я на этот канал
-                        BlocProvider(create: (context) => ChannelDetailsCubit(channelId: video.channelId)),
+                        BlocProvider(
+                            create: (context) => ChannelDetailsCubit(
+                                channelId: video.channelId)),
                       ],
                       child: LoadedVideoDetailsWidget(
                         video: video,
-                        videoDetailsBottomSheetHeight: MediaQuery.of(context).size.height -
-                            (Scaffold.of(context).appBarMaxHeight ?? 0) -
-                            45 -
-                            playerHeight.value,
+                        videoDetailsBottomSheetHeight:
+                            MediaQuery.of(context).size.height -
+                                (Scaffold.of(context).appBarMaxHeight ?? 0) -
+                                45 -
+                                playerHeight.value,
                       ),
                     );
                   },
                   loading: (videoId, title) {
-                    return LoadingVideoDetailsWidget(title: title, videoId: videoId);
+                    return LoadingVideoDetailsWidget(
+                        title: title, videoId: videoId);
                   },
                   error: (failure, videoId) {
                     return CustomErrorWidget(
                       failure: failure,
                       onTap: () {
-                        context.read<VideoBloc>().add(VideoEvent.playNetworkVideo(videoId: videoId));
+                        context
+                            .read<VideoBloc>()
+                            .add(VideoEvent.playNetworkVideo(videoId: videoId));
                       },
                     );
                   },

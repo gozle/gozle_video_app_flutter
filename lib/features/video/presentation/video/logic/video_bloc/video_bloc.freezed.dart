@@ -21,6 +21,7 @@ mixin _$VideoEvent {
     required TResult Function(
             String videoId, String? title, String? thumbnail, String? url)
         playNetworkVideo,
+    required TResult Function() closeAdd,
     required TResult Function(Video video) playCashedVideo,
     required TResult Function() remove,
     required TResult Function() expand,
@@ -32,6 +33,7 @@ mixin _$VideoEvent {
     TResult? Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult? Function()? closeAdd,
     TResult? Function(Video video)? playCashedVideo,
     TResult? Function()? remove,
     TResult? Function()? expand,
@@ -43,6 +45,7 @@ mixin _$VideoEvent {
     TResult Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult Function()? closeAdd,
     TResult Function(Video video)? playCashedVideo,
     TResult Function()? remove,
     TResult Function()? expand,
@@ -53,6 +56,7 @@ mixin _$VideoEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PlayNetwork value) playNetworkVideo,
+    required TResult Function(_CloseAdd value) closeAdd,
     required TResult Function(_PlayCashed value) playCashedVideo,
     required TResult Function(_Remove value) remove,
     required TResult Function(_ExpandMiniplayer value) expand,
@@ -62,6 +66,7 @@ mixin _$VideoEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PlayNetwork value)? playNetworkVideo,
+    TResult? Function(_CloseAdd value)? closeAdd,
     TResult? Function(_PlayCashed value)? playCashedVideo,
     TResult? Function(_Remove value)? remove,
     TResult? Function(_ExpandMiniplayer value)? expand,
@@ -71,6 +76,7 @@ mixin _$VideoEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PlayNetwork value)? playNetworkVideo,
+    TResult Function(_CloseAdd value)? closeAdd,
     TResult Function(_PlayCashed value)? playCashedVideo,
     TResult Function(_Remove value)? remove,
     TResult Function(_ExpandMiniplayer value)? expand,
@@ -191,6 +197,7 @@ class _$_PlayNetwork implements _PlayNetwork {
     required TResult Function(
             String videoId, String? title, String? thumbnail, String? url)
         playNetworkVideo,
+    required TResult Function() closeAdd,
     required TResult Function(Video video) playCashedVideo,
     required TResult Function() remove,
     required TResult Function() expand,
@@ -205,6 +212,7 @@ class _$_PlayNetwork implements _PlayNetwork {
     TResult? Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult? Function()? closeAdd,
     TResult? Function(Video video)? playCashedVideo,
     TResult? Function()? remove,
     TResult? Function()? expand,
@@ -219,6 +227,7 @@ class _$_PlayNetwork implements _PlayNetwork {
     TResult Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult Function()? closeAdd,
     TResult Function(Video video)? playCashedVideo,
     TResult Function()? remove,
     TResult Function()? expand,
@@ -235,6 +244,7 @@ class _$_PlayNetwork implements _PlayNetwork {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PlayNetwork value) playNetworkVideo,
+    required TResult Function(_CloseAdd value) closeAdd,
     required TResult Function(_PlayCashed value) playCashedVideo,
     required TResult Function(_Remove value) remove,
     required TResult Function(_ExpandMiniplayer value) expand,
@@ -247,6 +257,7 @@ class _$_PlayNetwork implements _PlayNetwork {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PlayNetwork value)? playNetworkVideo,
+    TResult? Function(_CloseAdd value)? closeAdd,
     TResult? Function(_PlayCashed value)? playCashedVideo,
     TResult? Function(_Remove value)? remove,
     TResult? Function(_ExpandMiniplayer value)? expand,
@@ -259,6 +270,7 @@ class _$_PlayNetwork implements _PlayNetwork {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PlayNetwork value)? playNetworkVideo,
+    TResult Function(_CloseAdd value)? closeAdd,
     TResult Function(_PlayCashed value)? playCashedVideo,
     TResult Function(_Remove value)? remove,
     TResult Function(_ExpandMiniplayer value)? expand,
@@ -286,6 +298,138 @@ abstract class _PlayNetwork implements VideoEvent {
   @JsonKey(ignore: true)
   _$$_PlayNetworkCopyWith<_$_PlayNetwork> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_CloseAddCopyWith<$Res> {
+  factory _$$_CloseAddCopyWith(
+          _$_CloseAdd value, $Res Function(_$_CloseAdd) then) =
+      __$$_CloseAddCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_CloseAddCopyWithImpl<$Res>
+    extends _$VideoEventCopyWithImpl<$Res, _$_CloseAdd>
+    implements _$$_CloseAddCopyWith<$Res> {
+  __$$_CloseAddCopyWithImpl(
+      _$_CloseAdd _value, $Res Function(_$_CloseAdd) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_CloseAdd implements _CloseAdd {
+  const _$_CloseAdd();
+
+  @override
+  String toString() {
+    return 'VideoEvent.closeAdd()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_CloseAdd);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String videoId, String? title, String? thumbnail, String? url)
+        playNetworkVideo,
+    required TResult Function() closeAdd,
+    required TResult Function(Video video) playCashedVideo,
+    required TResult Function() remove,
+    required TResult Function() expand,
+    required TResult Function() minimize,
+  }) {
+    return closeAdd();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String videoId, String? title, String? thumbnail, String? url)?
+        playNetworkVideo,
+    TResult? Function()? closeAdd,
+    TResult? Function(Video video)? playCashedVideo,
+    TResult? Function()? remove,
+    TResult? Function()? expand,
+    TResult? Function()? minimize,
+  }) {
+    return closeAdd?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String videoId, String? title, String? thumbnail, String? url)?
+        playNetworkVideo,
+    TResult Function()? closeAdd,
+    TResult Function(Video video)? playCashedVideo,
+    TResult Function()? remove,
+    TResult Function()? expand,
+    TResult Function()? minimize,
+    required TResult orElse(),
+  }) {
+    if (closeAdd != null) {
+      return closeAdd();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PlayNetwork value) playNetworkVideo,
+    required TResult Function(_CloseAdd value) closeAdd,
+    required TResult Function(_PlayCashed value) playCashedVideo,
+    required TResult Function(_Remove value) remove,
+    required TResult Function(_ExpandMiniplayer value) expand,
+    required TResult Function(_MinimizeMiniplayer value) minimize,
+  }) {
+    return closeAdd(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_PlayNetwork value)? playNetworkVideo,
+    TResult? Function(_CloseAdd value)? closeAdd,
+    TResult? Function(_PlayCashed value)? playCashedVideo,
+    TResult? Function(_Remove value)? remove,
+    TResult? Function(_ExpandMiniplayer value)? expand,
+    TResult? Function(_MinimizeMiniplayer value)? minimize,
+  }) {
+    return closeAdd?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PlayNetwork value)? playNetworkVideo,
+    TResult Function(_CloseAdd value)? closeAdd,
+    TResult Function(_PlayCashed value)? playCashedVideo,
+    TResult Function(_Remove value)? remove,
+    TResult Function(_ExpandMiniplayer value)? expand,
+    TResult Function(_MinimizeMiniplayer value)? minimize,
+    required TResult orElse(),
+  }) {
+    if (closeAdd != null) {
+      return closeAdd(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CloseAdd implements VideoEvent {
+  const factory _CloseAdd() = _$_CloseAdd;
 }
 
 /// @nodoc
@@ -355,6 +499,7 @@ class _$_PlayCashed implements _PlayCashed {
     required TResult Function(
             String videoId, String? title, String? thumbnail, String? url)
         playNetworkVideo,
+    required TResult Function() closeAdd,
     required TResult Function(Video video) playCashedVideo,
     required TResult Function() remove,
     required TResult Function() expand,
@@ -369,6 +514,7 @@ class _$_PlayCashed implements _PlayCashed {
     TResult? Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult? Function()? closeAdd,
     TResult? Function(Video video)? playCashedVideo,
     TResult? Function()? remove,
     TResult? Function()? expand,
@@ -383,6 +529,7 @@ class _$_PlayCashed implements _PlayCashed {
     TResult Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult Function()? closeAdd,
     TResult Function(Video video)? playCashedVideo,
     TResult Function()? remove,
     TResult Function()? expand,
@@ -399,6 +546,7 @@ class _$_PlayCashed implements _PlayCashed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PlayNetwork value) playNetworkVideo,
+    required TResult Function(_CloseAdd value) closeAdd,
     required TResult Function(_PlayCashed value) playCashedVideo,
     required TResult Function(_Remove value) remove,
     required TResult Function(_ExpandMiniplayer value) expand,
@@ -411,6 +559,7 @@ class _$_PlayCashed implements _PlayCashed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PlayNetwork value)? playNetworkVideo,
+    TResult? Function(_CloseAdd value)? closeAdd,
     TResult? Function(_PlayCashed value)? playCashedVideo,
     TResult? Function(_Remove value)? remove,
     TResult? Function(_ExpandMiniplayer value)? expand,
@@ -423,6 +572,7 @@ class _$_PlayCashed implements _PlayCashed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PlayNetwork value)? playNetworkVideo,
+    TResult Function(_CloseAdd value)? closeAdd,
     TResult Function(_PlayCashed value)? playCashedVideo,
     TResult Function(_Remove value)? remove,
     TResult Function(_ExpandMiniplayer value)? expand,
@@ -484,6 +634,7 @@ class _$_Remove implements _Remove {
     required TResult Function(
             String videoId, String? title, String? thumbnail, String? url)
         playNetworkVideo,
+    required TResult Function() closeAdd,
     required TResult Function(Video video) playCashedVideo,
     required TResult Function() remove,
     required TResult Function() expand,
@@ -498,6 +649,7 @@ class _$_Remove implements _Remove {
     TResult? Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult? Function()? closeAdd,
     TResult? Function(Video video)? playCashedVideo,
     TResult? Function()? remove,
     TResult? Function()? expand,
@@ -512,6 +664,7 @@ class _$_Remove implements _Remove {
     TResult Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult Function()? closeAdd,
     TResult Function(Video video)? playCashedVideo,
     TResult Function()? remove,
     TResult Function()? expand,
@@ -528,6 +681,7 @@ class _$_Remove implements _Remove {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PlayNetwork value) playNetworkVideo,
+    required TResult Function(_CloseAdd value) closeAdd,
     required TResult Function(_PlayCashed value) playCashedVideo,
     required TResult Function(_Remove value) remove,
     required TResult Function(_ExpandMiniplayer value) expand,
@@ -540,6 +694,7 @@ class _$_Remove implements _Remove {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PlayNetwork value)? playNetworkVideo,
+    TResult? Function(_CloseAdd value)? closeAdd,
     TResult? Function(_PlayCashed value)? playCashedVideo,
     TResult? Function(_Remove value)? remove,
     TResult? Function(_ExpandMiniplayer value)? expand,
@@ -552,6 +707,7 @@ class _$_Remove implements _Remove {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PlayNetwork value)? playNetworkVideo,
+    TResult Function(_CloseAdd value)? closeAdd,
     TResult Function(_PlayCashed value)? playCashedVideo,
     TResult Function(_Remove value)? remove,
     TResult Function(_ExpandMiniplayer value)? expand,
@@ -610,6 +766,7 @@ class _$_ExpandMiniplayer implements _ExpandMiniplayer {
     required TResult Function(
             String videoId, String? title, String? thumbnail, String? url)
         playNetworkVideo,
+    required TResult Function() closeAdd,
     required TResult Function(Video video) playCashedVideo,
     required TResult Function() remove,
     required TResult Function() expand,
@@ -624,6 +781,7 @@ class _$_ExpandMiniplayer implements _ExpandMiniplayer {
     TResult? Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult? Function()? closeAdd,
     TResult? Function(Video video)? playCashedVideo,
     TResult? Function()? remove,
     TResult? Function()? expand,
@@ -638,6 +796,7 @@ class _$_ExpandMiniplayer implements _ExpandMiniplayer {
     TResult Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult Function()? closeAdd,
     TResult Function(Video video)? playCashedVideo,
     TResult Function()? remove,
     TResult Function()? expand,
@@ -654,6 +813,7 @@ class _$_ExpandMiniplayer implements _ExpandMiniplayer {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PlayNetwork value) playNetworkVideo,
+    required TResult Function(_CloseAdd value) closeAdd,
     required TResult Function(_PlayCashed value) playCashedVideo,
     required TResult Function(_Remove value) remove,
     required TResult Function(_ExpandMiniplayer value) expand,
@@ -666,6 +826,7 @@ class _$_ExpandMiniplayer implements _ExpandMiniplayer {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PlayNetwork value)? playNetworkVideo,
+    TResult? Function(_CloseAdd value)? closeAdd,
     TResult? Function(_PlayCashed value)? playCashedVideo,
     TResult? Function(_Remove value)? remove,
     TResult? Function(_ExpandMiniplayer value)? expand,
@@ -678,6 +839,7 @@ class _$_ExpandMiniplayer implements _ExpandMiniplayer {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PlayNetwork value)? playNetworkVideo,
+    TResult Function(_CloseAdd value)? closeAdd,
     TResult Function(_PlayCashed value)? playCashedVideo,
     TResult Function(_Remove value)? remove,
     TResult Function(_ExpandMiniplayer value)? expand,
@@ -736,6 +898,7 @@ class _$_MinimizeMiniplayer implements _MinimizeMiniplayer {
     required TResult Function(
             String videoId, String? title, String? thumbnail, String? url)
         playNetworkVideo,
+    required TResult Function() closeAdd,
     required TResult Function(Video video) playCashedVideo,
     required TResult Function() remove,
     required TResult Function() expand,
@@ -750,6 +913,7 @@ class _$_MinimizeMiniplayer implements _MinimizeMiniplayer {
     TResult? Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult? Function()? closeAdd,
     TResult? Function(Video video)? playCashedVideo,
     TResult? Function()? remove,
     TResult? Function()? expand,
@@ -764,6 +928,7 @@ class _$_MinimizeMiniplayer implements _MinimizeMiniplayer {
     TResult Function(
             String videoId, String? title, String? thumbnail, String? url)?
         playNetworkVideo,
+    TResult Function()? closeAdd,
     TResult Function(Video video)? playCashedVideo,
     TResult Function()? remove,
     TResult Function()? expand,
@@ -780,6 +945,7 @@ class _$_MinimizeMiniplayer implements _MinimizeMiniplayer {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_PlayNetwork value) playNetworkVideo,
+    required TResult Function(_CloseAdd value) closeAdd,
     required TResult Function(_PlayCashed value) playCashedVideo,
     required TResult Function(_Remove value) remove,
     required TResult Function(_ExpandMiniplayer value) expand,
@@ -792,6 +958,7 @@ class _$_MinimizeMiniplayer implements _MinimizeMiniplayer {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_PlayNetwork value)? playNetworkVideo,
+    TResult? Function(_CloseAdd value)? closeAdd,
     TResult? Function(_PlayCashed value)? playCashedVideo,
     TResult? Function(_Remove value)? remove,
     TResult? Function(_ExpandMiniplayer value)? expand,
@@ -804,6 +971,7 @@ class _$_MinimizeMiniplayer implements _MinimizeMiniplayer {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_PlayNetwork value)? playNetworkVideo,
+    TResult Function(_CloseAdd value)? closeAdd,
     TResult Function(_PlayCashed value)? playCashedVideo,
     TResult Function(_Remove value)? remove,
     TResult Function(_ExpandMiniplayer value)? expand,
@@ -829,6 +997,7 @@ mixin _$VideoState {
     required TResult Function(String videoId, String? title) loading,
     required TResult Function(Video video) loaded,
     required TResult Function(Failure failure, String videoId) error,
+    required TResult Function(VideoAdsModel videoAd) advertisementLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -837,6 +1006,7 @@ mixin _$VideoState {
     TResult? Function(String videoId, String? title)? loading,
     TResult? Function(Video video)? loaded,
     TResult? Function(Failure failure, String videoId)? error,
+    TResult? Function(VideoAdsModel videoAd)? advertisementLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -845,6 +1015,7 @@ mixin _$VideoState {
     TResult Function(String videoId, String? title)? loading,
     TResult Function(Video video)? loaded,
     TResult Function(Failure failure, String videoId)? error,
+    TResult Function(VideoAdsModel videoAd)? advertisementLoaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -854,6 +1025,7 @@ mixin _$VideoState {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
+    required TResult Function(_AdvertisementLoaded value) advertisementLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -862,6 +1034,7 @@ mixin _$VideoState {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
+    TResult? Function(_AdvertisementLoaded value)? advertisementLoaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -870,6 +1043,7 @@ mixin _$VideoState {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
+    TResult Function(_AdvertisementLoaded value)? advertisementLoaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -934,6 +1108,7 @@ class _$_Initial implements _Initial {
     required TResult Function(String videoId, String? title) loading,
     required TResult Function(Video video) loaded,
     required TResult Function(Failure failure, String videoId) error,
+    required TResult Function(VideoAdsModel videoAd) advertisementLoaded,
   }) {
     return initial();
   }
@@ -945,6 +1120,7 @@ class _$_Initial implements _Initial {
     TResult? Function(String videoId, String? title)? loading,
     TResult? Function(Video video)? loaded,
     TResult? Function(Failure failure, String videoId)? error,
+    TResult? Function(VideoAdsModel videoAd)? advertisementLoaded,
   }) {
     return initial?.call();
   }
@@ -956,6 +1132,7 @@ class _$_Initial implements _Initial {
     TResult Function(String videoId, String? title)? loading,
     TResult Function(Video video)? loaded,
     TResult Function(Failure failure, String videoId)? error,
+    TResult Function(VideoAdsModel videoAd)? advertisementLoaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -971,6 +1148,7 @@ class _$_Initial implements _Initial {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
+    required TResult Function(_AdvertisementLoaded value) advertisementLoaded,
   }) {
     return initial(this);
   }
@@ -982,6 +1160,7 @@ class _$_Initial implements _Initial {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
+    TResult? Function(_AdvertisementLoaded value)? advertisementLoaded,
   }) {
     return initial?.call(this);
   }
@@ -993,6 +1172,7 @@ class _$_Initial implements _Initial {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
+    TResult Function(_AdvertisementLoaded value)? advertisementLoaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1081,6 +1261,7 @@ class _$_Loading implements _Loading {
     required TResult Function(String videoId, String? title) loading,
     required TResult Function(Video video) loaded,
     required TResult Function(Failure failure, String videoId) error,
+    required TResult Function(VideoAdsModel videoAd) advertisementLoaded,
   }) {
     return loading(videoId, title);
   }
@@ -1092,6 +1273,7 @@ class _$_Loading implements _Loading {
     TResult? Function(String videoId, String? title)? loading,
     TResult? Function(Video video)? loaded,
     TResult? Function(Failure failure, String videoId)? error,
+    TResult? Function(VideoAdsModel videoAd)? advertisementLoaded,
   }) {
     return loading?.call(videoId, title);
   }
@@ -1103,6 +1285,7 @@ class _$_Loading implements _Loading {
     TResult Function(String videoId, String? title)? loading,
     TResult Function(Video video)? loaded,
     TResult Function(Failure failure, String videoId)? error,
+    TResult Function(VideoAdsModel videoAd)? advertisementLoaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1118,6 +1301,7 @@ class _$_Loading implements _Loading {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
+    required TResult Function(_AdvertisementLoaded value) advertisementLoaded,
   }) {
     return loading(this);
   }
@@ -1129,6 +1313,7 @@ class _$_Loading implements _Loading {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
+    TResult? Function(_AdvertisementLoaded value)? advertisementLoaded,
   }) {
     return loading?.call(this);
   }
@@ -1140,6 +1325,7 @@ class _$_Loading implements _Loading {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
+    TResult Function(_AdvertisementLoaded value)? advertisementLoaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1226,6 +1412,7 @@ class _$_Loaded implements _Loaded {
     required TResult Function(String videoId, String? title) loading,
     required TResult Function(Video video) loaded,
     required TResult Function(Failure failure, String videoId) error,
+    required TResult Function(VideoAdsModel videoAd) advertisementLoaded,
   }) {
     return loaded(video);
   }
@@ -1237,6 +1424,7 @@ class _$_Loaded implements _Loaded {
     TResult? Function(String videoId, String? title)? loading,
     TResult? Function(Video video)? loaded,
     TResult? Function(Failure failure, String videoId)? error,
+    TResult? Function(VideoAdsModel videoAd)? advertisementLoaded,
   }) {
     return loaded?.call(video);
   }
@@ -1248,6 +1436,7 @@ class _$_Loaded implements _Loaded {
     TResult Function(String videoId, String? title)? loading,
     TResult Function(Video video)? loaded,
     TResult Function(Failure failure, String videoId)? error,
+    TResult Function(VideoAdsModel videoAd)? advertisementLoaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1263,6 +1452,7 @@ class _$_Loaded implements _Loaded {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
+    required TResult Function(_AdvertisementLoaded value) advertisementLoaded,
   }) {
     return loaded(this);
   }
@@ -1274,6 +1464,7 @@ class _$_Loaded implements _Loaded {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
+    TResult? Function(_AdvertisementLoaded value)? advertisementLoaded,
   }) {
     return loaded?.call(this);
   }
@@ -1285,6 +1476,7 @@ class _$_Loaded implements _Loaded {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
+    TResult Function(_AdvertisementLoaded value)? advertisementLoaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1377,6 +1569,7 @@ class _$_Error implements _Error {
     required TResult Function(String videoId, String? title) loading,
     required TResult Function(Video video) loaded,
     required TResult Function(Failure failure, String videoId) error,
+    required TResult Function(VideoAdsModel videoAd) advertisementLoaded,
   }) {
     return error(failure, videoId);
   }
@@ -1388,6 +1581,7 @@ class _$_Error implements _Error {
     TResult? Function(String videoId, String? title)? loading,
     TResult? Function(Video video)? loaded,
     TResult? Function(Failure failure, String videoId)? error,
+    TResult? Function(VideoAdsModel videoAd)? advertisementLoaded,
   }) {
     return error?.call(failure, videoId);
   }
@@ -1399,6 +1593,7 @@ class _$_Error implements _Error {
     TResult Function(String videoId, String? title)? loading,
     TResult Function(Video video)? loaded,
     TResult Function(Failure failure, String videoId)? error,
+    TResult Function(VideoAdsModel videoAd)? advertisementLoaded,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1414,6 +1609,7 @@ class _$_Error implements _Error {
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
+    required TResult Function(_AdvertisementLoaded value) advertisementLoaded,
   }) {
     return error(this);
   }
@@ -1425,6 +1621,7 @@ class _$_Error implements _Error {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
+    TResult? Function(_AdvertisementLoaded value)? advertisementLoaded,
   }) {
     return error?.call(this);
   }
@@ -1436,6 +1633,7 @@ class _$_Error implements _Error {
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
+    TResult Function(_AdvertisementLoaded value)? advertisementLoaded,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -1454,5 +1652,158 @@ abstract class _Error implements VideoState {
   String get videoId;
   @JsonKey(ignore: true)
   _$$_ErrorCopyWith<_$_Error> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_AdvertisementLoadedCopyWith<$Res> {
+  factory _$$_AdvertisementLoadedCopyWith(_$_AdvertisementLoaded value,
+          $Res Function(_$_AdvertisementLoaded) then) =
+      __$$_AdvertisementLoadedCopyWithImpl<$Res>;
+  @useResult
+  $Res call({VideoAdsModel videoAd});
+}
+
+/// @nodoc
+class __$$_AdvertisementLoadedCopyWithImpl<$Res>
+    extends _$VideoStateCopyWithImpl<$Res, _$_AdvertisementLoaded>
+    implements _$$_AdvertisementLoadedCopyWith<$Res> {
+  __$$_AdvertisementLoadedCopyWithImpl(_$_AdvertisementLoaded _value,
+      $Res Function(_$_AdvertisementLoaded) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? videoAd = null,
+  }) {
+    return _then(_$_AdvertisementLoaded(
+      videoAd: null == videoAd
+          ? _value.videoAd
+          : videoAd // ignore: cast_nullable_to_non_nullable
+              as VideoAdsModel,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_AdvertisementLoaded implements _AdvertisementLoaded {
+  const _$_AdvertisementLoaded({required this.videoAd});
+
+  @override
+  final VideoAdsModel videoAd;
+
+  @override
+  String toString() {
+    return 'VideoState.advertisementLoaded(videoAd: $videoAd)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_AdvertisementLoaded &&
+            (identical(other.videoAd, videoAd) || other.videoAd == videoAd));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, videoAd);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AdvertisementLoadedCopyWith<_$_AdvertisementLoaded> get copyWith =>
+      __$$_AdvertisementLoadedCopyWithImpl<_$_AdvertisementLoaded>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String videoId, String? title) loading,
+    required TResult Function(Video video) loaded,
+    required TResult Function(Failure failure, String videoId) error,
+    required TResult Function(VideoAdsModel videoAd) advertisementLoaded,
+  }) {
+    return advertisementLoaded(videoAd);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String videoId, String? title)? loading,
+    TResult? Function(Video video)? loaded,
+    TResult? Function(Failure failure, String videoId)? error,
+    TResult? Function(VideoAdsModel videoAd)? advertisementLoaded,
+  }) {
+    return advertisementLoaded?.call(videoAd);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String videoId, String? title)? loading,
+    TResult Function(Video video)? loaded,
+    TResult Function(Failure failure, String videoId)? error,
+    TResult Function(VideoAdsModel videoAd)? advertisementLoaded,
+    required TResult orElse(),
+  }) {
+    if (advertisementLoaded != null) {
+      return advertisementLoaded(videoAd);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Error value) error,
+    required TResult Function(_AdvertisementLoaded value) advertisementLoaded,
+  }) {
+    return advertisementLoaded(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loaded value)? loaded,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_AdvertisementLoaded value)? advertisementLoaded,
+  }) {
+    return advertisementLoaded?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Error value)? error,
+    TResult Function(_AdvertisementLoaded value)? advertisementLoaded,
+    required TResult orElse(),
+  }) {
+    if (advertisementLoaded != null) {
+      return advertisementLoaded(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AdvertisementLoaded implements VideoState {
+  const factory _AdvertisementLoaded({required final VideoAdsModel videoAd}) =
+      _$_AdvertisementLoaded;
+
+  VideoAdsModel get videoAd;
+  @JsonKey(ignore: true)
+  _$$_AdvertisementLoadedCopyWith<_$_AdvertisementLoaded> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -6,6 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:video_gozle/core/failure/failure.dart';
 import 'package:video_gozle/features/global/domain/models/video_model.dart';
+import 'package:video_gozle/features/video/domain/model/video_ads_model.dart';
 import 'package:video_gozle/features/video/domain/usecases/video_use_cases.dart';
 import 'package:video_gozle/features/video/presentation/video_player/logic/video_player_provider.dart';
 import 'package:video_gozle/injection.dart';
@@ -20,6 +21,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
 
   VideoBloc(this.videoPlayerProvider) : super(const VideoState.initial()) {
     on<_PlayNetwork>(_onPlayNetwork);
+    on<_CloseAdd>(_closeAddAndStartVideo);
     on<_PlayCashed>(_onPlayCashed);
     on<_Remove>(_onRemove);
     on<_ExpandMiniplayer>(_onExpand);
@@ -30,6 +32,8 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
 
   PanelController? miniplayerController;
 
+  _PlayNetwork? _playNetworkEvent;
+
   void setMiniplayerController({
     required PanelController miniplayerController,
   }) {
@@ -38,13 +42,14 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
 
   FutureOr<void> _onRemove(_Remove event, Emitter<VideoState> emit) {
     videoPlayerProvider.removeVideo();
-
+    videoPlayerProvider.removeAdd();
     emit(const VideoState.initial());
 
     WakelockPlus.disable();
   }
 
-  FutureOr<void> _onExpand(_ExpandMiniplayer event, Emitter<VideoState> emit) async {
+  FutureOr<void> _onExpand(
+      _ExpandMiniplayer event, Emitter<VideoState> emit) async {
     if (miniplayerController?.isAttached == true) {
       miniplayerController!.animatePanelToPosition(
         1,
@@ -64,7 +69,8 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
     }
   }
 
-  FutureOr<void> _onMinimize(_MinimizeMiniplayer event, Emitter<VideoState> emit) {
+  FutureOr<void> _onMinimize(
+      _MinimizeMiniplayer event, Emitter<VideoState> emit) {
     if (miniplayerController?.isAttached == true) {
       miniplayerController!.animatePanelToPosition(
         0,
@@ -74,7 +80,10 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
     }
   }
 
-  FutureOr<void> _onPlayNetwork(_PlayNetwork event, Emitter<VideoState> emit) async {
+  Future<void> _onPlayNetwork(
+      _PlayNetwork event, Emitter<VideoState> emit) async {
+    _playNetworkEvent = event;
+
     WakelockPlus.enable();
 
     Future.delayed(const Duration(milliseconds: 300)).then((value) {
@@ -86,51 +95,86 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
       title: event.title,
     ));
 
-    // если играю видео из списка а не с deep link
-    if (event.url != null) {
-      try {
-        videoPlayerProvider.playVideo(
-          url: event.url!,
-          thumbnail: event.thumbnail,
-          title: event.title,
-        );
-      } catch (e) {
-        emit(VideoState.error(
-          failure: UnexpectedFailure(),
-          videoId: event.videoId,
-        ));
-      }
-    }
+    //fetching advertisement
+    final videoAdResult = await videoUseCases.getVideoAd();
+    // final videoAdResult = await videoUseCases.getTestVideoAd();
 
-    final result = await videoUseCases.getVideoDetails(videoId: event.videoId);
-
-    result.fold(
+    videoAdResult.fold(
       (failure) {
-        if (failure is SocketFailure) {
-          Future.delayed(const Duration(seconds: 5)).then((value) {
-            add(event);
-          });
-        } else {
-          emit(VideoState.error(
-            failure: failure,
-            videoId: event.videoId,
-          ));
-        }
+        add(const _CloseAdd());
       },
-      (videoDetails) {
-        // если играю видео c deep link
-        emit(VideoState.loaded(video: videoDetails));
-
-        if (event.url == null) {
-          videoPlayerProvider.playVideo(
-            url: videoDetails.m3u8!,
-            thumbnail: videoDetails.thumbnailUrl,
-            title: videoDetails.title,
+      (videoAd) async {
+        emit(VideoState.advertisementLoaded(videoAd: videoAd));
+        try {
+          await videoPlayerProvider.startAdvertisement(
+            url: videoAd.video,
+            thumbnail: videoAd.image,
+            skipDuration: videoAd.skip_duration,
           );
+        } catch (e) {
+          await Future.delayed(Duration(seconds: videoAd.skip_duration));
+          add(const _CloseAdd());
         }
-        videoPlayerProvider.setAspectRatio(videoDetails.expansion?.aspectRatio ?? 16 / 9);
       },
     );
+  }
+
+  FutureOr<void> _closeAddAndStartVideo(_, Emitter<VideoState> emit) async {
+    if (_playNetworkEvent != null) {
+      emit(VideoState.loading(
+        videoId: _playNetworkEvent!.videoId,
+        title: _playNetworkEvent!.title,
+      ));
+
+      await videoPlayerProvider.removeAdd();
+
+      // если играю видео из списка а не с deep link
+      if (_playNetworkEvent!.url != null) {
+        try {
+          videoPlayerProvider.playVideo(
+            url: _playNetworkEvent!.url!,
+            thumbnail: _playNetworkEvent!.thumbnail,
+            title: _playNetworkEvent!.title,
+          );
+        } catch (e) {
+          emit(VideoState.error(
+            failure: UnexpectedFailure(),
+            videoId: _playNetworkEvent!.videoId,
+          ));
+        }
+      }
+
+      final result = await videoUseCases.getVideoDetails(
+          videoId: _playNetworkEvent!.videoId);
+
+      result.fold(
+        (failure) {
+          if (failure is SocketFailure) {
+            Future.delayed(const Duration(seconds: 5)).then((value) {
+              add(_playNetworkEvent!);
+            });
+          } else {
+            emit(VideoState.error(
+              failure: failure,
+              videoId: _playNetworkEvent!.videoId,
+            ));
+          }
+        },
+        (videoDetails) {
+          // если играю видео c deep link
+          emit(VideoState.loaded(video: videoDetails));
+          if (_playNetworkEvent!.url == null) {
+            videoPlayerProvider.playVideo(
+              url: videoDetails.m3u8!,
+              thumbnail: videoDetails.thumbnailUrl,
+              title: videoDetails.title,
+            );
+          }
+          videoPlayerProvider
+              .setAspectRatio(videoDetails.expansion?.aspectRatio ?? 16 / 9);
+        },
+      );
+    }
   }
 
   FutureOr<void> _onPlayCashed(_PlayCashed event, Emitter<VideoState> emit) {}

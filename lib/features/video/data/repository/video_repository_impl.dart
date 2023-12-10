@@ -5,6 +5,7 @@ import 'package:video_gozle/features/global/domain/models/video_category_model.d
 import 'package:video_gozle/features/global/domain/models/video_model.dart';
 import 'package:video_gozle/features/video/data/datasource/video_api_client.dart';
 import 'package:video_gozle/features/video/domain/model/comment_model.dart';
+import 'package:video_gozle/features/video/domain/model/video_ads_model.dart';
 import 'package:video_gozle/features/video/domain/repository/video_repository.dart';
 
 class VideoRepositoryImpl implements VideoRepository {
@@ -21,6 +22,24 @@ class VideoRepositoryImpl implements VideoRepository {
         videoId: videoId,
       );
       return right(videoDetails);
+    } on ServerException catch (_) {
+      return left(ServerFailure());
+    } on InternetException catch (_) {
+      return left(SocketFailure());
+    } on NotFoundException catch (_) {
+      return left(NotFoundFailure());
+    } on AuthenticationException catch (_) {
+      return left(AuthenticationFailure());
+    } catch (e) {
+      return left(UnexpectedFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, VideoAdsModel>> getVideoAd() async {
+    try {
+      final videoAd = await videoApiClient.getVideoAd();
+      return right(videoAd);
     } on ServerException catch (_) {
       return left(ServerFailure());
     } on InternetException catch (_) {
@@ -129,7 +148,8 @@ class VideoRepositoryImpl implements VideoRepository {
     required int page,
   }) async {
     try {
-      final commentList = await videoApiClient.getVideoComments(videoId: videoId);
+      final commentList =
+          await videoApiClient.getVideoComments(videoId: videoId);
       return right(commentList);
     } on ServerException catch (_) {
       return left(ServerFailure());

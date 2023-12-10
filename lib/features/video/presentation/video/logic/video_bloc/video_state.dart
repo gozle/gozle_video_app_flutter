@@ -12,4 +12,7 @@ class VideoState with _$VideoState {
     required Failure failure,
     required String videoId,
   }) = _Error;
+  const factory VideoState.advertisementLoaded({
+    required VideoAdsModel videoAd,
+  }) = _AdvertisementLoaded;
 }
