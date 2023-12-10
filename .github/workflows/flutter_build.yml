@@ -15,8 +15,8 @@ jobs:
 
     - name: Update Flutter and Dart
       run: |
-        cd $GITHUB_WORKSPACE/flutter
-        git pull
+        flutter_dir="$GITHUB_WORKSPACE/flutter"
+        git -C $flutter_dir pull
         flutter_upgrade_result=$(flutter upgrade 2>&1) || echo $flutter_upgrade_result
 
     - name: Update Dart SDK
@@ -27,12 +27,12 @@ jobs:
 
     - name: Clean Flutter Cache and Get Dependencies
       run: |
-        cd $GITHUB_WORKSPACE/gozle_video_app_flutter
-        flutter clean
-        flutter pub get
+        flutter_dir="$GITHUB_WORKSPACE/gozle_video_app_flutter"
+        flutter clean -- $flutter_dir
+        flutter pub get -- $flutter_dir
 
     - name: Build APK
-      run: flutter build apk
+      run: flutter build apk -- $GITHUB_WORKSPACE/gozle_video_app_flutter
 
     - name: Archive APK
       uses: actions/upload-artifact@v2
