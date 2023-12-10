@@ -10,24 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout репозитория
+    - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Кэширование зависимостей Flutter
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.pub-cache
-          ~/flutter_sdk/.pub-cache
-        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-flutter-
-
-    - name: Установка Flutter
+    - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        channel: stable
-        version: '2.18.0'
+        flutter-version: 2.18.0
 
-    - name: Сборка APK
+    - name: Install Dependencies
+      run: flutter pub get
+
+    - name: Build APK
       run: flutter build apk
+
+    - name: Archive Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: app-release
+        path: build/app/outputs/flutter-apk/app-release.apk
