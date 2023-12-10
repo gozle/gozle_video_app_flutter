@@ -19,6 +19,9 @@ jobs:
         git pull
         flutter upgrade
 
+    - name: Update Dart SDK
+      run: flutter pub global activate dart
+
     - name: Clean Flutter Cache and Get Dependencies
       run: |
         flutter clean
