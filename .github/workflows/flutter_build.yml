@@ -1,8 +1,32 @@
-- name: Установка Flutter
-  uses: subosito/flutter-action@v2
-  with:
-    flutter-version: '2.18.0'
+name: CI/CD Flutter Build
 
-- name: Сборка APK
-  run: flutter build apk
+on:
+  push:
+    branches:
+      - main
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout репозитория
+      uses: actions/checkout@v2
+
+    - name: Кэширование зависимостей Flutter
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.pub-cache
+          ~/flutter_sdk/.pub-cache
+        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+      restore-keys: |
+        ${{ runner.os }}-flutter-
+
+    - name: Установка Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '2.18.0'
+
+    - name: Сборка APK
+      run: flutter build apk
