@@ -18,9 +18,6 @@ jobs:
       with:
         flutter-version: '2.5.0'
 
-    - name: Install Dependencies
-      run: flutter pub get
-
     - name: Navigate to the App Directory
       run: cd gozle_video_app_flutter
 
@@ -32,3 +29,4 @@ jobs:
       with:
         name: app-release
         path: build/app/outputs/flutter-apk/app-release.apk
+
