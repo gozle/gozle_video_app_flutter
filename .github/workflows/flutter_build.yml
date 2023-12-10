@@ -1,3 +1,10 @@
+name: Flutter Build
+
+on:
+  push:
+    branches:
+      - main # Или другая ваша основная ветка
+
 jobs:
   build:
     runs-on: ubuntu-latest
