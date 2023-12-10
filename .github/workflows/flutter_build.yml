@@ -13,6 +13,11 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable' # или 'dev', в зависимости от вашего выбора
+
     - name: Build APK
       run: flutter build apk
 
