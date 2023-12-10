@@ -15,9 +15,9 @@ jobs:
 
     - name: Update Flutter and Dart
       run: |
-        cd $RUNNER_WORKSPACE/flutter
-        git pull
-        flutter upgrade
+        cd $GITHUB_WORKSPACE
+        git -C flutter pull
+        flutter_upgrade_result=$(flutter upgrade 2>&1) || echo $flutter_upgrade_result
 
     - name: Update Dart SDK
       run: flutter pub global activate dart
@@ -27,6 +27,7 @@ jobs:
 
     - name: Clean Flutter Cache and Get Dependencies
       run: |
+        cd $GITHUB_WORKSPACE/gozle_video_app_flutter
         flutter clean
         flutter pub get
 
@@ -37,4 +38,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: app-release
-        path: build/app/outputs/flutter-apk/app-release.apk
+        path: gozle_video_app_flutter/build/app/outputs/flutter-apk/app-release.apk
