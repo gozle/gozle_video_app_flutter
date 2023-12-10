@@ -25,17 +25,17 @@ jobs:
     - name: Install Dart SDK 3.0.0
       run: flutter pub global activate dart --channel=dev
 
+    - name: Navigate to the App Directory
+      run: cd gozle_video_app_flutter
+
     - name: Clean Flutter Cache and Get Dependencies
       run: |
-        flutter_dir="$GITHUB_WORKSPACE/gozle_video_app_flutter"
-        flutter clean -- $flutter_dir
-        flutter pub get -- $flutter_dir
+        flutter clean
+        flutter pub get
 
     - name: Build APK
-      run: flutter build apk -- $GITHUB_WORKSPACE/gozle_video_app_flutter
+      run: flutter build apk
 
     - name: Archive APK
-      uses: actions/upload-artifact@v2
-      with:
-        name: app-release
-        path: gozle_video_app_flutter/build/app/outputs/flutter-apk/app-release.apk
+   
+
