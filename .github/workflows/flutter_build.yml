@@ -13,6 +13,16 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
+    - name: Cache Flutter Dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.pub-cache
+          ~/path/to/your/project
+        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-flutter-
+
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
@@ -21,11 +31,14 @@ jobs:
     - name: Install Dependencies
       run: flutter pub get
 
-    - name: Build APK
-      run: flutter build apk
+    - name: Set Kotlin Version to 1.6.0
+      run: sed -i 's/ext.kotlin_version = .*/ext.kotlin_version = "1.6.0"/' android/build.gradle
+
+    - name: Build Debug APK
+      run: flutter build apk --debug
 
     - name: Archive Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: app-release
-        path: build/app/outputs/flutter-apk/app-release.apk
+        name: app-debug
+        path: build/app/outputs/flutter-apk/app-debug.apk
