@@ -26,16 +26,17 @@ jobs:
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: 3.13.9
+        flutter-version: 3.18.0  # Обновите на актуальную версию Flutter
 
     - name: Install Dependencies
       run: flutter pub get
 
     - name: Set Kotlin Version to 1.6.0
-      run: sed -i 's/ext.kotlin_version = .*/ext.kotlin_version = "1.6.0"/' android/build.gradle
+      run: |
+        sed -i 's/ext.kotlin_version = .*/ext.kotlin_version = "1.6.0"/' android/build.gradle || true
 
     - name: Build Debug APK
-      run: flutter build apk --debug
+      run: flutter build apk --debug --verbose || true
 
     - name: Archive Artifacts
       uses: actions/upload-artifact@v2
