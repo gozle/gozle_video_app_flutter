@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:turkmen_localization_support/turkmen_localization_support.dart';
+// import 'package:turkmen_localization_support/turkmen_localization_support.dart';
 import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/auth/presentation/logic/user_bloc/user_bloc.dart';
 import 'package:video_gozle/features/auth/presentation/screen/login_screen.dart';
@@ -76,7 +76,7 @@ class VideoGozle extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
-            ...TkDelegates.delegates
+            // ...TkDelegates.delegates
           ],
           locale: settings.locale,
           supportedLocales: S.delegate.supportedLocales,

@@ -20,10 +20,10 @@ dependencies:
 
   # localization
   intl: ^0.18.1
-  turkmen_localization_support:
-    git:
-          url: https://github.com/FreeManProg/turkmen_localization_support.git
-          ref: master
+  # turkmen_localization_support:
+  #   git:
+  #         url: https://github.com/FreeManProg/turkmen_localization_support.git
+  #         ref: master
 
   flutter_localization: ^0.1.10
   # di
@@ -45,11 +45,11 @@ dependencies:
   collection: ^1.17.2
   syncfusion_flutter_pdfviewer: ^22.2.12
   pull_to_refresh: ^2.0.0
-  # sliding_up_panel:
   sliding_up_panel:
-      git:
-        url: https://github.com/akshathjain/sliding_up_panel.git
-        ref: master
+  # sliding_up_panel:
+  #     git:
+  #       url: https://github.com/akshathjain/sliding_up_panel.git
+  #       ref: master
   
   # for cookie pars
   sweet_cookie_jar:
