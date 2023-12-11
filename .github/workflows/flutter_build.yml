@@ -10,38 +10,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Cache Flutter Dependencies
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.pub-cache
-          ~/path/to/your/project
-        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-flutter-
+      - name: Cache Flutter Dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.pub-cache
+            ~/path/to/your/project
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-
 
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '2.8.0'  # Обновите на актуальную версию Flutter поддерживаемую действием
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.16.3" # Обновите на актуальную версию Flutter поддерживаемую действием
 
-    - name: Upgrade Flutter and Dart SDK
-      run: |
-        flutter upgrade --force
-        flutter pub get
+      - name: Upgrade Flutter and Dart SDK
+        run: |
+          flutter upgrade --force
+          flutter pub get
 
-    - name: Set Kotlin Version to 1.6.0
-      run: |
-        sed -i 's/ext.kotlin_version = .*/ext.kotlin_version = "1.6.0"/' android/build.gradle || true
+      - name: Set Kotlin Version to 1.6.0
+        run: |
+          sed -i 's/ext.kotlin_version = .*/ext.kotlin_version = "1.6.0"/' android/build.gradle || true
 
-    - name: Build Debug APK
-      run: flutter build apk --debug --verbose || true
+      - name: Build Debug APK
+        run: flutter build apk --debug --verbose || true
 
-    - name: Archive Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: app-debug
-        path: app-debug.apk
+      - name: Archive Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-debug
+          path: app-debug.apk
