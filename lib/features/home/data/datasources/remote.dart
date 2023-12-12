@@ -126,7 +126,7 @@ class HomeApiClient {
       });
 
       if (response.statusCode == 200) {
-        final videoJsonList = response.data.results as List<dynamic>;
+        final videoJsonList = response.data["results"] as List<dynamic>;
         return videoJsonList
             .map((videoJson) => Banner.fromJson(videoJson))
             .toList();
