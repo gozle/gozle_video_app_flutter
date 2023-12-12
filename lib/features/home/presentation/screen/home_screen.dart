@@ -1,15 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:video_gozle/core/app_assets.dart';
+import 'package:video_gozle/core/app_utils.dart';
 import 'package:video_gozle/features/global/domain/models/video_category_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_list_item_type.dart';
 import 'package:video_gozle/features/global/presentation/widget/error_widget/sliver_error_widget.dart';
+import 'package:video_gozle/features/global/presentation/widget/place_holder.dart';
 
 import 'package:video_gozle/features/global/presentation/widget/smart_refresher_footer.dart';
 import 'package:video_gozle/features/global/presentation/widget/smart_refresher_header.dart';
+import 'package:video_gozle/features/home/presentation/logic/banner_cubit/banner_cubit.dart';
 import 'package:video_gozle/features/home/presentation/logic/video_category_cubit/video_category_cubit.dart';
 import 'package:video_gozle/features/home/presentation/logic/video_list_bloc/video_list_bloc.dart';
+import 'package:video_gozle/features/home/presentation/widget/banner_widget.dart';
 import 'package:video_gozle/features/home/presentation/widget/video_list_widget.dart';
 import 'package:video_gozle/features/nav/presentation/widget/main_app_bar.dart';
 import 'package:video_gozle/features/settings/presentation/logic/settings/settings_provider.dart';
@@ -193,6 +198,18 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CustomScrollView(
               controller: scrollController,
               slivers: [
+                BlocBuilder<BannerCubit, BannerState>(
+                    builder: (_, banner_state) {
+                  return SliverToBoxAdapter(child: banner_state.whenOrNull(
+                    loaded: (banners) {
+                      if (banners.isNotEmpty) {
+                        var banner = banners.first;
+                        return BannerWidget(banner: banner);
+                      }
+                      return null;
+                    },
+                  ));
+                }),
                 state.when(
                   popularLoaded: (videos, hasReachedMax) {
                     return VideoListWidget(

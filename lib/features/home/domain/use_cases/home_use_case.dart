@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:video_gozle/core/failure/failure.dart';
 import 'package:video_gozle/features/global/domain/models/video_category_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_model.dart';
+import 'package:video_gozle/features/home/domain/models/banner.dart';
 import 'package:video_gozle/features/home/domain/repository/home_repository_interface.dart';
 
 class HomeUseCases {
@@ -45,5 +46,17 @@ class HomeUseCases {
 
   Future<Either<Failure, List<VideoCategory>>> getVideoCategories() {
     return homeRepository.getVideoCategories();
+  }
+
+  Future<Either<Failure, List<Banner>>> getBanners({
+    required int page,
+    required int amount,
+    required String language,
+  }) {
+    return homeRepository.getBanners(
+      amount: amount,
+      language: language,
+      page: page,
+    );
   }
 }

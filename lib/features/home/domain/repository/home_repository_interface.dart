@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:video_gozle/core/failure/failure.dart';
 import 'package:video_gozle/features/global/domain/models/video_category_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_model.dart';
+import 'package:video_gozle/features/home/domain/models/banner.dart';
 
 abstract class HomeRepository {
   Future<Either<Failure, List<Video>>> getPopular({
@@ -22,4 +23,9 @@ abstract class HomeRepository {
   });
 
   Future<Either<Failure, List<VideoCategory>>> getVideoCategories();
+  Future<Either<Failure, List<Banner>>> getBanners({
+    required String language,
+    required int amount,
+    required int page,
+  });
 }

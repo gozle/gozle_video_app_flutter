@@ -78,7 +78,11 @@ Future<void> setupLocator() async {
       () => HomeRepositoryImpl(homeApiClient: locator()));
   locator.registerFactory<HomeApiClient>(() {
     final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
-    return HomeApiClient(dio: dio);
+    final Dio dioV1 = prepareApiClient(RestApiUrls.baseUrlV1);
+    return HomeApiClient(
+      dio: dio,
+      dioV1: dioV1,
+    );
   });
 
   // Video

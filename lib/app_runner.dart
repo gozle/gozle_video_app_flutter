@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/auth/presentation/logic/user_bloc/user_bloc.dart';
 import 'package:video_gozle/features/auth/presentation/screen/login_screen.dart';
+import 'package:video_gozle/features/home/presentation/logic/banner_cubit/banner_cubit.dart';
 import 'package:video_gozle/features/home/presentation/logic/video_category_cubit/video_category_cubit.dart';
 import 'package:video_gozle/features/home/presentation/logic/video_list_bloc/video_list_bloc.dart';
 import 'package:video_gozle/features/library/presentation/logic/history_list_bloc/history_list_bloc.dart';
@@ -40,6 +41,7 @@ void appRunner() {
           BlocProvider(create: (context) => VideoListBloc(userBloc: userBloc)),
           BlocProvider(create: (context) => VideoBloc(videoPlayerProvider)),
           BlocProvider(create: (context) => VideoCategoryCubit()),
+          BlocProvider(create: (context) => BannerCubit()),
           // SubscribedChannels
           BlocProvider(create: (context) => SubscribedChannelListBloc()),
           BlocProvider(create: (context) => SubscribedChannelVideoListBloc()),

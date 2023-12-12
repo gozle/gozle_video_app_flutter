@@ -4,6 +4,7 @@ import 'package:video_gozle/core/failure/failure.dart';
 import 'package:video_gozle/features/global/domain/models/video_category_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_model.dart';
 import 'package:video_gozle/features/home/data/datasources/remote.dart';
+import 'package:video_gozle/features/home/domain/models/banner.dart';
 
 import '../../domain/repository/home_repository_interface.dart';
 
@@ -93,6 +94,31 @@ class HomeRepositoryImpl extends HomeRepository {
         page: page,
       );
       return right(videoList);
+    } on ServerException catch (_) {
+      return left(ServerFailure());
+    } on InternetException catch (_) {
+      return left(SocketFailure());
+    } on NotFoundException catch (_) {
+      return left(NotFoundFailure());
+    } on AuthenticationException catch (_) {
+      return left(AuthenticationFailure());
+    } catch (e) {
+      return left(UnexpectedFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Banner>>> getBanners(
+      {required String language,
+      required int amount,
+      required int page}) async {
+    try {
+      final bannerList = await homeApiClient.getBanners(
+        amount: amount,
+        page: page,
+        language: language,
+      );
+      return right(bannerList);
     } on ServerException catch (_) {
       return left(ServerFailure());
     } on InternetException catch (_) {
