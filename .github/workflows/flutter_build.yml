@@ -33,9 +33,9 @@ jobs:
           flutter upgrade --force
           flutter pub get
 
-      - name: Set Kotlin Version to 1.6.0
-        run: |
-          sed -i 's/ext.kotlin_version = .*/ext.kotlin_version = "1.6.0"/' android/build.gradle || true
+      # - name: Set Kotlin Version to 1.6.0
+      #   run: |
+      #     sed -i 's/ext.kotlin_version = .*/ext.kotlin_version = "1.6.0"/' android/build.gradle || true
 
       - name: Build Debug APK
         run: flutter build apk --debug
