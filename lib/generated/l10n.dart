@@ -1139,6 +1139,16 @@ class S {
       args: [],
     );
   }
+
+  /// `install`
+  String get install {
+    return Intl.message(
+      'install',
+      name: 'install',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

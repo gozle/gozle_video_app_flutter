@@ -129,6 +129,7 @@
     "internet_connection_issues": "We are experiencing some issues with your internet connection",
     "authentication_failure": "Authentication Failure",
     "not_found_error": "404 NOT FOUND",
-    "undefined_issue": "An unexpected issue occurred. Please try again"
+    "undefined_issue": "An unexpected issue occurred. Please try again",
+    "install": "install"
 
 }

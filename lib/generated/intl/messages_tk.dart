@@ -74,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Has köp ýüklemek üçin çekiň"),
         "idle_refresh_text":
             MessageLookupByLibrary.simpleMessage("Täzelemek üçin aşak çekiň"),
+        "install": MessageLookupByLibrary.simpleMessage("ýüklemek"),
         "internet_connection_issues": MessageLookupByLibrary.simpleMessage(
             "Связь с сервером устанавливалась слишком долго, время ожидания истекло.м"),
         "lang": MessageLookupByLibrary.simpleMessage("tk"),

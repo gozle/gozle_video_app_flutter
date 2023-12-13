@@ -75,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pull up Load more"),
         "idle_refresh_text":
             MessageLookupByLibrary.simpleMessage("Pull down Refresh"),
+        "install": MessageLookupByLibrary.simpleMessage("install"),
         "internet_connection_issues": MessageLookupByLibrary.simpleMessage(
             "We are experiencing some issues with your internet connection"),
         "lang": MessageLookupByLibrary.simpleMessage("en"),

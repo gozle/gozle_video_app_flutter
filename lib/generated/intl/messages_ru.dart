@@ -74,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Потяните вверх, чтобы загрузить больше"),
         "idle_refresh_text": MessageLookupByLibrary.simpleMessage(
             "Потяните вниз, чтобы обновить"),
+        "install": MessageLookupByLibrary.simpleMessage("установить"),
         "internet_connection_issues": MessageLookupByLibrary.simpleMessage(
             "Связь с сервером устанавливалась слишком долго, время ожидания истекло.м"),
         "lang": MessageLookupByLibrary.simpleMessage("ru"),
