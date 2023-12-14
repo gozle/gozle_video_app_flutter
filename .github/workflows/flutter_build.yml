@@ -13,24 +13,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
       with:
-        node-version: 16
+        channel: 'stable'  # or specify your desired Flutter channel
 
-    - name: Install dependencies and build
-      run: |
-        npm install  # или ваш способ установки зависимостей
-        npm run build  # или ваш способ сборки проекта
-
-    - name: Generate app-debug.apk
-      run: |
-        # Здесь вставьте команды для генерации вашего файла APK
-        # Например, если вы используете Gradle:
-        ./gradlew assembleDebug
+    - name: Build APK
+      run: flutter build apk
 
     - name: Upload APK as artifact
       uses: actions/upload-artifact@v2
       with:
         name: app-debug
-        path: path/to/app/build/outputs/apk/debug/app-debug.apk  # Укажите правильный путь к вашему файлу APK
+        path: build/app/outputs/flutter-apk/app-release.apk  # Update the path if needed
+
