@@ -910,14 +910,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
-  restart_app:
-    dependency: "direct main"
-    description:
-      name: restart_app
-      sha256: b37daeb1c02fcab30e19d9e30b6fdd215bd53577efd927042eb77cf6f09daadb
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.1"
   riverpod:
     dependency: transitive
     description:
@@ -1220,6 +1212,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  turkmen_localization_support:
+    dependency: "direct main"
+    description:
+      name: turkmen_localization_support
+      sha256: "1dd3af5e07df9f3f0bea630ae802676adaf8ec66657d4c640b6fb81d6be0ce6e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   typed_data:
     dependency: transitive
     description:

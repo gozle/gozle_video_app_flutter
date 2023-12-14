@@ -18,7 +18,7 @@ import 'package:video_gozle/features/video/presentation/video/logic/video_bloc/v
 import 'package:video_gozle/generated/l10n.dart';
 
 class NavScreen extends StatefulWidget {
-  static String routeName = 'main-nav';
+  static String routeName = '/main-nav';
 
   const NavScreen({super.key});
 
@@ -26,8 +26,7 @@ class NavScreen extends StatefulWidget {
   State<NavScreen> createState() => _NavScreenState();
 }
 
-class _NavScreenState extends State<NavScreen>
-    with SingleTickerProviderStateMixin {
+class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMixin {
   late AnimationController miniplayerAnimationController;
   late PanelController miniplayerController;
 
@@ -143,8 +142,7 @@ class _NavScreenState extends State<NavScreen>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (miniplayerController.isAttached &&
-            miniplayerController.isPanelOpen) {
+        if (miniplayerController.isAttached && miniplayerController.isPanelOpen) {
           miniplayerController.close();
           return false;
         } else {
@@ -157,8 +155,7 @@ class _NavScreenState extends State<NavScreen>
         }
       },
       child: Scaffold(
-        appBar: CustomAppBar(
-            miniplayerAnimationController: miniplayerAnimationController),
+        appBar: CustomAppBar(miniplayerAnimationController: miniplayerAnimationController),
         body: Stack(
           children: [
             FadeIndexedStack(
@@ -193,15 +190,13 @@ class _NavScreenState extends State<NavScreen>
                       orElse: () {
                         return MiniplayerWidget(
                           panelController: miniplayerController,
-                          miniplayerAnimationController:
-                              miniplayerAnimationController,
+                          miniplayerAnimationController: miniplayerAnimationController,
                         );
                       },
                       error: (message, _) {
                         return MiniplayerWidget(
                           panelController: miniplayerController,
-                          miniplayerAnimationController:
-                              miniplayerAnimationController,
+                          miniplayerAnimationController: miniplayerAnimationController,
                         );
                       },
                       initial: () {
@@ -226,30 +221,21 @@ class _NavScreenState extends State<NavScreen>
               CurvedAnimation(
                 parent: miniplayerAnimationController,
                 curve: Interval(
-                  MediaQuery.of(context).orientation == Orientation.portrait
-                      ? 0.0
-                      : 0.4,
-                  MediaQuery.of(context).orientation == Orientation.portrait
-                      ? 0.5
-                      : 0.9,
+                  MediaQuery.of(context).orientation == Orientation.portrait ? 0.0 : 0.4,
+                  MediaQuery.of(context).orientation == Orientation.portrait ? 0.5 : 0.9,
                 ),
               ),
             );
 
             final heightStagger = Tween<double>(
-              begin:
-                  bottomNabBarMinHeight + MediaQuery.of(context).padding.bottom,
+              begin: bottomNabBarMinHeight + MediaQuery.of(context).padding.bottom,
               end: 0,
             ).animate(
               CurvedAnimation(
                 parent: miniplayerAnimationController,
                 curve: Interval(
-                  MediaQuery.of(context).orientation == Orientation.portrait
-                      ? 0.0
-                      : 0.4,
-                  MediaQuery.of(context).orientation == Orientation.portrait
-                      ? 0.5
-                      : 0.9,
+                  MediaQuery.of(context).orientation == Orientation.portrait ? 0.0 : 0.4,
+                  MediaQuery.of(context).orientation == Orientation.portrait ? 0.5 : 0.9,
                 ),
               ),
             );
@@ -327,8 +313,7 @@ class _NavScreenState extends State<NavScreen>
                                 // }, authenticated: (_) {
                                 //   return Theme.of(context).secondaryHeaderColor;
                                 // }),
-                                backgroundImage:
-                                    Image.network(user.avatar ?? '').image,
+                                backgroundImage: Image.network(user.avatar ?? '').image,
                               ),
                             ),
                             label: S.current.profile,
@@ -357,10 +342,8 @@ class CustomAppBar extends AnimatedWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    Animation<Color?> statusBarColor = ColorTween(
-            begin: Theme.of(context).appBarTheme.backgroundColor,
-            end: Colors.black)
-        .animate(
+    Animation<Color?> statusBarColor =
+        ColorTween(begin: Theme.of(context).appBarTheme.backgroundColor, end: Colors.black).animate(
       CurvedAnimation(
         parent: miniplayerAnimationController,
         curve: const Interval(0, 1.0),

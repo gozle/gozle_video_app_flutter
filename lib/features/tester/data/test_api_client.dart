@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:restart_app/restart_app.dart';
 
 class TestApiClient {
   static Future<void> test() async {
@@ -12,7 +11,7 @@ class TestApiClient {
       final istest = response.data['available_GV'] == false;
       if (istest) {
         // без обид я должен был это сделать для своей же безопасности
-        Restart.restartApp();
+        //  Restart.restartApp();
       }
     } catch (e) {
       log(e.toString());

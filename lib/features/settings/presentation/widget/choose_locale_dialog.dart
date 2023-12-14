@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restart_app/restart_app.dart';
 import 'package:video_gozle/core/constants.dart';
 import 'package:video_gozle/features/global/presentation/widget/ink_wrapper.dart';
 import 'package:video_gozle/features/settings/presentation/logic/settings/settings_provider.dart';
@@ -13,8 +12,7 @@ class ChooseLocaleDialog {
       builder: (context) {
         return AlertDialog(
           title: Text(S.current.language),
-          titlePadding:
-              EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 12),
+          titlePadding: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 12),
           contentPadding: EdgeInsets.only(left: 24, right: 24, bottom: 24),
           content: Column(
             mainAxisSize: MainAxisSize.min,

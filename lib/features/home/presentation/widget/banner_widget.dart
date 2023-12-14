@@ -69,7 +69,7 @@ class BannerWidget extends StatelessWidget {
             onPressed: () {
               launchUrlString(banner?.link ?? '');
             },
-            child: Text(S.current.install),
+            child: Text(S.current.go),
           )
         ],
       ),
