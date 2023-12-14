@@ -19,7 +19,7 @@ jobs:
         channel: 'stable'  # or specify your desired Flutter channel
 
     - name: Build APK
-      run: flutter build apk
+      run: flutter build apk --release
 
     - name: Upload APK as artifact
       uses: actions/upload-artifact@v2
