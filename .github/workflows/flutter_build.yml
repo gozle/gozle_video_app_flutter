@@ -1,29 +1,26 @@
-name: Build and Deploy
+name: Flutter CI
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        channel: 'stable'  # or specify your desired Flutter channel
-
-    - name: Build APK
-      run: flutter build apk --release
-
-    - name: Upload APK as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: app-debug
-        path: build/app/outputs/flutter-apk/app-release.apk  # Update the path if needed
-
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'beta'
+      - run: flutter pub get
+      - run: flutter format --set-exit-if-changed .
+      - run: flutter analyze .
+      - run: flutter build apk
+      - uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
