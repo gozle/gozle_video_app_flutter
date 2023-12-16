@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:video_gozle/app_runner.dart';
 import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/channel/presentation/logic/channel_subscription_cubit/channel_subscription_cubit.dart';
 import 'package:video_gozle/features/library/presentation/screen/library_screen.dart';
+import 'package:video_gozle/features/nav/presentation/screen/nav_screen.dart';
+import 'package:video_gozle/features/nav/presentation/widget/nav_key_provider.dart';
 import 'package:video_gozle/features/subscriptions/presentation/logic/subscribed_channel_list_bloc/subscribed_channel_list_bloc.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
@@ -13,20 +16,29 @@ class SubscribeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChannelSubscriptionCubit, ChannelSubscriptionState>(
+    return BlocConsumer<ChannelSubscriptionCubit, ChannelSubscriptionState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          unauthenticated: () {
+            final navigator = NavKeyProvider.maybeOf(context)?.navKey.currentState ?? Navigator.of(context);
+            navigator.pushNamed(LibraryScreen.routeName);
+          },
+        );
+      },
       builder: (context, state) {
-        final isSubscribed = state.when(
+        var isSubscribed = state.when(
           subscribed: () => true,
           unsubscribed: () => false,
-          unauthenticated: () => null,
+          unauthenticated: () => false,
         );
-        if (isSubscribed == null) {
-          // nav.pop();
-          // nav.push(MaterialPageRoute(
-          //     builder: (c) => NavScreen(),
-          //     settings: RouteSettings(name: LibraryScreen.routeName)));
-          return Container();
-        }
+        // if (isSubscribed == null) {
+        //   // navigatorKeys.currentState?.pushNamed(LibraryScreen.routeName);
+        //   // Navigator.of(context).push(MaterialPageRoute(builder: () {
+
+        //   // }));
+        //   // Get.toNamed(LibraryScreen.routeName);
+        //   isSubscribed = false;
+        // }
         return ElevatedButton(
           style: ButtonStyle(
             padding: const MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 20)),
@@ -45,7 +57,7 @@ class SubscribeButton extends StatelessWidget {
             ),
           ),
           onPressed: () async {
-            if (isSubscribed) {
+            if (isSubscribed == true) {
               await context.read<ChannelSubscriptionCubit>().unsubscribe();
             } else {
               await context.read<ChannelSubscriptionCubit>().subscribe();

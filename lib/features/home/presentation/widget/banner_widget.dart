@@ -22,7 +22,7 @@ class BannerWidget extends StatelessWidget {
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(18),
             child: AspectRatio(
               aspectRatio: 16 / 9,
               child: CachedNetworkImage(

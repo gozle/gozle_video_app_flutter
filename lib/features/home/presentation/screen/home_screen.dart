@@ -71,8 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onLoadMore() {
-    context.read<VideoListBloc>().state.whenOrNull(
-        byCategoryLoaded: (videos, category, hasReachedMax) {
+    context.read<VideoListBloc>().state.whenOrNull(byCategoryLoaded: (videos, category, hasReachedMax) {
       if (!hasReachedMax) {
         context.read<VideoListBloc>().add(
               VideoListEvent.byCategoryloadMore(
@@ -91,17 +90,14 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }, latestLoaded: (videos, hasReachedMax) {
       if (!hasReachedMax) {
-        context
-            .read<VideoListBloc>()
-            .add(VideoListEvent.latestLoadMore(latestVideos: videos));
+        context.read<VideoListBloc>().add(VideoListEvent.latestLoadMore(latestVideos: videos));
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<VideoListBloc, VideoListState>(
-        listener: (context, state) {
+    return BlocConsumer<VideoListBloc, VideoListState>(listener: (context, state) {
       state.whenOrNull(
         byCategoryLoaded: (videos, category, hasReachedMax) {
           refreshController.refreshCompleted();
@@ -128,10 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: BlocBuilder<VideoCategoryCubit, VideoCategoryState>(
                 builder: (context, videoCategoryState) {
                   final popularVideoCategory = VideoCategory(
-                      pk: 0,
-                      name: 'popular',
-                      verbose: S.current.popular,
-                      iconAsset: AppAssets.rocketIcon);
+                      pk: 0, name: 'popular', verbose: S.current.popular, iconAsset: AppAssets.rocketIcon);
                   final latestVideoCategory = VideoCategory(
                       pk: -1,
                       name: 'latest',
@@ -150,8 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       categories: videoCategoryState.maybeWhen(
                         loaded: (categories) {
-                          final List<VideoCategory> categotyList =
-                              List.from(categories);
+                          final List<VideoCategory> categotyList = List.from(categories);
 
                           categotyList.insert(0, latestVideoCategory);
                           categotyList.insert(0, popularVideoCategory);
@@ -162,21 +154,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       onCategorySelected: (category) {
                         if (category == popularVideoCategory) {
-                          context
-                              .read<VideoListBloc>()
-                              .add(const VideoListEvent.popularLoad());
+                          context.read<VideoListBloc>().add(const VideoListEvent.popularLoad());
                         } else if (category == latestVideoCategory) {
-                          context
-                              .read<VideoListBloc>()
-                              .add(const VideoListEvent.latestLoad());
+                          context.read<VideoListBloc>().add(const VideoListEvent.latestLoad());
                         } else {
                           context.read<VideoListBloc>().add(
-                                VideoListEvent.byCategoryload(
-                                    category: category),
+                                VideoListEvent.byCategoryload(category: category),
                               );
                           scrollController.animateTo(1,
-                              duration: const Duration(milliseconds: 100),
-                              curve: Curves.linear);
+                              duration: const Duration(milliseconds: 100), curve: Curves.linear);
                         }
                       },
                     ),
@@ -198,8 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CustomScrollView(
               controller: scrollController,
               slivers: [
-                BlocBuilder<BannerCubit, BannerState>(
-                    builder: (_, banner_state) {
+                BlocBuilder<BannerCubit, BannerState>(builder: (_, banner_state) {
                   return SliverToBoxAdapter(child: banner_state.whenOrNull(
                     loaded: (banners) {
                       if (banners.isNotEmpty) {
@@ -234,8 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         videos: videos,
                       );
                     }
-                    return const VideoListWidget(
-                        videos: [], videoListType: VideoListType.PLACEHOLDER);
+                    return const VideoListWidget(videos: [], videoListType: VideoListType.PLACEHOLDER);
                   },
                   latestLoaded: (videos, _) {
                     return VideoListWidget(
