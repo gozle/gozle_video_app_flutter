@@ -1080,6 +1080,16 @@ class S {
     );
   }
 
+  /// `Then sign in to  Gozle Account`
+  String get then_sign_in_gozle_account {
+    return Intl.message(
+      'Then sign in to  Gozle Account',
+      name: 'then_sign_in_gozle_account',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience.`
   String get without_sign_missing_features {
     return Intl.message(
@@ -1145,6 +1155,16 @@ class S {
     return Intl.message(
       'install',
       name: 'install',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Want to subscribe to this account?`
+  String get want_to_subscribe {
+    return Intl.message(
+      'Want to subscribe to this account?',
+      name: 'want_to_subscribe',
       desc: '',
       args: [],
     );

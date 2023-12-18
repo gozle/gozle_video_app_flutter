@@ -6,4 +6,5 @@ abstract class SharedPrefKeys {
   static const String themeCode = 'theme-code';
   static const String searchHistory = 'search-history';
   static const String skippedLogin = 'skipped-login';
+  static const String lastAdView = 'last-ad-view';
 }

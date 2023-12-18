@@ -26,8 +26,11 @@ abstract class VideoRepository {
 
   Future<Either<Failure, void>> removeLike({required String videoId});
 
-  getCommentsByVideo(
-      {required String videoId, required int amount, required int page}) {}
+  getCommentsByVideo({required String videoId, required int amount, required int page}) {}
 
   postComment({required String message, required String videoId}) {}
+
+  DateTime? getAdsLastView();
+
+  Future<Either<Failure, void>> updateAdsLastView();
 }

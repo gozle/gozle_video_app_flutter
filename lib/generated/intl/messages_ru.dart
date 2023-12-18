@@ -162,6 +162,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "subtitles": MessageLookupByLibrary.simpleMessage("Субтитры"),
         "system": MessageLookupByLibrary.simpleMessage("Системная"),
         "theme": MessageLookupByLibrary.simpleMessage("Тема"),
+        "then_sign_in_gozle_account": MessageLookupByLibrary.simpleMessage(
+            "Тогда войдите в Gozle Account"),
         "undefined_issue": MessageLookupByLibrary.simpleMessage(
             "Что то пошло не так. Пожалуйста, попробуйте еще раз"),
         "update": MessageLookupByLibrary.simpleMessage("Обновить"),
@@ -171,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "video_starts_at": m2,
         "videos": MessageLookupByLibrary.simpleMessage("Видео"),
         "views": MessageLookupByLibrary.simpleMessage("Просмотры"),
+        "want_to_subscribe": MessageLookupByLibrary.simpleMessage(
+            "Хотите записаться на этот канал?"),
         "watch_later": MessageLookupByLibrary.simpleMessage("Смотреть позже"),
         "welcome_to_gozle_video": MessageLookupByLibrary.simpleMessage(
             "Добро пожаловать в\nGozle Video !"),

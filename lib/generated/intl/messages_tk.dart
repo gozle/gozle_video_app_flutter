@@ -162,6 +162,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "subtitles": MessageLookupByLibrary.simpleMessage("Субтитры"),
         "system": MessageLookupByLibrary.simpleMessage("Ulgam"),
         "theme": MessageLookupByLibrary.simpleMessage("Tema"),
+        "then_sign_in_gozle_account":
+            MessageLookupByLibrary.simpleMessage("Onda Gözle akkaunta giriň"),
         "undefined_issue": MessageLookupByLibrary.simpleMessage(
             "Что то пошло не так. Пожалуйста, попробуйте еще раз"),
         "update": MessageLookupByLibrary.simpleMessage("Täzelenmek"),
@@ -171,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "video_starts_at": m2,
         "videos": MessageLookupByLibrary.simpleMessage("Wideo"),
         "views": MessageLookupByLibrary.simpleMessage("Görülen"),
+        "want_to_subscribe": MessageLookupByLibrary.simpleMessage(
+            "Bu kanala ýazylmak isleýärsiňizmi?"),
         "watch_later": MessageLookupByLibrary.simpleMessage("Soň görmek"),
         "welcome_to_gozle_video":
             MessageLookupByLibrary.simpleMessage("Hoşgeldiňiz !"),

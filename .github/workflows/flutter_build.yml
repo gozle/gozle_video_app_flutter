@@ -19,7 +19,7 @@ jobs:
         flutter-version: '3.16.4'  # Укажите последнюю версию Flutter для канала stable
 
     - name: Build Flutter APK
-      run: flutter build apk
+      run: flutter build apk --debug
 
     - name: Upload APK as artifact
       uses: actions/upload-artifact@v2

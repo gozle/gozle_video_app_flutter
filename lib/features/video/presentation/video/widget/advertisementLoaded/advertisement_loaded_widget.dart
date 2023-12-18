@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_gozle/features/video/domain/model/video_ads_model.dart';
+import 'package:video_gozle/generated/l10n.dart';
 
 class AdvertisementLoadedWidget extends StatelessWidget {
   final VideoAdsModel videoAd;
@@ -46,6 +47,7 @@ class AdvertisementLoadedWidget extends StatelessWidget {
             if (videoAd.link != null) buildBtn(),
           ],
         ),
+        initiallyExpanded: true,
         // subtitle: Text(videoAd.status),
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -89,7 +91,7 @@ class AdvertisementLoadedWidget extends StatelessWidget {
           ),
         ),
       ),
-      child: const Text('Get'),
+      child: Text(S.current.install),
     );
   }
 }

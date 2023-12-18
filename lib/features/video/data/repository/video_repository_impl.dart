@@ -3,6 +3,7 @@ import 'package:video_gozle/core/exception/exception.dart';
 import 'package:video_gozle/core/failure/failure.dart';
 import 'package:video_gozle/features/global/domain/models/video_category_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_model.dart';
+import 'package:video_gozle/features/video/data/datasource/local.dart';
 import 'package:video_gozle/features/video/data/datasource/video_api_client.dart';
 import 'package:video_gozle/features/video/domain/model/comment_model.dart';
 import 'package:video_gozle/features/video/domain/model/video_ads_model.dart';
@@ -10,8 +11,8 @@ import 'package:video_gozle/features/video/domain/repository/video_repository.da
 
 class VideoRepositoryImpl implements VideoRepository {
   final VideoApiClient videoApiClient;
-
-  VideoRepositoryImpl({required this.videoApiClient});
+  final AdsStorage adsStorage;
+  VideoRepositoryImpl({required this.videoApiClient, required this.adsStorage});
 
   @override
   Future<Either<Failure, Video>> getVideoDetails({
@@ -148,8 +149,7 @@ class VideoRepositoryImpl implements VideoRepository {
     required int page,
   }) async {
     try {
-      final commentList =
-          await videoApiClient.getVideoComments(videoId: videoId);
+      final commentList = await videoApiClient.getVideoComments(videoId: videoId);
       return right(commentList);
     } on ServerException catch (_) {
       return left(ServerFailure());
@@ -180,6 +180,21 @@ class VideoRepositoryImpl implements VideoRepository {
       return left(NotFoundFailure());
     } on AuthenticationException catch (_) {
       return left(AuthenticationFailure());
+    } catch (e) {
+      return left(UnexpectedFailure());
+    }
+  }
+
+  @override
+  DateTime? getAdsLastView() {
+    return adsStorage.readLastAdTime();
+  }
+
+  @override
+  Future<Either<Failure, void>> updateAdsLastView() async {
+    try {
+      await adsStorage.writeLastAdTime(date: DateTime.now());
+      return right(null);
     } catch (e) {
       return left(UnexpectedFailure());
     }

@@ -126,10 +126,12 @@
     "without_sign_missing_features":"Abuna ýazylmak, halaýan goýmak we şahsy taryhy aýratynlyklaryny açmak üçin ulgama giriň. Hasabyňyz bolmazdan, bu möhüm täsirleri we aýratyn tejribäni ýitirersiňiz.",
     "sign_in": "Ulgama girmek",
     "sign_in_gozle_account":"Gözle akkaunta girmek",
+    "then_sign_in_gozle_account":"Onda Gözle akkaunta giriň",
     "server_error": "Ошибка сервера",
     "internet_connection_issues": "Связь с сервером устанавливалась слишком долго, время ожидания истекло.м",
     "authentication_failure": "Ошибка аутентификации",
     "not_found_error": "404 НЕ НАЙДЕНО",
     "undefined_issue": "Что то пошло не так. Пожалуйста, попробуйте еще раз",
-    "install": "ýüklemek"
+    "install": "ýüklemek",
+    "want_to_subscribe":"Bu kanala ýazylmak isleýärsiňizmi?"
 }

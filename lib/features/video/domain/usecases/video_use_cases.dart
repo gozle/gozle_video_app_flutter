@@ -16,8 +16,7 @@ class VideoUseCases {
   }) =>
       videoRepository.getVideoDetails(videoId: videoId);
 
-  Future<Either<Failure, VideoAdsModel>> getVideoAd() =>
-      videoRepository.getVideoAd();
+  Future<Either<Failure, VideoAdsModel>> getVideoAd() => videoRepository.getVideoAd();
 
   Future<Either<Failure, VideoAdsModel>> getTestVideoAd() async {
     await Future.delayed(const Duration(seconds: 1));
@@ -95,4 +94,8 @@ class VideoUseCases {
 
   Future<Either<Failure, void>> removeLike({required String videoId}) =>
       videoRepository.removeLike(videoId: videoId);
+
+  DateTime? getAdsLastView() => videoRepository.getAdsLastView();
+
+  Future<Either<Failure, void>> updateAdsLastView() => videoRepository.updateAdsLastView();
 }

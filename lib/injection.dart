@@ -18,6 +18,7 @@ import 'package:video_gozle/features/subscriptions/data/data_source/subscription
 import 'package:video_gozle/features/subscriptions/data/repository/subscriptions_repository_impl.dart';
 import 'package:video_gozle/features/subscriptions/domain/use_cases/subscription_use_cases.dart';
 import 'package:video_gozle/features/subscriptions/domain/use_cases/subscriptions_repository.dart';
+import 'package:video_gozle/features/video/data/datasource/local.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
 import 'package:video_gozle/core/rest_api_urls.dart';
@@ -74,8 +75,7 @@ Future<void> setupLocator() async {
 
   // Home
   locator.registerFactory(() => HomeUseCases(homeRepository: locator()));
-  locator.registerFactory<HomeRepository>(
-      () => HomeRepositoryImpl(homeApiClient: locator()));
+  locator.registerFactory<HomeRepository>(() => HomeRepositoryImpl(homeApiClient: locator()));
   locator.registerFactory<HomeApiClient>(() {
     final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
     final Dio dioV1 = prepareApiClient(RestApiUrls.baseUrlV1);
@@ -86,9 +86,10 @@ Future<void> setupLocator() async {
   });
 
   // Video
+  final adsStorage = new AdsStorage(prefs: prefs);
   locator.registerFactory(() => VideoUseCases(videoRepository: locator()));
   locator.registerFactory<VideoRepository>(
-      () => VideoRepositoryImpl(videoApiClient: locator()));
+      () => VideoRepositoryImpl(videoApiClient: locator(), adsStorage: adsStorage));
   locator.registerFactory<VideoApiClient>(() {
     final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
     final Dio dioV1 = prepareApiClient(RestApiUrls.baseUrlV1);
@@ -100,8 +101,7 @@ Future<void> setupLocator() async {
 
   // Library
   locator.registerFactory(() => LibraryUseCases(libraryRepository: locator()));
-  locator.registerFactory<LibraryRepository>(
-      () => LibraryRepositoryImpl(libraryApiClient: locator()));
+  locator.registerFactory<LibraryRepository>(() => LibraryRepositoryImpl(libraryApiClient: locator()));
   locator.registerFactory<LibraryApiClient>(() {
     final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
     return LibraryApiClient(dio: dio);
@@ -109,22 +109,19 @@ Future<void> setupLocator() async {
 
   // Settings
   locator.registerFactory(() => SettingUseCases(settingsRepository: locator()));
-  locator.registerFactory<SettingsRepository>(
-      () => SettingsRepositoryImpl(settingsStorage: locator()));
+  locator.registerFactory<SettingsRepository>(() => SettingsRepositoryImpl(settingsStorage: locator()));
   locator.registerFactory(() => SettingsStorage(prefs: prefs));
 
   // Channel
   locator.registerFactory(() => ChannelUseCases(channelRepository: locator()));
-  locator.registerFactory<ChannelRepository>(
-      () => ChannelRepositoryImpl(channelApiClient: locator()));
+  locator.registerFactory<ChannelRepository>(() => ChannelRepositoryImpl(channelApiClient: locator()));
   locator.registerFactory<ChannelApiClient>(() {
     final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
     return ChannelApiClient(dio: dio);
   });
 
   // Subscriptions
-  locator.registerFactory(
-      () => SubscriptionsUseCases(subscriptionsRepository: locator()));
+  locator.registerFactory(() => SubscriptionsUseCases(subscriptionsRepository: locator()));
   locator.registerFactory<SubscriptionsRepository>(
       () => SubscriptionsRepositoryImpl(subscriptionsApiClient: locator()));
   locator.registerFactory<SubscriptionsApiClient>(() {
@@ -132,8 +129,7 @@ Future<void> setupLocator() async {
     return SubscriptionsApiClient(dio: dio);
   });
   // Subscriptions
-  locator.registerFactory(
-      () => CheckUpdatesUseCases(checkUpdatesRepository: locator()));
+  locator.registerFactory(() => CheckUpdatesUseCases(checkUpdatesRepository: locator()));
   locator.registerFactory<CheckUpdatesRepository>(
       () => CheckUpdatesRepositoryImpl(checkUpdatesApiClient: locator()));
   locator.registerFactory<CheckUpdatesApiClient>(() {

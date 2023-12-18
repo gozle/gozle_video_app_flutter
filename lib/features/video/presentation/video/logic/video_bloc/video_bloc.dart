@@ -48,8 +48,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
     WakelockPlus.disable();
   }
 
-  FutureOr<void> _onExpand(
-      _ExpandMiniplayer event, Emitter<VideoState> emit) async {
+  FutureOr<void> _onExpand(_ExpandMiniplayer event, Emitter<VideoState> emit) async {
     if (miniplayerController?.isAttached == true) {
       miniplayerController!.animatePanelToPosition(
         1,
@@ -69,8 +68,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
     }
   }
 
-  FutureOr<void> _onMinimize(
-      _MinimizeMiniplayer event, Emitter<VideoState> emit) {
+  FutureOr<void> _onMinimize(_MinimizeMiniplayer event, Emitter<VideoState> emit) {
     if (miniplayerController?.isAttached == true) {
       miniplayerController!.animatePanelToPosition(
         0,
@@ -80,8 +78,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
     }
   }
 
-  Future<void> _onPlayNetwork(
-      _PlayNetwork event, Emitter<VideoState> emit) async {
+  Future<void> _onPlayNetwork(_PlayNetwork event, Emitter<VideoState> emit) async {
     _playNetworkEvent = event;
 
     WakelockPlus.enable();
@@ -94,7 +91,13 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
       videoId: event.videoId,
       title: event.title,
     ));
-
+    var lastView = videoUseCases.getAdsLastView();
+    if (lastView?.isAfter(DateTime.now().add(const Duration(minutes: -10))) == true) {
+      add(const _CloseAdd());
+      return;
+    } else {
+      await videoUseCases.updateAdsLastView();
+    }
     //fetching advertisement
     final videoAdResult = await videoUseCases.getVideoAd();
     // final videoAdResult = await videoUseCases.getTestVideoAd();
@@ -144,8 +147,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
         }
       }
 
-      final result = await videoUseCases.getVideoDetails(
-          videoId: _playNetworkEvent!.videoId);
+      final result = await videoUseCases.getVideoDetails(videoId: _playNetworkEvent!.videoId);
 
       result.fold(
         (failure) {
@@ -170,8 +172,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
               title: videoDetails.title,
             );
           }
-          videoPlayerProvider
-              .setAspectRatio(videoDetails.expansion?.aspectRatio ?? 16 / 9);
+          videoPlayerProvider.setAspectRatio(videoDetails.expansion?.aspectRatio ?? 16 / 9);
         },
       );
     }

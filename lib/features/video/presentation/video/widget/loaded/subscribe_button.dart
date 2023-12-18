@@ -9,6 +9,7 @@ import 'package:video_gozle/features/library/presentation/screen/library_screen.
 import 'package:video_gozle/features/nav/presentation/screen/nav_screen.dart';
 import 'package:video_gozle/features/nav/presentation/widget/nav_key_provider.dart';
 import 'package:video_gozle/features/subscriptions/presentation/logic/subscribed_channel_list_bloc/subscribed_channel_list_bloc.dart';
+import 'package:video_gozle/features/video/presentation/video/widget/loaded/subcribe_alert_dialog.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
 class SubscribeButton extends StatelessWidget {
@@ -19,9 +20,8 @@ class SubscribeButton extends StatelessWidget {
     return BlocConsumer<ChannelSubscriptionCubit, ChannelSubscriptionState>(
       listener: (context, state) {
         state.whenOrNull(
-          unauthenticated: () {
-            final navigator = NavKeyProvider.maybeOf(context)?.navKey.currentState ?? Navigator.of(context);
-            navigator.pushNamed(LibraryScreen.routeName);
+          unauthenticated: () async {
+            SubscribeAlertDialog.show(context);
           },
         );
       },

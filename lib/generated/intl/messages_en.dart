@@ -161,6 +161,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "subtitles": MessageLookupByLibrary.simpleMessage("Subtitles"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "then_sign_in_gozle_account": MessageLookupByLibrary.simpleMessage(
+            "Then sign in to  Gozle Account"),
         "undefined_issue": MessageLookupByLibrary.simpleMessage(
             "An unexpected issue occurred. Please try again"),
         "update": MessageLookupByLibrary.simpleMessage("Update"),
@@ -170,6 +172,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "video_starts_at": m2,
         "videos": MessageLookupByLibrary.simpleMessage("Videos"),
         "views": MessageLookupByLibrary.simpleMessage("Views"),
+        "want_to_subscribe": MessageLookupByLibrary.simpleMessage(
+            "Want to subscribe to this account?"),
         "watch_later": MessageLookupByLibrary.simpleMessage("Watch Later"),
         "welcome_to_gozle_video":
             MessageLookupByLibrary.simpleMessage("Welcome to Gozle Video !"),

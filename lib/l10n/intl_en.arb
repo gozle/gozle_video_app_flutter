@@ -124,12 +124,13 @@
     "learning_and_entertainment_service": "Service for learning and entertainment.",
     "sign_in": "Sign in",
     "sign_in_gozle_account":"Sign in to Gozle Account",
+    "then_sign_in_gozle_account":"Then sign in to  Gozle Account",
     "without_sign_missing_features": "Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience.",
     "server_error": "Server Error",
     "internet_connection_issues": "We are experiencing some issues with your internet connection",
     "authentication_failure": "Authentication Failure",
     "not_found_error": "404 NOT FOUND",
     "undefined_issue": "An unexpected issue occurred. Please try again",
-    "install": "install"
-
+    "install": "install",
+    "want_to_subscribe":"Want to subscribe to this account?"
 }
