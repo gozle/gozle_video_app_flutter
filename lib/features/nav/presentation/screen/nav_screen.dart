@@ -306,15 +306,15 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                                   BlendMode.srcIn,
                                 ),
                               ),
-                              authenticated: (user) => CircleAvatar(
-                                radius: 150,
-                                // backgroundColor: state.maybeWhen(orElse: () {
-                                //   return Colors.white;
-                                // }, authenticated: (_) {
-                                //   return Theme.of(context).secondaryHeaderColor;
-                                // }),
-                                backgroundImage: Image.network(user.avatar ?? '').image,
-                              ),
+                              authenticated: (user) => SizedBox(
+                                  width: 25,
+                                  height: 25,
+                                  child: CircleAvatar(
+                                    radius: 150,
+                                    backgroundImage: Image.network(
+                                      user.avatar ?? '',
+                                    ).image,
+                                  )),
                             ),
                             label: S.current.profile,
                           )
