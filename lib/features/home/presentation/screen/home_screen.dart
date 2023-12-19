@@ -184,17 +184,20 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CustomScrollView(
               controller: scrollController,
               slivers: [
-                BlocBuilder<BannerCubit, BannerState>(builder: (_, banner_state) {
-                  return SliverToBoxAdapter(child: banner_state.whenOrNull(
-                    loaded: (banners) {
-                      if (banners.isNotEmpty) {
-                        var banner = banners.first;
-                        return BannerWidget(banner: banner);
-                      }
-                      return null;
-                    },
-                  ));
-                }),
+                BlocBuilder<BannerCubit, BannerState>(
+                  builder: (_, banner_state) {
+                    return SliverToBoxAdapter(child: banner_state.whenOrNull(
+                      loaded: (banners) {
+                        if (banners.isNotEmpty) {
+                          var banner = banners.first;
+                          return BannerWidget(banner: banner);
+                        }
+                        return null;
+                      },
+                    ));
+                  },
+                  bloc: BannerCubit(),
+                ),
                 state.when(
                   popularLoaded: (videos, hasReachedMax) {
                     return VideoListWidget(
