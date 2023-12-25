@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:video_gozle/core/app_assets.dart';
 import 'package:video_gozle/core/constants.dart';
 import 'package:video_gozle/features/auth/presentation/logic/user_bloc/user_bloc.dart';
-import 'package:video_gozle/features/auth/presentation/screen/login_screen.dart';
 import 'package:video_gozle/features/check_updates/domain/user_cases/check_updates_use_cases.dart';
 import 'package:video_gozle/features/nav/presentation/screen/nav_screen.dart';
 import 'package:video_gozle/features/splash/presentation/widget/update_app_widget.dart';
@@ -15,6 +14,7 @@ import 'package:video_gozle/injection.dart';
 
 class SplashScreen extends StatefulWidget {
   static const routeName = '/splash';
+
   const SplashScreen({super.key});
 
   @override
@@ -39,31 +39,33 @@ class _SplashScreenState extends State<SplashScreen> {
   void checkAppVersion() async {
     final repository = locator<CheckUpdatesUseCases>();
 
-    repository.getUpdateInfo().then((appInfo) {
-      if (Platform.isIOS) {
-        if (appInfo.iosVersion != AppConstants.iosAppVersion) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            useRootNavigator: true,
-            builder: (context) {
-              return UpdateAppDialog(appUrl: appInfo.iosAppLink!);
-            },
-          );
+    repository.getUpdateInfo().then(
+      (appInfo) {
+        if (Platform.isIOS) {
+          if (appInfo.iosVersion != AppConstants.iosAppVersion) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              useRootNavigator: true,
+              builder: (context) {
+                return UpdateAppDialog(appUrl: appInfo.iosAppLink!);
+              },
+            );
+          }
+        } else if (Platform.isAndroid) {
+          if (appInfo.androidVersion != AppConstants.androidAppVersion) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              useRootNavigator: true,
+              builder: (context) {
+                return UpdateAppDialog(appUrl: appInfo.androidAppLink!);
+              },
+            );
+          }
         }
-      } else if (Platform.isAndroid) {
-        if (appInfo.androidVersion != AppConstants.androidAppVersion) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            useRootNavigator: true,
-            builder: (context) {
-              return UpdateAppDialog(appUrl: appInfo.androidAppLink!);
-            },
-          );
-        }
-      }
-    });
+      },
+    );
   }
 
   @override
@@ -75,10 +77,13 @@ class _SplashScreenState extends State<SplashScreen> {
             Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
           },
           skippedLogin: (skipped) => {
-            if (skipped) {Navigator.of(context).pushReplacementNamed(NavScreen.routeName)}
+            if (skipped)
+              Navigator.of(context).pushReplacementNamed(NavScreen.routeName),
           },
           unauthenticated: (oAuthClientData) {
-            Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+            // TODO: if first page need remove remove it && uncomment under this...
+            Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
+            // Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
           },
         );
       },
