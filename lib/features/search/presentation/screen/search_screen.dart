@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -13,29 +14,52 @@ import 'package:video_gozle/features/search/presentation/logic/search_history_cu
 import 'package:video_gozle/features/search/presentation/widget/search_text_field.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
+import '../../../home/presentation/widget/category_item_widget.dart';
+
+enum SearchFilter {
+  all,
+  divider,
+  video,
+  channels;
+
+  String get asValue {
+    switch (this) {
+      case SearchFilter.all:
+        return S.current.all;
+      case SearchFilter.divider:
+        return '';
+      case SearchFilter.video:
+        return S.current.video;
+      case SearchFilter.channels:
+        return S.current.channels;
+    }
+  }
+}
+
 class SearchScreen extends StatefulWidget {
   static const String routeName = 'search';
+
   const SearchScreen({super.key});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen>
-    with SingleTickerProviderStateMixin {
+class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late ScrollController scrollController;
   late RefreshController refreshController;
   late TextEditingController queryTC;
   late FocusNode focusNode;
+  int selectedFilter = 0;
 
   @override
   void initState() {
     scrollController = ScrollController();
     queryTC = TextEditingController();
     focusNode = FocusNode();
-    animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 200));
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
     refreshController = RefreshController(initialRefresh: false);
 
     Future.delayed(Duration.zero).then((value) {
@@ -62,11 +86,21 @@ class _SearchScreenState extends State<SearchScreen>
   void _onLoadMore() {
     context.read<SearchVideoBloc>().state.whenOrNull(
       loaded: (videos, c, hasReachedMax, query) {
-        context
-            .read<SearchVideoBloc>()
-            .add(SearchVideoEvent.loadMore(query, videos, c));
+        context.read<SearchVideoBloc>().add(SearchVideoEvent.loadMore(query, videos, c));
       },
     );
+  }
+
+  void updateUi() {
+    setState(() {
+      //no-op
+    });
+  }
+
+  void onFilterButtonTap(int i) {
+    selectedFilter = i;
+
+    updateUi();
   }
 
   @override
@@ -129,9 +163,7 @@ class _SearchScreenState extends State<SearchScreen>
               focusNode: focusNode,
               onSubmitted: (value) async {
                 if (value?.isNotEmpty == true) {
-                  context
-                      .read<SearchVideoBloc>()
-                      .add(SearchVideoEvent.search('$value'));
+                  context.read<SearchVideoBloc>().add(SearchVideoEvent.search('$value'));
                   animationController.reverse().then((_) {
                     context.read<SearchHistoryCubit>().add(history: '$value');
                   });
@@ -162,11 +194,44 @@ class _SearchScreenState extends State<SearchScreen>
                   enablePullUp: true,
                   enablePullDown: false,
                   footer: const SmartRefresherFooter(),
-                  child:
-                      CustomScrollView(controller: scrollController, slivers: [
+                  child: CustomScrollView(controller: scrollController, slivers: [
+                    SliverToBoxAdapter(
+                      child: Container(
+                        color: context.theme.brightness == Brightness.dark
+                            ? AppColors.darkBarColor
+                            : AppColors.darkPrimary,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          child: Row(
+                            children: SearchFilter.values
+                                .mapIndexed(
+                                  (e, i) => i == SearchFilter.values[1]
+                                      ? Padding(
+                                          padding: const EdgeInsets.only(right: 5),
+                                          child: Container(
+                                            width: 1,
+                                            height: 30,
+                                            color: Theme.of(context).secondaryHeaderColor,
+                                          ),
+                                        )
+                                      : Padding(
+                                          padding: const EdgeInsets.only(right: 5),
+                                          child: CategoryItemWidget(
+                                            onTap: () => onFilterButtonTap(i.index),
+                                            isSelected: i.index == selectedFilter ? true : false,
+                                            name: i.asValue,
+                                          ),
+                                        ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                    ),
                     state.maybeWhen(
                         loaded: (v, channels, h, q) {
-                          if (channels.isNotEmpty) {
+                          final bool isChannel = selectedFilter == 3 || selectedFilter == 0;
+                          if (channels.isNotEmpty && isChannel) {
                             return SliverList.builder(
                               itemCount: channels.length,
                               itemBuilder: (context, index) {
@@ -176,7 +241,7 @@ class _SearchScreenState extends State<SearchScreen>
                               },
                             );
                           }
-                          return Container();
+                          return SliverToBoxAdapter(child: Container());
                         },
                         orElse: () => SliverToBoxAdapter(child: Container())),
                     state.when(
@@ -186,17 +251,22 @@ class _SearchScreenState extends State<SearchScreen>
                         );
                       },
                       loaded: (videos, channels, hasReachedMax, query) {
-                        if (videos.isNotEmpty) {
+                        final bool isVideo = selectedFilter == 2 || selectedFilter == 0;
+                        if (videos.isNotEmpty && isVideo) {
                           return VideoListWidget(
                             videos: videos,
                           );
-                        } else {
+                        }
+                        if (videos.isEmpty) {
                           return SliverFillRemaining(
                             child: Center(
                               child: Text(S.current.query_not_found(query)),
                             ),
                           );
                         }
+                        return SliverToBoxAdapter(
+                          child: Container(),
+                        );
                       },
                       loading: (oldItems) {
                         if (oldItems.isNotEmpty) {
@@ -225,9 +295,7 @@ class _SearchScreenState extends State<SearchScreen>
                   animationController: animationController,
                   onItemSelected: (historyItem) {
                     animationController.reverse();
-                    context
-                        .read<SearchVideoBloc>()
-                        .add(SearchVideoEvent.search(historyItem));
+                    context.read<SearchVideoBloc>().add(SearchVideoEvent.search(historyItem));
                     queryTC.text = historyItem;
                     focusNode.unfocus();
                     setState(() {});
@@ -245,6 +313,7 @@ class _SearchScreenState extends State<SearchScreen>
 class SearchHistoryWidget extends StatelessWidget {
   final Function(String historyItem) onItemSelected;
   final AnimationController animationController;
+
   const SearchHistoryWidget({
     super.key,
     required this.onItemSelected,
@@ -265,9 +334,7 @@ class SearchHistoryWidget extends StatelessWidget {
               builder: (context, child) {
                 return Opacity(
                   opacity: animationController.value,
-                  child: animationController.value > 0.0
-                      ? child
-                      : const SizedBox.shrink(),
+                  child: animationController.value > 0.0 ? child : const SizedBox.shrink(),
                 );
               },
               child: Material(
@@ -285,8 +352,7 @@ class SearchHistoryWidget extends StatelessWidget {
                             },
                             child: Container(
                               height: 55,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
                               width: double.infinity,
                               child: Row(
                                 children: [
@@ -297,9 +363,7 @@ class SearchHistoryWidget extends StatelessWidget {
                                       historyItem,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
+                                      style: Theme.of(context).textTheme.titleMedium,
                                     ),
                                   ),
                                 ],

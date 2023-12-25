@@ -25,15 +25,15 @@ class BannerCubit extends Cubit<BannerState> {
 
     result.fold(
       (failure) {
-        // if (failure is SocketFailure) {
-        //   Future.delayed(const Duration(seconds: 5)).then((value) {
-        //     load();
-        //   });
-        // } else {
-        //   emit(BannerState.error(
-        //     falure: failure,
-        //   ));
-        // }
+        if (failure is SocketFailure) {
+          Future.delayed(const Duration(seconds: 5)).then((value) {
+            load();
+          });
+        } else {
+          emit(BannerState.error(
+            falure: failure,
+          ));
+        }
       },
       (banners) {
         emit(BannerState.loaded(banners: banners));

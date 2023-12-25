@@ -12,6 +12,7 @@ class SearchTextField extends StatelessWidget {
     required this.autofocus,
     required this.onFocused,
   });
+
   final String hintText;
   final bool autofocus;
   final FocusNode focusNode;
@@ -37,20 +38,14 @@ class SearchTextField extends StatelessWidget {
       style: Theme.of(context).textTheme.bodyMedium,
       onTap: onFocused,
       decoration: InputDecoration(
+          filled: true,
+          fillColor: Theme.of(context).secondaryHeaderColor,
           hintText: hintText,
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              width: 2,
-              color: Theme.of(context).secondaryHeaderColor,
-            ),
-          ),
+              borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              width: 2,
-              color: Theme.of(context).secondaryHeaderColor,
-            ),
+            borderSide: BorderSide.none,
           ),
           contentPadding: const EdgeInsets.only(left: 10),
           constraints: const BoxConstraints(maxHeight: 40),

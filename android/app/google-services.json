@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "438323356165",
-    "project_id": "gozle-video",
-    "storage_bucket": "gozle-video.appspot.com"
+    "project_number": "416069843948",
+    "project_id": "gozle-video-72efc",
+    "storage_bucket": "gozle-video-72efc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:438323356165:android:2eec1ac54d7acf5b0ab26c",
+        "mobilesdk_app_id": "1:416069843948:android:1e0d07383170d09e0fdec9",
         "android_client_info": {
           "package_name": "tm.gozle.video"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "438323356165-se0m7dbbfm900h02svl2or3q59snd5pb.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDljzUUEwXtJRFNT5w56Fgd0eNL2bSb9os"
+          "current_key": "AIzaSyDI7QTBfnjrEg4uKVQrX3bqRHiRqsu864w"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "438323356165-se0m7dbbfm900h02svl2or3q59snd5pb.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

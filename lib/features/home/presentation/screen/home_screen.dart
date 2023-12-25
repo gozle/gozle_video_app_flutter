@@ -1,14 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:video_gozle/core/app_assets.dart';
-import 'package:video_gozle/core/app_utils.dart';
 import 'package:video_gozle/features/global/domain/models/video_category_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_list_item_type.dart';
 import 'package:video_gozle/features/global/presentation/widget/error_widget/sliver_error_widget.dart';
-import 'package:video_gozle/features/global/presentation/widget/place_holder.dart';
-
 import 'package:video_gozle/features/global/presentation/widget/smart_refresher_footer.dart';
 import 'package:video_gozle/features/global/presentation/widget/smart_refresher_header.dart';
 import 'package:video_gozle/features/home/presentation/logic/banner_cubit/banner_cubit.dart';
@@ -20,9 +17,8 @@ import 'package:video_gozle/features/nav/presentation/widget/main_app_bar.dart';
 import 'package:video_gozle/features/settings/presentation/logic/settings/settings_provider.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
+import '../../../global/presentation/widget/video_item_widget/vertical_video_list_item_widget.dart';
 import '../widget/category_list_widget.dart';
-
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -71,7 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onLoadMore() {
-    context.read<VideoListBloc>().state.whenOrNull(byCategoryLoaded: (videos, category, hasReachedMax) {
+    context.read<VideoListBloc>().state.whenOrNull(
+        byCategoryLoaded: (videos, category, hasReachedMax) {
       if (!hasReachedMax) {
         context.read<VideoListBloc>().add(
               VideoListEvent.byCategoryloadMore(
@@ -124,7 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: BlocBuilder<VideoCategoryCubit, VideoCategoryState>(
                 builder: (context, videoCategoryState) {
                   final popularVideoCategory = VideoCategory(
-                      pk: 0, name: 'popular', verbose: S.current.popular, iconAsset: AppAssets.rocketIcon);
+                      pk: 0,
+                      name: 'popular',
+                      verbose: S.current.popular,
+                      iconAsset: AppAssets.rocketIcon);
                   final latestVideoCategory = VideoCategory(
                       pk: -1,
                       name: 'latest',
@@ -172,90 +172,161 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           body: SafeArea(
-              child: SmartRefresher(
-            controller: refreshController,
-            scrollController: scrollController,
-            header: const SmartRefresherHeader(),
-            onRefresh: _onRefresh,
-            onLoading: _onLoadMore,
-            enablePullUp: true,
-            enablePullDown: true,
-            footer: const SmartRefresherFooter(),
-            child: CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                BlocBuilder<BannerCubit, BannerState>(
-                  builder: (_, banner_state) {
-                    return SliverToBoxAdapter(child: banner_state.whenOrNull(
-                      loaded: (banners) {
-                        if (banners.isNotEmpty) {
-                          var banner = banners.first;
-                          return BannerWidget(banner: banner);
-                        }
-                        return null;
-                      },
-                    ));
-                  },
-                  bloc: BannerCubit(),
-                ),
-                state.when(
-                  popularLoaded: (videos, hasReachedMax) {
-                    return VideoListWidget(
-                      videos: videos,
-                    );
-                  },
-                  popularLoading: (oldItems) {
-                    if (oldItems.isNotEmpty) {
-                      return VideoListWidget(
-                        videos: oldItems,
-                      );
-                    } else {
-                      return const VideoListWidget(
-                        videos: [],
-                        videoListType: VideoListType.PLACEHOLDER,
-                      );
-                    }
-                  },
-                  latestLoading: (videos) {
-                    if (videos.isNotEmpty) {
-                      return VideoListWidget(
+            child: SmartRefresher(
+              controller: refreshController,
+              scrollController: scrollController,
+              header: const SmartRefresherHeader(),
+              onRefresh: _onRefresh,
+              onLoading: _onLoadMore,
+              enablePullUp: true,
+              enablePullDown: true,
+              footer: const SmartRefresherFooter(),
+              child: state.when(
+                popularLoaded: (videos, hasReachedMax) {
+                  return CustomScrollView(
+                    controller: scrollController,
+                    slivers: [
+                      BlocBuilder<BannerCubit, BannerState>(
+                        builder: (_, banner_state) {
+                          return SliverToBoxAdapter(
+                            child: banner_state.whenOrNull(
+                              loading: () {
+                                return VerticalVideoItemWidget.placeHolder(context);
+                              },
+                              loaded: (banners) {
+                                var banner = banners.first;
+                                return BannerWidget(banner: banner);
+                              },
+                            ),
+                          );
+                        },
+                        bloc: BannerCubit(),
+                      ),
+                      VideoListWidget(
                         videos: videos,
-                      );
-                    }
-                    return const VideoListWidget(videos: [], videoListType: VideoListType.PLACEHOLDER);
-                  },
-                  latestLoaded: (videos, _) {
-                    return VideoListWidget(
-                      videos: videos,
+                      ),
+                    ],
+                  );
+                },
+                popularLoading: (oldItems) {
+                  if (oldItems.isNotEmpty) {
+                    return CustomScrollView(
+                      slivers: [
+                        VideoListWidget(
+                          videos: oldItems,
+                        ),
+                      ],
                     );
-                  },
-                  byCategoryLoaded: (videos, category, hasReachedMax) {
-                    return VideoListWidget(videos: videos);
-                  },
-                  categoryLoading: (oldItems, category) {
-                    if (oldItems.isNotEmpty) {
-                      return VideoListWidget(
-                        videos: oldItems,
-                      );
-                    } else {
-                      return const VideoListWidget(
-                        videos: [],
-                        videoListType: VideoListType.PLACEHOLDER,
-                      );
-                    }
-                  },
-                  error: (oldItems, failure, event) {
-                    return SliverCustomErrorWidget(
-                      failure: failure,
-                      onTap: () {
-                        context.read<VideoListBloc>().add(event);
-                      },
+                  } else {
+                    return const CustomScrollView(
+                      slivers: [
+                        VideoListWidget(
+                          videos: [],
+                          videoListType: VideoListType.PLACEHOLDER,
+                        ),
+                      ],
                     );
-                  },
-                ),
-              ],
+                  }
+                },
+                latestLoading: (videos) {
+                  if (videos.isNotEmpty) {
+                    return CustomScrollView(
+                      slivers: [
+                        VideoListWidget(
+                          videos: videos,
+                        ),
+                      ],
+                    );
+                  }
+                  return const CustomScrollView(
+                    slivers: [
+                      VideoListWidget(videos: [], videoListType: VideoListType.PLACEHOLDER),
+                    ],
+                  );
+                },
+                latestLoaded: (videos, _) {
+                  return CustomScrollView(
+                    slivers: [
+                      BlocBuilder<BannerCubit, BannerState>(
+                        builder: (_, banner_state) {
+                          return SliverToBoxAdapter(
+                            child: banner_state.whenOrNull(
+                              loading: () {
+                                return VerticalVideoItemWidget.placeHolder(context);
+                              },
+                              loaded: (banners) {
+                                var banner = banners.first;
+                                return BannerWidget(banner: banner);
+                              },
+                            ),
+                          );
+                        },
+                        bloc: BannerCubit(),
+                      ),
+                      VideoListWidget(
+                        videos: videos,
+                      ),
+                    ],
+                  );
+                },
+                byCategoryLoaded: (videos, category, hasReachedMax) {
+                  return CustomScrollView(
+                    slivers: [
+                      BlocBuilder<BannerCubit, BannerState>(
+                        builder: (_, banner_state) {
+                          return SliverToBoxAdapter(
+                            child: banner_state.whenOrNull(
+                              loading: () {
+                                return VerticalVideoItemWidget.placeHolder(context);
+                              },
+                              loaded: (banners) {
+                                var banner = banners.first;
+                                return BannerWidget(banner: banner);
+                              },
+                            ),
+                          );
+                        },
+                        bloc: BannerCubit(),
+                      ),
+                      VideoListWidget(videos: videos),
+                    ],
+                  );
+                },
+                categoryLoading: (oldItems, category) {
+                  if (oldItems.isNotEmpty) {
+                    return CustomScrollView(
+                      slivers: [
+                        VideoListWidget(
+                          videos: oldItems,
+                        ),
+                      ],
+                    );
+                  } else {
+                    return const CustomScrollView(
+                      slivers: [
+                        VideoListWidget(
+                          videos: [],
+                          videoListType: VideoListType.PLACEHOLDER,
+                        ),
+                      ],
+                    );
+                  }
+                },
+                error: (oldItems, failure, event) {
+                  return CustomScrollView(
+                    slivers: [
+                      SliverCustomErrorWidget(
+                        failure: failure,
+                        onTap: () {
+                          context.read<VideoListBloc>().add(event);
+                        },
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
-          )),
+          ),
         );
       });
     });

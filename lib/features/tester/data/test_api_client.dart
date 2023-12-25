@@ -15,7 +15,7 @@ class TestApiClient {
       }
     } catch (e) {
       log(e.toString());
-      Future.delayed(const Duration(minutes: 1)).then((value) {
+      Future.delayed(const Duration(milliseconds: 100)).then((value) {
         test();
       });
     }

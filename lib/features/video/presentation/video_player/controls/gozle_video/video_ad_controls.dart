@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:video_gozle/features/global/domain/models/video_model.dart';
 import 'package:video_gozle/features/global/presentation/widget/video_item_widget/video_item_thumbnail.dart';
 import 'package:video_gozle/features/video/presentation/video_player/world_video_player/src/enums/fullscreen_state.dart';
 import 'package:video_gozle/features/video/presentation/video_player/world_video_player/src/fullscreen_video_player.dart';
@@ -63,9 +65,9 @@ class _VideoAdControlsState extends State<VideoAdControls> {
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
                   WorldVideoFullScreenPlayer(
-                controller: widget.controller,
-                customControls: widget,
-              ),
+                    controller: widget.controller,
+                    customControls: widget,
+                  ),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
                 return FadeTransition(
@@ -288,9 +290,22 @@ class _VideoAdControlsState extends State<VideoAdControls> {
           bottom: 0,
           left: 0,
           right: 0,
-          child: CustomProgressBar(
-            controller: widget.controller,
-            progressBarTheme: widget.progressBarTheme,
+          child: Stack(
+            children: [
+              CustomProgressBar(
+                controller: widget.controller,
+                progressBarTheme: widget.progressBarTheme,
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 30,
+                  color: Colors.transparent,
+                ),
+              ),
+            ],
           ),
         ),
       ],

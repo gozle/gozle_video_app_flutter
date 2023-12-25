@@ -70,107 +70,108 @@ class VerticalVideoItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {
-          context.read<VideoBloc>().add(
-                VideoEvent.playNetworkVideo(
-                  videoId: video.pk,
-                  url: video.m3u8,
+      onTap: () {
+        context.read<VideoBloc>().add(
+              VideoEvent.playNetworkVideo(
+                videoId: video.pk,
+                url: video.m3u8,
+                thumbnail: video.thumbnailUrl,
+                title: video.title,
+              ),
+            );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                VideoThumbnailWidget(
                   thumbnail: video.thumbnailUrl,
-                  title: video.title,
+                  borderRadius: 10,
                 ),
-              );
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  VideoThumbnailWidget(
-                    thumbnail: video.thumbnailUrl,
-                    borderRadius: 10,
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    right: 10,
-                    child: VideoDurationWidget(video: video),
-                  )
-                ],
-              ),
-              const SizedBox(height: 15),
-              Stack(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(width: 10),
-                      InkWrapper(
-                        borderRadius: BorderRadius.circular(50),
-                        onTap: () {
-                          context.read<VideoBloc>().add(const VideoEvent.minimize());
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: VideoDurationWidget(video: video),
+                )
+              ],
+            ),
+            const SizedBox(height: 15),
+            Stack(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(width: 10),
+                    InkWrapper(
+                      borderRadius: BorderRadius.circular(50),
+                      onTap: () {
+                        context.read<VideoBloc>().add(const VideoEvent.minimize());
 
-                          final navigator =
-                              NavKeyProvider.maybeOf(context)?.navKey.currentState ?? Navigator.of(context);
+                        final navigator = NavKeyProvider.maybeOf(context)?.navKey.currentState ??
+                            Navigator.of(context);
 
-                          navigator.pushNamed(ChannelDetailsScreen.routeName, arguments: {
-                            'channel_id': video.channelId,
-                            'channel_name': video.channelName,
-                          });
-                        },
-                        child: ChannelAvatarWidget(
+                        navigator.pushNamed(ChannelDetailsScreen.routeName, arguments: {
+                          'channel_id': video.channelId,
+                          'channel_name': video.channelName,
+                        });
+                      },
+                      child: ChannelAvatarWidget(
+                        video: video,
+                        radius: 23,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            video.title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: context.textTheme.titleLarge,
+                            //const TextStyle(
+                            //   color: Color(0xFF393F45),
+                            //   fontSize: 16,
+                            //   fontWeight: FontWeight.w600,
+                            // )
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            '${AppUtils.formatViews(video.view)} • ${video.channelName ?? ''} • ${AppUtils.timeAgo(video.date)}',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: context.textTheme.titleSmall,
+                            // TextStyle(
+                            //   color: const Color(0xFF393F45).withOpacity(0.35),
+                            //   fontSize: 12,
+                            //   fontWeight: FontWeight.w500,
+                            // ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWrapper(
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 10, top: 5, bottom: 10),
+                        child: const Icon(Icons.more_vert),
+                      ),
+                      onTap: () {
+                        VideoOptionsBottomSheet.show(
+                          context,
                           video: video,
-                          radius: 23,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              video.title,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: context.textTheme.titleLarge,
-                              //const TextStyle(
-                              //   color: Color(0xFF393F45),
-                              //   fontSize: 16,
-                              //   fontWeight: FontWeight.w600,
-                              // )
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              '${AppUtils.formatViews(video.view)} • ${video.channelName ?? ''} • ${AppUtils.timeAgo(video.date)}',
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              style: context.textTheme.titleSmall,
-                              // TextStyle(
-                              //   color: const Color(0xFF393F45).withOpacity(0.35),
-                              //   fontSize: 12,
-                              //   fontWeight: FontWeight.w500,
-                              // ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      InkWrapper(
-                        child: Container(
-                          padding: const EdgeInsets.only(left: 10, top: 5, bottom: 10),
-                          child: const Icon(Icons.more_vert),
-                        ),
-                        onTap: () {
-                          VideoOptionsBottomSheet.show(
-                            context,
-                            video: video,
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ));
+                        );
+                      },
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

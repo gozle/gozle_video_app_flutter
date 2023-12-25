@@ -49,43 +49,46 @@ class CategoryItemWidget extends StatelessWidget {
             ? Theme.of(context).secondaryHeaderColor
             : Colors.white)
         : (context.theme.brightness == Brightness.dark ? Colors.white : Color(0xFF292D32));
-    return ElevatedButton(
-      onPressed: onTap,
-      style: context.theme.brightness == Brightness.dark ? darkCategoryStyle : lightCategoryStyle,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          iconAsset != null
-              ? SvgPicture.asset(
-                  iconAsset ?? '',
-                  height: 20,
-                  width: 20,
-                  color: iconColor,
-                )
-              : const SizedBox(),
-          Offstage(
-            offstage: iconAsset == null,
-            child: const SizedBox(width: 5),
-          ),
-          Builder(builder: (context) {
-            TextStyle? textTheme;
-            if (isSelected) {
-              textTheme = const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
+    return SizedBox(
+      height: 32,
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: context.theme.brightness == Brightness.dark ? darkCategoryStyle : lightCategoryStyle,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            iconAsset != null
+                ? SvgPicture.asset(
+                    iconAsset ?? '',
+                    height: 20,
+                    width: 20,
+                    color: iconColor,
+                  )
+                : const SizedBox(),
+            Offstage(
+              offstage: iconAsset == null,
+              child: const SizedBox(width: 5),
+            ),
+            Builder(builder: (context) {
+              TextStyle? textTheme;
+              if (isSelected) {
+                textTheme = const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                );
+              } else {
+                textTheme = const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                );
+              }
+              return Text(
+                name ?? '',
+                style: textTheme,
               );
-            } else {
-              textTheme = const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              );
-            }
-            return Text(
-              name ?? '',
-              style: textTheme,
-            );
-          }),
-        ],
+            }),
+          ],
+        ),
       ),
     );
   }
