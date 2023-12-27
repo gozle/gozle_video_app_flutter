@@ -55,8 +55,7 @@ class LibraryScreenState extends State<LibraryScreen> {
     return Consumer<SettingsProvider>(builder: (_, __, ___) {
       return Scaffold(
         appBar: const MainAppBar(),
-        backgroundColor: context.theme.brightness == Brightness.dark ? Colors.black : Colors.white,
-        body: Container(
+        body: SizedBox(
           height: double.infinity,
           child: BlocBuilder<UserBloc, UserState>(
             builder: (context, state) {

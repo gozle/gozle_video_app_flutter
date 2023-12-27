@@ -19,21 +19,21 @@ mixin _$BannerState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Banner> banners) loaded,
+    required TResult Function(List<Banner>? banners) loaded,
     required TResult Function(Failure falure) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Banner> banners)? loaded,
+    TResult? Function(List<Banner>? banners)? loaded,
     TResult? Function(Failure falure)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Banner> banners)? loaded,
+    TResult Function(List<Banner>? banners)? loaded,
     TResult Function(Failure falure)? error,
     required TResult orElse(),
   }) =>
@@ -118,7 +118,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Banner> banners) loaded,
+    required TResult Function(List<Banner>? banners) loaded,
     required TResult Function(Failure falure) error,
   }) {
     return loading();
@@ -128,7 +128,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Banner> banners)? loaded,
+    TResult? Function(List<Banner>? banners)? loaded,
     TResult? Function(Failure falure)? error,
   }) {
     return loading?.call();
@@ -138,7 +138,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Banner> banners)? loaded,
+    TResult Function(List<Banner>? banners)? loaded,
     TResult Function(Failure falure)? error,
     required TResult orElse(),
   }) {
@@ -192,7 +192,7 @@ abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Banner> banners});
+  $Res call({List<Banner>? banners});
 }
 
 /// @nodoc
@@ -205,13 +205,13 @@ class __$$_LoadedCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? banners = null,
+    Object? banners = freezed,
   }) {
     return _then(_$_Loaded(
-      banners: null == banners
+      banners: freezed == banners
           ? _value._banners
           : banners // ignore: cast_nullable_to_non_nullable
-              as List<Banner>,
+              as List<Banner>?,
     ));
   }
 }
@@ -219,14 +219,16 @@ class __$$_LoadedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded({required final List<Banner> banners}) : _banners = banners;
+  const _$_Loaded({final List<Banner>? banners}) : _banners = banners;
 
-  final List<Banner> _banners;
+  final List<Banner>? _banners;
   @override
-  List<Banner> get banners {
+  List<Banner>? get banners {
+    final value = _banners;
+    if (value == null) return null;
     if (_banners is EqualUnmodifiableListView) return _banners;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_banners);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -256,7 +258,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Banner> banners) loaded,
+    required TResult Function(List<Banner>? banners) loaded,
     required TResult Function(Failure falure) error,
   }) {
     return loaded(banners);
@@ -266,7 +268,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Banner> banners)? loaded,
+    TResult? Function(List<Banner>? banners)? loaded,
     TResult? Function(Failure falure)? error,
   }) {
     return loaded?.call(banners);
@@ -276,7 +278,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Banner> banners)? loaded,
+    TResult Function(List<Banner>? banners)? loaded,
     TResult Function(Failure falure)? error,
     required TResult orElse(),
   }) {
@@ -322,9 +324,9 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements BannerState {
-  const factory _Loaded({required final List<Banner> banners}) = _$_Loaded;
+  const factory _Loaded({final List<Banner>? banners}) = _$_Loaded;
 
-  List<Banner> get banners;
+  List<Banner>? get banners;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -393,7 +395,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Banner> banners) loaded,
+    required TResult Function(List<Banner>? banners) loaded,
     required TResult Function(Failure falure) error,
   }) {
     return error(falure);
@@ -403,7 +405,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Banner> banners)? loaded,
+    TResult? Function(List<Banner>? banners)? loaded,
     TResult? Function(Failure falure)? error,
   }) {
     return error?.call(falure);
@@ -413,7 +415,7 @@ class _$_Error implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Banner> banners)? loaded,
+    TResult Function(List<Banner>? banners)? loaded,
     TResult Function(Failure falure)? error,
     required TResult orElse(),
   }) {

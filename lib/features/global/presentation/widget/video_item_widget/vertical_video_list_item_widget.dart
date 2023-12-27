@@ -23,7 +23,10 @@ class VerticalVideoItemWidget extends StatelessWidget {
 
   static Widget placeHolder(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 18,
+        vertical: 10,
+      ),
       child: Column(
         children: [
           AspectRatio(
@@ -41,7 +44,9 @@ class VerticalVideoItemWidget extends StatelessWidget {
               const SizedBox(
                 height: 45,
                 width: 45,
-                child: ClipOval(child: CustomPlaceholder()),
+                child: ClipOval(
+                  child: CustomPlaceholder(),
+                ),
               ),
               const SizedBox(width: 10),
               Column(
@@ -81,7 +86,10 @@ class VerticalVideoItemWidget extends StatelessWidget {
             );
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 18,
+          vertical: 10,
+        ),
         child: Column(
           children: [
             Stack(
@@ -107,15 +115,20 @@ class VerticalVideoItemWidget extends StatelessWidget {
                     InkWrapper(
                       borderRadius: BorderRadius.circular(50),
                       onTap: () {
-                        context.read<VideoBloc>().add(const VideoEvent.minimize());
+                        context.read<VideoBloc>().add(
+                              const VideoEvent.minimize(),
+                            );
 
                         final navigator = NavKeyProvider.maybeOf(context)?.navKey.currentState ??
                             Navigator.of(context);
 
-                        navigator.pushNamed(ChannelDetailsScreen.routeName, arguments: {
-                          'channel_id': video.channelId,
-                          'channel_name': video.channelName,
-                        });
+                        navigator.pushNamed(
+                          ChannelDetailsScreen.routeName,
+                          arguments: {
+                            'channel_id': video.channelId,
+                            'channel_name': video.channelName,
+                          },
+                        );
                       },
                       child: ChannelAvatarWidget(
                         video: video,
@@ -155,7 +168,11 @@ class VerticalVideoItemWidget extends StatelessWidget {
                     ),
                     InkWrapper(
                       child: Container(
-                        padding: const EdgeInsets.only(left: 10, top: 5, bottom: 10),
+                        padding: const EdgeInsets.only(
+                          left: 10,
+                          top: 5,
+                          bottom: 10,
+                        ),
                         child: const Icon(Icons.more_vert),
                       ),
                       onTap: () {

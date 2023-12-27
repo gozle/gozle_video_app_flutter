@@ -88,8 +88,24 @@ class VideoGozle extends StatelessWidget {
           initialRoute: SplashScreen.routeName,
           routes: {
             SplashScreen.routeName: (context) => const SplashScreen(),
-            NavScreen.routeName: (context) => const NavScreen(),
+            //TODO: fix it
+            // NavScreen.routeName: (context) => const NavScreen(),
             LoginScreen.routeName: (context) => const LoginScreen(),
+          },
+          onGenerateRoute: (settings) {
+            if(settings.name == NavScreen.routeName) {
+
+              final args = settings.arguments as NavScreen;
+
+              return MaterialPageRoute(
+                builder: (context) {
+                  return NavScreen(
+                    showSubscribes: args.showSubscribes,
+                  );
+                },
+              );
+            }
+            return null;
           },
           // getPages: [
           //   GetPage(name: SplashScreen.routeName, page: () => const SplashScreen()),

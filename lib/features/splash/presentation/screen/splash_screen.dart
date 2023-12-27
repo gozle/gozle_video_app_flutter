@@ -74,15 +74,24 @@ class _SplashScreenState extends State<SplashScreen> {
       listener: (context, state) {
         state.whenOrNull(
           authenticated: (user) {
-            Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
+            Navigator.of(context).pushReplacementNamed(
+              NavScreen.routeName,
+              arguments: const NavScreen(showSubscribes: true),
+            );
           },
           skippedLogin: (skipped) => {
             if (skipped)
-              Navigator.of(context).pushReplacementNamed(NavScreen.routeName),
+              Navigator.of(context).pushReplacementNamed(
+                NavScreen.routeName,
+                arguments: const NavScreen(showSubscribes: false),
+              ),
           },
           unauthenticated: (oAuthClientData) {
             // TODO: if first page need remove remove it && uncomment under this...
-            Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
+            Navigator.of(context).pushReplacementNamed(
+              NavScreen.routeName,
+              arguments: const NavScreen(showSubscribes: false),
+            );
             // Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
           },
         );

@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:video_gozle/features/global/domain/models/video_model.dart';
 import 'package:video_gozle/features/global/presentation/widget/video_item_widget/video_item_thumbnail.dart';
 import 'package:video_gozle/features/video/presentation/video_player/world_video_player/src/enums/fullscreen_state.dart';
 import 'package:video_gozle/features/video/presentation/video_player/world_video_player/src/fullscreen_video_player.dart';
+
 import '../../world_video_player/world_video_player.dart';
 import 'widgets/widgets.dart';
 
@@ -55,21 +54,19 @@ class _VideoAdControlsState extends State<VideoAdControls> {
 
   void _listener() {
     if (widget.controller.value.fullScreenState != fullScreenState) {
-      setState(() {
-        fullScreenState = widget.controller.value.fullScreenState;
-      });
+      setState(
+        () => fullScreenState = widget.controller.value.fullScreenState,
+      );
 
       if (fullScreenState == FullScreenState.ENTERING) {
         try {
           Navigator.of(context).push(
             PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  WorldVideoFullScreenPlayer(
-                    controller: widget.controller,
-                    customControls: widget,
-                  ),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
+              pageBuilder: (context, animation, secondaryAnimation) => WorldVideoFullScreenPlayer(
+                controller: widget.controller,
+                customControls: widget,
+              ),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 return FadeTransition(
                   opacity: animation,
                   child: child,
@@ -122,9 +119,11 @@ class _VideoAdControlsState extends State<VideoAdControls> {
   Widget build(BuildContext context) {
     final playerValue = widget.controller.value;
     final controlsState = playerValue.controlsState;
-    final isVisible = controlsState == ControlsState.VISIBLE ||
-        controlsState == ControlsState.ALWAYS_VISIBLE;
+    final isVisible =
+        controlsState == ControlsState.VISIBLE || controlsState == ControlsState.ALWAYS_VISIBLE;
     final playerState = playerValue.playerState;
+    final timer = (widget.skipDurationInSec + 1 /* because we got minus value*/) -
+        widget.controller.videoPlayerController.value.position.inSeconds;
 
     if (controlsState == ControlsState.DISABLED) {
       if (playerState == PlayerState.initing) {
@@ -169,7 +168,9 @@ class _VideoAdControlsState extends State<VideoAdControls> {
         TouchShutter(controller: widget.controller),
 
         // play pause loading repeat
-        Center(child: PlayPauseButton(controller: widget.controller)),
+        Center(
+          child: PlayPauseButton(controller: widget.controller),
+        ),
         // other
 
         // NOT FULLSCREEN TOP BAR CONTROLS
@@ -211,7 +212,10 @@ class _VideoAdControlsState extends State<VideoAdControls> {
                 children: [
                   Text(
                     '${durationFormatter(playerValue.position.inMilliseconds)} / ${durationFormatter(playerValue.totalDuration.inMilliseconds)}',
-                    style: const TextStyle(fontSize: 12, color: Colors.white),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.white,
+                    ),
                   ),
                   const Spacer(),
                   if (showTimer)
@@ -222,7 +226,7 @@ class _VideoAdControlsState extends State<VideoAdControls> {
                         horizontal: 6,
                       ),
                       child: Text(
-                        '${widget.controller.videoPlayerController.value.position.inSeconds}s',
+                        '$timer s',
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,

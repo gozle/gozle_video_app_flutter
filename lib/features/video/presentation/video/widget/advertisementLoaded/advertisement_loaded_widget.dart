@@ -5,6 +5,7 @@ import 'package:video_gozle/generated/l10n.dart';
 
 class AdvertisementLoadedWidget extends StatelessWidget {
   final VideoAdsModel videoAd;
+
   const AdvertisementLoadedWidget({
     super.key,
     required this.videoAd,
@@ -21,38 +22,18 @@ class AdvertisementLoadedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ExpansionTile(
-        title: Row(
-          children: [
-            Expanded(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  videoAd.text,
-                  style: const TextStyle(
-                    fontSize: 15,
-                  ),
-                ),
-                Text(
-                  videoAd.status,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            )),
-            if (videoAd.link != null) buildBtn(),
-          ],
-        ),
-        initiallyExpanded: true,
-        // subtitle: Text(videoAd.status),
-        expandedCrossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Text(
+              videoAd.text,
+              style: const TextStyle(fontSize: 22),
+            ),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          SliverToBoxAdapter(
             child: Text(
               videoAd.description,
               style: const TextStyle(
@@ -61,18 +42,18 @@ class AdvertisementLoadedWidget extends StatelessWidget {
               ),
             ),
           ),
-          const Divider(),
           if (videoAd.link != null)
-            Container(
-              margin: const EdgeInsets.only(
-                bottom: 20,
-                left: 16,
-                right: 16,
-                top: 16,
+            SliverFillRemaining(
+              child: Column(
+                children: [
+                  const Spacer(),
+                  SizedBox(
+                    height: 44,
+                    width: double.infinity,
+                    child: buildBtn(),
+                  ),
+                ],
               ),
-              height: 44,
-              width: double.infinity,
-              child: buildBtn(),
             ),
         ],
       ),
@@ -91,7 +72,7 @@ class AdvertisementLoadedWidget extends StatelessWidget {
           ),
         ),
       ),
-      child: Text(S.current.install),
+      child: Text(S.current.go),
     );
   }
 }

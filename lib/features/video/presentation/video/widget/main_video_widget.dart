@@ -75,67 +75,106 @@ class MainVideoWidget extends AnimatedWidget {
               VideoPlayerProvider videoPlayerProvider, Widget? child) {
             if (videoPlayerProvider.isAdPlaying &&
                 videoPlayerProvider.adsVideoController != null) {
-              return Row(
+              return Stack(
                 children: [
-                  WorldVideoPlayer(
-                    controller: videoPlayerProvider.adsVideoController!,
-                    expansionHeight: expansion.height,
-                    expansionWidth: expansion.width,
-                    customControls: VideoAdControls(
-                      onMinimizeTap: () {
-                        context
-                            .read<VideoBloc>()
-                            .add(const VideoEvent.minimize());
-                      },
-                      onSkip: () {
-                        context
-                            .read<VideoBloc>()
-                            .add(const VideoEvent.closeAdd());
-                      },
-                      skipDurationInSec: videoPlayerProvider.skipDuration,
-                      progressBarTheme: ProgressBarTheme(
-                        collapsedProgressBarColor: Colors.red,
-                        expandedProgressBarColor: Colors.red,
-                        collapsedThumbColor: Colors.red,
+                  Row(
+                    children: [
+                      WorldVideoPlayer(
+                        controller: videoPlayerProvider.adsVideoController!,
+                        expansionHeight: expansion.height,
+                        expansionWidth: expansion.width,
+                        customControls: VideoAdControls(
+                          onMinimizeTap: () {
+                            context
+                                .read<VideoBloc>()
+                                .add(const VideoEvent.minimize());
+                          },
+                          onSkip: () {
+                            context
+                                .read<VideoBloc>()
+                                .add(const VideoEvent.closeAdd());
+                          },
+                          skipDurationInSec: videoPlayerProvider.skipDuration,
+                          progressBarTheme: ProgressBarTheme(
+                            collapsedProgressBarColor: Colors.red,
+                            expandedProgressBarColor: Colors.red,
+                            collapsedThumbColor: Colors.red,
+                          ),
+                          controller: videoPlayerProvider.adsVideoController!,
+                        ),
+                        size: Size(
+                          playerWidth.value,
+                          playerHeight.value,
+                        ),
                       ),
-                      controller: videoPlayerProvider.adsVideoController!,
-                    ),
-                    size: Size(
-                      playerWidth.value,
-                      playerHeight.value,
-                    ),
+                      MiniplayerTitle(
+                        controller: videoPlayerProvider.adsVideoController!,
+                      ),
+                    ],
                   ),
-                  MiniplayerTitle(
-                    controller: videoPlayerProvider.adsVideoController!,
-                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Stack(
+                      children: [
+                        CustomProgressBar(
+                          controller: videoPlayerProvider.adsVideoController!,
+                          progressBarTheme: ProgressBarTheme(),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            height: 30,
+                            color: Colors.transparent,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               );
             }
             if (videoPlayerProvider.worldVideoPlayerController != null) {
-              return Row(
+              return Stack(
                 children: [
-                  WorldVideoPlayer(
-                    controller: videoPlayerProvider.worldVideoPlayerController!,
-                    expansionHeight: expansion.height,
-                    expansionWidth: expansion.width,
-                    customControls: GozleVideoControls(
-                      onMinimizeTap: () {
-                        context
-                            .read<VideoBloc>()
-                            .add(const VideoEvent.minimize());
-                      },
+                  Row(
+                    children: [
+                      WorldVideoPlayer(
+                        controller: videoPlayerProvider.worldVideoPlayerController!,
+                        expansionHeight: expansion.height,
+                        expansionWidth: expansion.width,
+                        customControls: GozleVideoControls(
+                          onMinimizeTap: () {
+                            context
+                                .read<VideoBloc>()
+                                .add(const VideoEvent.minimize());
+                          },
+                          progressBarTheme: ProgressBarTheme(),
+                          controller:
+                              videoPlayerProvider.worldVideoPlayerController!,
+                        ),
+                        size: Size(
+                          playerWidth.value,
+                          playerHeight.value,
+                        ),
+                      ),
+                      MiniplayerTitle(
+                        controller: videoPlayerProvider.worldVideoPlayerController!,
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: CustomProgressBar(
+                      controller: videoPlayerProvider.worldVideoPlayerController!,
                       progressBarTheme: ProgressBarTheme(),
-                      controller:
-                          videoPlayerProvider.worldVideoPlayerController!,
                     ),
-                    size: Size(
-                      playerWidth.value,
-                      playerHeight.value,
-                    ),
-                  ),
-                  MiniplayerTitle(
-                    controller: videoPlayerProvider.worldVideoPlayerController!,
-                  ),
+                  )
                 ],
               );
             }

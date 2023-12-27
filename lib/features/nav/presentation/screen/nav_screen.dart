@@ -19,8 +19,10 @@ import 'package:video_gozle/generated/l10n.dart';
 
 class NavScreen extends StatefulWidget {
   static String routeName = '/main-nav';
+  final bool showSubscribes;
 
-  const NavScreen({super.key});
+
+  const NavScreen({super.key, required this.showSubscribes});
 
   @override
   State<NavScreen> createState() => _NavScreenState();
@@ -166,13 +168,14 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                   initialRoute: HomeScreen.routeName,
                   onGenerateRoute: onGenerateRoute,
                 ),
-                Navigator(
+                if(widget.showSubscribes)
+                  Navigator(
                   key: _navigatorKeys[1],
                   initialRoute: SubscriptionsScreen.routeName,
                   onGenerateRoute: onGenerateRoute,
                 ),
                 Navigator(
-                  key: _navigatorKeys[2],
+                  key: _navigatorKeys[widget.showSubscribes ? 2 : 1],
                   initialRoute: LibraryScreen.routeName,
                   onGenerateRoute: onGenerateRoute,
                 ),
@@ -273,7 +276,8 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                             ),
                             label: S.current.main_page,
                           ),
-                          NavigationDestination(
+                          if(widget.showSubscribes)
+                            NavigationDestination(
                             selectedIcon: SvgPicture.asset(
                               AppAssets.subscriptionsIcon,
                               colorFilter: ColorFilter.mode(

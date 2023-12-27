@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:video_gozle/core/failure/failure.dart';
@@ -7,9 +8,11 @@ import 'package:video_gozle/features/global/domain/models/video_model.dart';
 import 'package:video_gozle/features/search/domain/use_cases/seach_use_cases.dart';
 import 'package:video_gozle/injection.dart';
 
-part 'search_video_event.dart';
-part 'search_video_state.dart';
 part 'search_video_bloc.freezed.dart';
+
+part 'search_video_event.dart';
+
+part 'search_video_state.dart';
 
 class SearchVideoBloc extends Bloc<SearchVideoEvent, SearchVideoState> {
   SearchVideoBloc() : super(const SearchVideoState.initial()) {
@@ -37,7 +40,10 @@ class SearchVideoBloc extends Bloc<SearchVideoEvent, SearchVideoState> {
       amount: amount,
     );
     final cResult = await _searchUseCases.searchChannels(
-        query: event.query, amount: 2, page: 1);
+      query: event.query,
+      amount: amount,
+      page: 1,
+    );
     if (lastEvent != event) return;
 
     result.fold(
@@ -47,8 +53,7 @@ class SearchVideoBloc extends Bloc<SearchVideoEvent, SearchVideoState> {
             add(event);
           });
         } else {
-          emit(SearchVideoState.error(
-              falure: failure, oldVideos: [], lastEvent: event));
+          emit(SearchVideoState.error(falure: failure, oldVideos: [], lastEvent: event));
         }
       },
       (videos) {
@@ -71,11 +76,18 @@ class SearchVideoBloc extends Bloc<SearchVideoEvent, SearchVideoState> {
     lastEvent = event;
 
     final nextPage = (event.oldVideos.length / amount).round() + 1;
+    final nextPageChannel = (event.oldChannels.length / amount).round() + 1;
 
     final result = await _searchUseCases.searchVideos(
       query: event.query,
       page: nextPage,
       amount: amount,
+    );
+
+    final cResult = await _searchUseCases.searchChannels(
+      query: event.query,
+      amount: amount,
+      page: nextPageChannel,
     );
 
     if (lastEvent != event) return;
@@ -96,9 +108,10 @@ class SearchVideoBloc extends Bloc<SearchVideoEvent, SearchVideoState> {
       },
       (videos) {
         final hasReachedMax = videos.length < amount;
+        var channels = cResult.getOrElse(() => []);
         emit(SearchVideoState.loaded(
           videos: event.oldVideos + videos,
-          channels: event.oldChannels,
+          channels: event.oldChannels + channels,
           hasReachedMax: hasReachedMax,
           query: event.query,
         ));

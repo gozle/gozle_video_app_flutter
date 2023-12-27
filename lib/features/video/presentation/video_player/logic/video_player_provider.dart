@@ -63,7 +63,6 @@ class VideoPlayerProvider extends ChangeNotifier {
       adsVideoController!.enableAutoPlay();
       await adsVideoController!.init();
     } catch (e) {
-      print('shit e');
       rethrow;
     }
   }

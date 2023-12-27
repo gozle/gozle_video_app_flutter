@@ -194,102 +194,129 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                   enablePullUp: true,
                   enablePullDown: false,
                   footer: const SmartRefresherFooter(),
-                  child: CustomScrollView(controller: scrollController, slivers: [
-                    SliverToBoxAdapter(
-                      child: Container(
-                        color: context.theme.brightness == Brightness.dark
-                            ? AppColors.darkBarColor
-                            : AppColors.darkPrimary,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                          child: Row(
-                            children: SearchFilter.values
-                                .mapIndexed(
-                                  (e, i) => i == SearchFilter.values[1]
-                                      ? Padding(
-                                          padding: const EdgeInsets.only(right: 5),
-                                          child: Container(
-                                            width: 1,
-                                            height: 30,
-                                            color: Theme.of(context).secondaryHeaderColor,
+                  child: CustomScrollView(
+                    controller: scrollController,
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: Container(
+                          color: context.theme.brightness == Brightness.dark
+                              ? AppColors.darkBarColor
+                              : AppColors.darkPrimary,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 15,
+                            ),
+                            child: Row(
+                              children: SearchFilter.values
+                                  .mapIndexed(
+                                    (e, i) => i == SearchFilter.values[1]
+                                        ? Padding(
+                                            padding: const EdgeInsets.only(right: 5),
+                                            child: Container(
+                                              width: 1,
+                                              height: 30,
+                                              color: Theme.of(context).secondaryHeaderColor,
+                                            ),
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.only(right: 5),
+                                            child: CategoryItemWidget(
+                                              onTap: () => onFilterButtonTap(i.index),
+                                              isSelected: i.index == selectedFilter ? true : false,
+                                              name: i.asValue,
+                                            ),
                                           ),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.only(right: 5),
-                                          child: CategoryItemWidget(
-                                            onTap: () => onFilterButtonTap(i.index),
-                                            isSelected: i.index == selectedFilter ? true : false,
-                                            name: i.asValue,
-                                          ),
-                                        ),
-                                )
-                                .toList(),
+                                  )
+                                  .toList(),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    state.maybeWhen(
+                      state.maybeWhen(
                         loaded: (v, channels, h, q) {
                           final bool isChannel = selectedFilter == 3 || selectedFilter == 0;
                           if (channels.isNotEmpty && isChannel) {
-                            return SliverList.builder(
-                              itemCount: channels.length,
-                              itemBuilder: (context, index) {
-                                return ChannelListItemWidget(
-                                  channel: channels[index],
-                                );
-                              },
+                            return SliverToBoxAdapter(
+                              child: Column(
+                                children: [
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const ScrollPhysics(),
+                                    itemCount: channels.length,
+                                    itemBuilder: (context, index) {
+                                      return ChannelListItemWidget(
+                                        channel: channels[index],
+                                      );
+                                    },
+                                  ),
+                                  selectedFilter == 0 ? const Divider() : Container(),
+                                ],
+                              ),
+                            );
+                          }
+                          if (channels.isEmpty) {
+                            return SliverFillRemaining(
+                              child: Center(
+                                child: Text(
+                                  S.current.query_not_found(q),
+                                ),
+                              ),
                             );
                           }
                           return SliverToBoxAdapter(child: Container());
                         },
-                        orElse: () => SliverToBoxAdapter(child: Container())),
-                    state.when(
-                      initial: () {
-                        return const SliverToBoxAdapter(
-                          child: Center(),
-                        );
-                      },
-                      loaded: (videos, channels, hasReachedMax, query) {
-                        final bool isVideo = selectedFilter == 2 || selectedFilter == 0;
-                        if (videos.isNotEmpty && isVideo) {
-                          return VideoListWidget(
-                            videos: videos,
-                          );
-                        }
-                        if (videos.isEmpty) {
-                          return SliverFillRemaining(
-                            child: Center(
-                              child: Text(S.current.query_not_found(query)),
-                            ),
-                          );
-                        }
-                        return SliverToBoxAdapter(
+                        orElse: () => SliverToBoxAdapter(
                           child: Container(),
-                        );
-                      },
-                      loading: (oldItems) {
-                        if (oldItems.isNotEmpty) {
-                          return VideoListWidget(
-                            videos: oldItems,
+                        ),
+                      ),
+                      state.when(
+                        initial: () {
+                          return const SliverToBoxAdapter(
+                            child: Center(),
                           );
-                        } else {
-                          return const VideoListWidget(
-                            videos: [],
-                            videoListType: VideoListType.PLACEHOLDER,
+                        },
+                        loaded: (videos, channels, hasReachedMax, query) {
+                          final bool isVideo = selectedFilter == 2 || selectedFilter == 0;
+                          if (videos.isNotEmpty && isVideo) {
+                            return VideoListWidget(
+                              videos: videos,
+                            );
+                          }
+                          if (videos.isEmpty) {
+                            return SliverFillRemaining(
+                              child: Center(
+                                child: Text(S.current.query_not_found(query)),
+                              ),
+                            );
+                          }
+                          return SliverToBoxAdapter(
+                            child: Container(),
                           );
-                        }
-                      },
-                      error: (failure, oldVideos, lastEvent) {
-                        return SliverCustomErrorWidget(
-                          failure: failure,
-                          onTap: () {
-                            context.read<SearchVideoBloc>().add(lastEvent);
-                          },
-                        );
-                      },
-                    ),
-                  ]),
+                        },
+                        loading: (oldItems) {
+                          if (oldItems.isNotEmpty) {
+                            return VideoListWidget(
+                              videos: oldItems,
+                            );
+                          } else {
+                            return const VideoListWidget(
+                              videos: [],
+                              videoListType: VideoListType.PLACEHOLDER,
+                            );
+                          }
+                        },
+                        error: (failure, oldVideos, lastEvent) {
+                          return SliverCustomErrorWidget(
+                            failure: failure,
+                            onTap: () {
+                              context.read<SearchVideoBloc>().add(lastEvent);
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 SearchHistoryWidget(
                   animationController: animationController,

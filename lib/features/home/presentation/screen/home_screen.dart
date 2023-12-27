@@ -94,241 +94,259 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<VideoListBloc, VideoListState>(listener: (context, state) {
-      state.whenOrNull(
-        byCategoryLoaded: (videos, category, hasReachedMax) {
-          refreshController.refreshCompleted();
-          refreshController.loadComplete();
-        },
-        popularLoaded: (videos, hasReachedMax) {
-          refreshController.refreshCompleted();
-          refreshController.loadComplete();
-        },
-        latestLoaded: ((latestVideos, hasReachedMax) {
-          refreshController.refreshCompleted();
-          refreshController.loadComplete();
-        }),
-        error: (oldVideos, message, lastEvent) {
-          refreshController.loadFailed();
-        },
-      );
-    }, builder: (context, state) {
-      return Consumer<SettingsProvider>(builder: (_, __, ___) {
-        return Scaffold(
-          appBar: MainAppBar(
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(40),
-              child: BlocBuilder<VideoCategoryCubit, VideoCategoryState>(
-                builder: (context, videoCategoryState) {
-                  final popularVideoCategory = VideoCategory(
-                      pk: 0,
-                      name: 'popular',
-                      verbose: S.current.popular,
-                      iconAsset: AppAssets.rocketIcon);
-                  final latestVideoCategory = VideoCategory(
-                      pk: -1,
-                      name: 'latest',
-                      verbose: S.current.latest,
-                      iconAsset: AppAssets.clockRewindIcon);
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: CategoryListWidget(
-                      selectedCategory: state.whenOrNull(
-                        categoryLoading: (_, category) => category,
-                        byCategoryLoaded: (_, category, __) => category,
-                        popularLoading: (_) => popularVideoCategory,
-                        popularLoaded: (_, __) => popularVideoCategory,
-                        latestLoading: (_) => latestVideoCategory,
-                        latestLoaded: (_, __) => latestVideoCategory,
-                      ),
-                      categories: videoCategoryState.maybeWhen(
-                        loaded: (categories) {
-                          final List<VideoCategory> categotyList = List.from(categories);
-
-                          categotyList.insert(0, latestVideoCategory);
-                          categotyList.insert(0, popularVideoCategory);
-
-                          return categotyList;
-                        },
-                        orElse: () => [],
-                      ),
-                      onCategorySelected: (category) {
-                        if (category == popularVideoCategory) {
-                          context.read<VideoListBloc>().add(const VideoListEvent.popularLoad());
-                        } else if (category == latestVideoCategory) {
-                          context.read<VideoListBloc>().add(const VideoListEvent.latestLoad());
-                        } else {
-                          context.read<VideoListBloc>().add(
-                                VideoListEvent.byCategoryload(category: category),
-                              );
-                          scrollController.animateTo(1,
-                              duration: const Duration(milliseconds: 100), curve: Curves.linear);
-                        }
-                      },
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-          body: SafeArea(
-            child: SmartRefresher(
-              controller: refreshController,
-              scrollController: scrollController,
-              header: const SmartRefresherHeader(),
-              onRefresh: _onRefresh,
-              onLoading: _onLoadMore,
-              enablePullUp: true,
-              enablePullDown: true,
-              footer: const SmartRefresherFooter(),
-              child: state.when(
-                popularLoaded: (videos, hasReachedMax) {
-                  return CustomScrollView(
-                    controller: scrollController,
-                    slivers: [
-                      BlocBuilder<BannerCubit, BannerState>(
-                        builder: (_, banner_state) {
-                          return SliverToBoxAdapter(
-                            child: banner_state.whenOrNull(
-                              loading: () {
-                                return VerticalVideoItemWidget.placeHolder(context);
-                              },
-                              loaded: (banners) {
-                                var banner = banners.first;
-                                return BannerWidget(banner: banner);
-                              },
-                            ),
-                          );
-                        },
-                        bloc: BannerCubit(),
-                      ),
-                      VideoListWidget(
-                        videos: videos,
-                      ),
-                    ],
-                  );
-                },
-                popularLoading: (oldItems) {
-                  if (oldItems.isNotEmpty) {
-                    return CustomScrollView(
-                      slivers: [
-                        VideoListWidget(
-                          videos: oldItems,
-                        ),
-                      ],
-                    );
-                  } else {
-                    return const CustomScrollView(
-                      slivers: [
-                        VideoListWidget(
-                          videos: [],
-                          videoListType: VideoListType.PLACEHOLDER,
-                        ),
-                      ],
-                    );
-                  }
-                },
-                latestLoading: (videos) {
-                  if (videos.isNotEmpty) {
-                    return CustomScrollView(
-                      slivers: [
-                        VideoListWidget(
-                          videos: videos,
-                        ),
-                      ],
-                    );
-                  }
-                  return const CustomScrollView(
-                    slivers: [
-                      VideoListWidget(videos: [], videoListType: VideoListType.PLACEHOLDER),
-                    ],
-                  );
-                },
-                latestLoaded: (videos, _) {
-                  return CustomScrollView(
-                    slivers: [
-                      BlocBuilder<BannerCubit, BannerState>(
-                        builder: (_, banner_state) {
-                          return SliverToBoxAdapter(
-                            child: banner_state.whenOrNull(
-                              loading: () {
-                                return VerticalVideoItemWidget.placeHolder(context);
-                              },
-                              loaded: (banners) {
-                                var banner = banners.first;
-                                return BannerWidget(banner: banner);
-                              },
-                            ),
-                          );
-                        },
-                        bloc: BannerCubit(),
-                      ),
-                      VideoListWidget(
-                        videos: videos,
-                      ),
-                    ],
-                  );
-                },
-                byCategoryLoaded: (videos, category, hasReachedMax) {
-                  return CustomScrollView(
-                    slivers: [
-                      BlocBuilder<BannerCubit, BannerState>(
-                        builder: (_, banner_state) {
-                          return SliverToBoxAdapter(
-                            child: banner_state.whenOrNull(
-                              loading: () {
-                                return VerticalVideoItemWidget.placeHolder(context);
-                              },
-                              loaded: (banners) {
-                                var banner = banners.first;
-                                return BannerWidget(banner: banner);
-                              },
-                            ),
-                          );
-                        },
-                        bloc: BannerCubit(),
-                      ),
-                      VideoListWidget(videos: videos),
-                    ],
-                  );
-                },
-                categoryLoading: (oldItems, category) {
-                  if (oldItems.isNotEmpty) {
-                    return CustomScrollView(
-                      slivers: [
-                        VideoListWidget(
-                          videos: oldItems,
-                        ),
-                      ],
-                    );
-                  } else {
-                    return const CustomScrollView(
-                      slivers: [
-                        VideoListWidget(
-                          videos: [],
-                          videoListType: VideoListType.PLACEHOLDER,
-                        ),
-                      ],
-                    );
-                  }
-                },
-                error: (oldItems, failure, event) {
-                  return CustomScrollView(
-                    slivers: [
-                      SliverCustomErrorWidget(
-                        failure: failure,
-                        onTap: () {
-                          context.read<VideoListBloc>().add(event);
-                        },
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ),
+    return BlocConsumer<VideoListBloc, VideoListState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          byCategoryLoaded: (videos, category, hasReachedMax) {
+            refreshController.refreshCompleted();
+            refreshController.loadComplete();
+          },
+          popularLoaded: (videos, hasReachedMax) {
+            refreshController.refreshCompleted();
+            refreshController.loadComplete();
+          },
+          latestLoaded: ((latestVideos, hasReachedMax) {
+            refreshController.refreshCompleted();
+            refreshController.loadComplete();
+          }),
+          error: (oldVideos, message, lastEvent) {
+            refreshController.loadFailed();
+          },
         );
-      });
-    });
+      },
+      builder: (context, state) {
+        return Consumer<SettingsProvider>(
+          builder: (_, __, ___) {
+            return Scaffold(
+              appBar: MainAppBar(
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(40),
+                  child: BlocBuilder<VideoCategoryCubit, VideoCategoryState>(
+                    builder: (context, videoCategoryState) {
+                      final popularVideoCategory = VideoCategory(
+                          pk: 0,
+                          name: 'popular',
+                          verbose: S.current.popular,
+                          iconAsset: AppAssets.rocketIcon);
+                      final latestVideoCategory = VideoCategory(
+                          pk: -1,
+                          name: 'latest',
+                          verbose: S.current.latest,
+                          iconAsset: AppAssets.clockRewindIcon);
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: CategoryListWidget(
+                          selectedCategory: state.whenOrNull(
+                            categoryLoading: (_, category) => category,
+                            byCategoryLoaded: (_, category, __) => category,
+                            popularLoading: (_) => popularVideoCategory,
+                            popularLoaded: (_, __) => popularVideoCategory,
+                            latestLoading: (_) => latestVideoCategory,
+                            latestLoaded: (_, __) => latestVideoCategory,
+                          ),
+                          categories: videoCategoryState.maybeWhen(
+                            loaded: (categories) {
+                              final List<VideoCategory> categotyList = List.from(categories);
+
+                              categotyList.insert(0, latestVideoCategory);
+                              categotyList.insert(0, popularVideoCategory);
+
+                              return categotyList;
+                            },
+                            orElse: () => [],
+                          ),
+                          onCategorySelected: (category) {
+                            if (category == popularVideoCategory) {
+                              context.read<VideoListBloc>().add(const VideoListEvent.popularLoad());
+                            } else if (category == latestVideoCategory) {
+                              context.read<VideoListBloc>().add(const VideoListEvent.latestLoad());
+                            } else {
+                              context.read<VideoListBloc>().add(
+                                    VideoListEvent.byCategoryload(category: category),
+                                  );
+                              scrollController.animateTo(1,
+                                  duration: const Duration(milliseconds: 100),
+                                  curve: Curves.linear);
+                            }
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              body: SafeArea(
+                child: SmartRefresher(
+                  controller: refreshController,
+                  scrollController: scrollController,
+                  header: const SmartRefresherHeader(),
+                  onRefresh: _onRefresh,
+                  onLoading: _onLoadMore,
+                  enablePullUp: true,
+                  enablePullDown: true,
+                  footer: const SmartRefresherFooter(),
+                  child: state.when(
+                    popularLoaded: (videos, hasReachedMax) {
+                      return CustomScrollView(
+                        controller: scrollController,
+                        slivers: [
+                          BlocBuilder<BannerCubit, BannerState>(
+                            builder: (_, banner_state) {
+                              return SliverToBoxAdapter(
+                                child: banner_state.whenOrNull(
+                                  loading: () {
+                                    return VerticalVideoItemWidget.placeHolder(context);
+                                  },
+                                  loaded: (banners) {
+                                    var banner = banners?.first;
+                                    return BannerWidget(banner: banner);
+                                  },
+                                ),
+                              );
+                            },
+                            bloc: BannerCubit(),
+                          ),
+                          VideoListWidget(
+                            videos: videos,
+                          ),
+                        ],
+                      );
+                    },
+                    popularLoading: (oldItems) {
+                      if (oldItems.isNotEmpty) {
+                        return CustomScrollView(
+                          controller: scrollController,
+                          slivers: [
+                            VideoListWidget(
+                              videos: oldItems,
+                            ),
+                          ],
+                        );
+                      } else {
+                        return CustomScrollView(
+                          controller: scrollController,
+                          slivers: const [
+                            VideoListWidget(
+                              videos: [],
+                              videoListType: VideoListType.PLACEHOLDER,
+                            ),
+                          ],
+                        );
+                      }
+                    },
+                    latestLoading: (videos) {
+                      if (videos.isNotEmpty) {
+                        return CustomScrollView(
+                          controller: scrollController,
+                          slivers: [
+                            VideoListWidget(
+                              videos: videos,
+                            ),
+                          ],
+                        );
+                      }
+                      return CustomScrollView(
+                        controller: scrollController,
+                        slivers: const [
+                          VideoListWidget(
+                            videos: [],
+                            videoListType: VideoListType.PLACEHOLDER,
+                          ),
+                        ],
+                      );
+                    },
+                    latestLoaded: (videos, _) {
+                      return CustomScrollView(
+                        controller: scrollController,
+                        slivers: [
+                          BlocBuilder<BannerCubit, BannerState>(
+                            builder: (_, banner_state) {
+                              return SliverToBoxAdapter(
+                                child: banner_state.whenOrNull(
+                                  loading: () {
+                                    return VerticalVideoItemWidget.placeHolder(context);
+                                  },
+                                  loaded: (banners) {
+                                    var banner = banners?.first;
+                                    return BannerWidget(banner: banner);
+                                  },
+                                ),
+                              );
+                            },
+                            bloc: BannerCubit(),
+                          ),
+                          VideoListWidget(
+                            videos: videos,
+                          ),
+                        ],
+                      );
+                    },
+                    byCategoryLoaded: (videos, category, hasReachedMax) {
+                      return CustomScrollView(
+                        controller: scrollController,
+                        slivers: [
+                          BlocBuilder<BannerCubit, BannerState>(
+                            builder: (_, banner_state) {
+                              return SliverToBoxAdapter(
+                                child: banner_state.whenOrNull(
+                                  loading: () {
+                                    return VerticalVideoItemWidget.placeHolder(context);
+                                  },
+                                  loaded: (banners) {
+                                    var banner = banners?.first;
+                                    return BannerWidget(banner: banner);
+                                  },
+                                ),
+                              );
+                            },
+                            bloc: BannerCubit(),
+                          ),
+                          VideoListWidget(videos: videos),
+                        ],
+                      );
+                    },
+                    categoryLoading: (oldItems, category) {
+                      if (oldItems.isNotEmpty) {
+                        return CustomScrollView(
+                          controller: scrollController,
+                          slivers: [
+                            VideoListWidget(
+                              videos: oldItems,
+                            ),
+                          ],
+                        );
+                      } else {
+                        return CustomScrollView(
+                          controller: scrollController,
+                          slivers: const [
+                            VideoListWidget(
+                              videos: [],
+                              videoListType: VideoListType.PLACEHOLDER,
+                            ),
+                          ],
+                        );
+                      }
+                    },
+                    error: (oldItems, failure, event) {
+                      return CustomScrollView(
+                        controller: scrollController,
+                        slivers: [
+                          SliverCustomErrorWidget(
+                            failure: failure,
+                            onTap: () {
+                              context.read<VideoListBloc>().add(event);
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

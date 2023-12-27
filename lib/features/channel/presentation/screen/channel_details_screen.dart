@@ -31,7 +31,8 @@ class ChannelDetailsScreen extends StatefulWidget {
   State<ChannelDetailsScreen> createState() => _ChannelDetailsScreenState();
 }
 
-class _ChannelDetailsScreenState extends State<ChannelDetailsScreen> with SingleTickerProviderStateMixin {
+class _ChannelDetailsScreenState extends State<ChannelDetailsScreen>
+    with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
   @override
@@ -80,22 +81,22 @@ class _ChannelDetailsScreenState extends State<ChannelDetailsScreen> with Single
                         automaticallyImplyLeading: false,
                         toolbarHeight: 50,
                         collapsedHeight: 50,
-                        expandedHeight: 310,
+                        expandedHeight: 330,
                         flexibleSpace: FlexibleSpaceBar(
                           background: Column(
                             children: [
                               Container(
+                                width: double.infinity,
+                                height: 100,
                                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: AspectRatio(
-                                    aspectRatio: 5 / 1,
-                                    child: CachedNetworkImage(
-                                      imageUrl: '${channel.channelBanner}',
-                                      fit: BoxFit.cover,
-                                      errorWidget: (context, url, error) => const CustomPlaceholder(),
-                                      placeholder: (context, url) => const CustomPlaceholder(),
-                                    ),
+                                  child: CachedNetworkImage(
+                                    imageUrl: '${channel.channelBanner}',
+                                    fit: BoxFit.cover,
+                                    errorWidget: (context, url, error) =>
+                                        const CustomPlaceholder(),
+                                    placeholder: (context, url) => const CustomPlaceholder(),
                                   ),
                                 ),
                               ),
@@ -119,17 +120,19 @@ class _ChannelDetailsScreenState extends State<ChannelDetailsScreen> with Single
                               ),
                               const SizedBox(height: 10),
                               BlocProvider(
-                                  create: (context) => ChannelSubscriptionCubit(
-                                      channelId: channel.pk, isSubscribed: channel.isSubscribed ?? false),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        width: MediaQuery.of(context).size.width / 2,
-                                        child: const SubscribeButton(),
-                                      ),
-                                    ],
-                                  ))
+                                create: (context) => ChannelSubscriptionCubit(
+                                    channelId: channel.pk,
+                                    isSubscribed: channel.isSubscribed ?? false),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width / 2,
+                                      child: const SubscribeButton(),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                           collapseMode: CollapseMode.pin,
@@ -154,8 +157,10 @@ class _ChannelDetailsScreenState extends State<ChannelDetailsScreen> with Single
                   body: MultiBlocProvider(
                     providers: [
                       BlocProvider(
-                          create: (context) => ChannelDetailsPopularVideosListBloc(channelId: channel.pk)),
-                      BlocProvider(create: (context) => ChannelDetailsVideoListBloc(channelId: channel.pk)),
+                          create: (context) =>
+                              ChannelDetailsPopularVideosListBloc(channelId: channel.pk)),
+                      BlocProvider(
+                          create: (context) => ChannelDetailsVideoListBloc(channelId: channel.pk)),
                     ],
                     child: TabBarView(
                       // physics: const NeverScrollableScrollPhysics(),

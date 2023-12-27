@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_gozle/core/app_utils.dart';
 import 'package:video_gozle/features/home/domain/models/banner.dart' as BannerModel;
@@ -13,6 +12,7 @@ class BannerWidget extends StatelessWidget {
   });
 
   final BannerModel.Banner? banner;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,31 +41,33 @@ class BannerWidget extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Text(
               banner?.text ?? '',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
+              Expanded(
                 child: Text(
                   banner?.description ?? '',
-                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                  maxLines: 2,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
-              const Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  "Ad",
-                  style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
-                ),
+              const Text(
+                "Ad",
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
               )
             ],
           ),
+          const SizedBox(height: 10,),
           ElevatedButton(
             style: const ButtonStyle(
-                alignment: Alignment.center, minimumSize: MaterialStatePropertyAll(Size.fromHeight(40))),
+              alignment: Alignment.center,
+              minimumSize: MaterialStatePropertyAll(
+                Size.fromHeight(40),
+              ),
+            ),
             onPressed: () {
               launchUrlString(banner?.link ?? '');
             },
