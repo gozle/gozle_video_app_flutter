@@ -110,26 +110,24 @@ class HomeApiClient {
       throw ExceptionUtils.dioErrorHandle(e, stacktrace);
     }
   }
-
-  Future<List<Banner>> getBanners({
+  //TODO: Fix and clean
+  Future<Banner> getBanners({
     required String language,
-    required int amount,
-    required int page,
+    // required int amount,
+    // required int page,
   }) async {
     try {
-      const url = "/banner";
+      const url = "/banner/ads";
 
       final response = await dioV1.get(url, queryParameters: {
-        "page": page,
-        "page_size": amount,
+        // "page": page,
+        // "page_size": amount,
         "language": language,
       });
 
       if (response.statusCode == 200) {
-        final videoJsonList = response.data["results"] as List<dynamic>;
-        return videoJsonList
-            .map((videoJson) => Banner.fromJson(videoJson))
-            .toList();
+        // final videoJsonList = response.data["results"] as List<dynamic>;
+        return  Banner.fromJson(response.data);
       } else {
         throw ExceptionUtils.dioStatusCodeErrorHandle(response.statusCode);
       }

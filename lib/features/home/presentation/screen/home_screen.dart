@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -32,10 +34,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late ScrollController scrollController;
   late RefreshController refreshController;
-
+  int? cycleDuration;
+  Object? pollToken;
   @override
   void initState() {
     scrollController = ScrollController();
+
+    LongPolling();
 
     refreshController = RefreshController(initialRefresh: false);
 
@@ -44,11 +49,47 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
+    pollToken = null;
     scrollController.dispose();
     refreshController.dispose();
     super.dispose();
   }
 
+  Future<void> LongPolling() async {
+    final pollToken = Object();
+    this.pollToken = pollToken;
+    while (mounted && true) {
+      if (pollToken != this.pollToken) {
+        //canceled
+        return;
+      }
+
+      await Future<void>.delayed(Duration(seconds: cycleDuration ?? 150));
+
+      if (pollToken != this.pollToken) {
+        //canceled
+        return;
+      }
+
+      if (pollToken != this.pollToken) {
+        //canceled
+        return;
+      }
+      _onRefreshBanner();
+    }
+  }
+  void _onRefreshBanner() {
+    context.read<BannerCubit>().load();
+    context.read<BannerCubit>().state.whenOrNull(
+      loaded: (banners) {
+        var banner = banners;
+        return BannerWidget(banner: banner);
+      },
+    );
+    setState(() {
+      //no-op
+    });
+  }
   void _onRefresh() {
     context.read<VideoCategoryCubit>().load();
 
@@ -198,7 +239,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     return VerticalVideoItemWidget.placeHolder(context);
                                   },
                                   loaded: (banners) {
-                                    var banner = banners?.first;
+                                    var banner = banners;
+                                    cycleDuration = banners?.cycleDuration;
                                     return BannerWidget(banner: banner);
                                   },
                                 ),
@@ -267,7 +309,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     return VerticalVideoItemWidget.placeHolder(context);
                                   },
                                   loaded: (banners) {
-                                    var banner = banners?.first;
+                                    var banner = banners;
                                     return BannerWidget(banner: banner);
                                   },
                                 ),
@@ -293,7 +335,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     return VerticalVideoItemWidget.placeHolder(context);
                                   },
                                   loaded: (banners) {
-                                    var banner = banners?.first;
+                                    var banner = banners;
                                     return BannerWidget(banner: banner);
                                   },
                                 ),

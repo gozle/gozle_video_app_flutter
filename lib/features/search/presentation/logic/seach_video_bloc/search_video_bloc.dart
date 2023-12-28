@@ -24,7 +24,7 @@ class SearchVideoBloc extends Bloc<SearchVideoEvent, SearchVideoState> {
 
   SearchUseCases get _searchUseCases => locator<SearchUseCases>();
 
-  static int amount = 10; // You can adjust this number
+  static int amount = 20; // You can adjust this number
 
   Future<void> _onSearch(
     _SearchEvent event,

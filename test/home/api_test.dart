@@ -15,7 +15,7 @@ void main() async {
       ),
     );
     var home = HomeApiClient(dio: dio, dioV1: dio);
-    var banners = await home.getBanners(language: 'en', amount: 1, page: 1);
+    var banners = await home.getBanners(language: 'en');
     expect(banners, isNotEmpty);
   });
 }

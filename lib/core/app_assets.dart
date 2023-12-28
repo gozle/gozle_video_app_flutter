@@ -1,8 +1,11 @@
 class AppAssets {
   static const String homeIcon = 'assets/icons/menu/ic_home.svg';
 
-  static const String subscriptionsIcon =
-      'assets/icons/menu/ic_subscriptions.svg';
+  static const String filledHomeIcon = 'assets/icons/menu/filled_home.svg';
+
+  static const String subscriptionsIcon = 'assets/icons/menu/ic_subscriptions.svg';
+
+  static const String filledSubscriptionsIcon = 'assets/icons/menu/filled_subscriptions.svg';
 
   static const String libraryIcon = 'assets/icons/menu/ic_library.svg';
 
@@ -46,7 +49,10 @@ class AppAssets {
   static String loginImage = 'assets/images/login_image.png';
 
   static String signInImage = 'assets/images/sign_in.png';
+
   static String userUnsigned = 'assets/icons/menu/user-unsigned.svg';
+
+  static String filledUserUnsigned = 'assets/icons/menu/filled_user-unsigned.svg';
 
   static String pauseIcon = 'assets/icons/ic_pause.svg';
 

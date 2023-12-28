@@ -170,11 +170,11 @@ class AppTheme {
       surfaceTintColor: AppColors.lightBarColor,
       labelTextStyle: MaterialStateProperty.resolveWith(
         (states) => TextStyle(
-          color: states.contains(MaterialState.selected)
-              ? AppColors.GOZLE_COLOR
-              : lightTheme.disabledColor,
+          color: const Color.fromRGBO(22, 22, 22, 1),
           fontSize: 10,
-          fontWeight: FontWeight.w700,
+          fontWeight: states.contains(MaterialState.selected)
+              ? FontWeight.w500
+              : FontWeight.w300,
         ),
       ),
     ),

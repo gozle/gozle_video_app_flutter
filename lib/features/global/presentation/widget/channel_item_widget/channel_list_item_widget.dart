@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:video_gozle/core/theme.dart';
 
 import 'package:video_gozle/features/channel/domain/models/channel_model.dart';
 import 'package:video_gozle/features/channel/presentation/logic/channel_subscription_cubit/channel_subscription_cubit.dart';
@@ -8,6 +9,8 @@ import 'package:video_gozle/features/global/presentation/widget/ink_wrapper.dart
 import 'package:video_gozle/features/nav/presentation/widget/nav_key_provider.dart';
 import 'package:video_gozle/features/video/presentation/video/logic/video_bloc/video_bloc.dart';
 import 'package:video_gozle/features/video/presentation/video/widget/loaded/subscribe_button.dart';
+
+import '../../../../../core/app_utils.dart';
 
 class ChannelListItemWidget extends StatelessWidget {
   final Channel channel;
@@ -49,10 +52,20 @@ class ChannelListItemWidget extends StatelessWidget {
                       backgroundImage: Image.network('${channel.channelAvatar}').image),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(
-                      channel.name ?? '',
-                      style: Theme.of(context).textTheme.titleMedium,
-                      maxLines: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          channel.name ?? '',
+                          style: Theme.of(context).textTheme.titleMedium,
+                          maxLines: 1,
+                        ),
+                        Text(
+                          '${AppUtils.formatViews(channel.view)}',
+                          textAlign: TextAlign.center,
+                          style: context.textTheme.titleSmall,
+                        ),
+                      ],
                     ),
                   ),
                   const Spacer(),

@@ -106,16 +106,16 @@ class HomeRepositoryImpl extends HomeRepository {
       return left(UnexpectedFailure());
     }
   }
-
+  // TODO: fix and clean
   @override
-  Future<Either<Failure, List<Banner>>> getBanners(
+  Future<Either<Failure, Banner>> getBanners(
       {required String language,
-      required int amount,
-      required int page}) async {
+      /*required int amount,
+      required int page*/}) async {
     try {
       final bannerList = await homeApiClient.getBanners(
-        amount: amount,
-        page: page,
+        // amount: amount,
+        // page: page,
         language: language,
       );
       return right(bannerList);

@@ -52,6 +52,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
   late TextEditingController queryTC;
   late FocusNode focusNode;
   int selectedFilter = 0;
+  bool tappedShowMore = false;
 
   @override
   void initState() {
@@ -212,7 +213,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                                   .mapIndexed(
                                     (e, i) => i == SearchFilter.values[1]
                                         ? Padding(
-                                            padding: const EdgeInsets.only(right: 5),
+                                            padding: const EdgeInsets.only(right: 10),
                                             child: Container(
                                               width: 1,
                                               height: 30,
@@ -220,7 +221,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                                             ),
                                           )
                                         : Padding(
-                                            padding: const EdgeInsets.only(right: 5),
+                                            padding: const EdgeInsets.only(right: 10),
                                             child: CategoryItemWidget(
                                               onTap: () => onFilterButtonTap(i.index),
                                               isSelected: i.index == selectedFilter ? true : false,
@@ -236,20 +237,47 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                       state.maybeWhen(
                         loaded: (v, channels, h, q) {
                           final bool isChannel = selectedFilter == 3 || selectedFilter == 0;
+                          final bool filterAll = selectedFilter == 0 && !tappedShowMore;
                           if (channels.isNotEmpty && isChannel) {
                             return SliverToBoxAdapter(
                               child: Column(
                                 children: [
-                                  ListView.builder(
+                                  ListView.separated(
                                     shrinkWrap: true,
                                     physics: const ScrollPhysics(),
-                                    itemCount: channels.length,
+                                    itemCount: filterAll ? 2 : channels.length,
                                     itemBuilder: (context, index) {
                                       return ChannelListItemWidget(
                                         channel: channels[index],
                                       );
                                     },
+                                    separatorBuilder: (BuildContext context, int index) =>
+                                        const Divider(),
                                   ),
+                                  if (filterAll)
+                                    TextButton(
+                                      onPressed: () {
+                                        tappedShowMore = true;
+                                        setState(
+                                          () {
+                                            //no-op
+                                          },
+                                        );
+                                      },
+                                      child: const Text('show more'),
+                                    ),
+                                  if (selectedFilter == 0 && tappedShowMore)
+                                    TextButton(
+                                      onPressed: () {
+                                        tappedShowMore = false;
+                                        setState(
+                                          () {
+                                            //no-op
+                                          },
+                                        );
+                                      },
+                                      child: const Text('hide more'),
+                                    ),
                                   selectedFilter == 0 ? const Divider() : Container(),
                                 ],
                               ),

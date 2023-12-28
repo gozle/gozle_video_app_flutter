@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_gozle/core/app_utils.dart';
+import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/home/domain/models/banner.dart' as BannerModel;
 import 'package:video_gozle/generated/l10n.dart';
 
-class BannerWidget extends StatelessWidget {
+class BannerWidget extends StatefulWidget {
   const BannerWidget({
     super.key,
     required this.banner,
@@ -14,19 +15,24 @@ class BannerWidget extends StatelessWidget {
   final BannerModel.Banner? banner;
 
   @override
+  State<BannerWidget> createState() => _BannerWidgetState();
+}
+
+class _BannerWidgetState extends State<BannerWidget> {
+  bool? isExpanded = false;
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(18, 18, 18, 10),
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(18),
             child: AspectRatio(
               aspectRatio: 16 / 9,
               child: CachedNetworkImage(
-                imageUrl: banner?.image ?? "",
+                imageUrl: widget.banner?.image ?? "",
                 errorWidget: (_, __, ___) => Container(),
                 placeholder: (_, __) => Container(),
                 fit: BoxFit.cover,
@@ -34,33 +40,34 @@ class BannerWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 5,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              banner?.text ?? '',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          const SizedBox(height: 5),
+          ExpansionTile(
+            tilePadding: const EdgeInsets.all(0),
+            onExpansionChanged: (value) {
+              isExpanded = value;
+              setState(() {
+                //no-op
+              });
+            },
+            title: Text(widget.banner?.text ?? '', style: Theme.of(context).textTheme.titleLarge),
+            subtitle: !isExpanded!
+                ? Text(
+                    widget.banner?.description ?? '',
+                    maxLines: 2,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  )
+                : null,
+            trailing: const Text('more'),
+            expandedCrossAxisAlignment: CrossAxisAlignment.start,
+            collapsedIconColor: context.theme.brightness == Brightness.dark ? Colors.white : null,
             children: [
-              Expanded(
-                child: Text(
-                  banner?.description ?? '',
-                  maxLines: 2,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
+              Text(
+                widget.banner?.description ?? '',
+                style: Theme.of(context).textTheme.titleSmall,
               ),
-              const Text(
-                "Ad",
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
-              )
             ],
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(height: 10),
           ElevatedButton(
             style: const ButtonStyle(
               alignment: Alignment.center,
@@ -69,7 +76,7 @@ class BannerWidget extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              launchUrlString(banner?.link ?? '');
+              launchUrlString(widget.banner?.link ?? '');
             },
             child: Text(S.current.go),
           )

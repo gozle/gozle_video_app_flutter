@@ -23,9 +23,10 @@ abstract class HomeRepository {
   });
 
   Future<Either<Failure, List<VideoCategory>>> getVideoCategories();
-  Future<Either<Failure, List<Banner>>> getBanners({
+  //TODO: fix and clean
+  Future<Either<Failure, Banner>> getBanners({
     required String language,
-    required int amount,
-    required int page,
+    // required int amount,
+    // required int page,
   });
 }

@@ -47,16 +47,16 @@ class HomeUseCases {
   Future<Either<Failure, List<VideoCategory>>> getVideoCategories() {
     return homeRepository.getVideoCategories();
   }
-
-  Future<Either<Failure, List<Banner>>> getBanners({
+//TODO: FIX and clean
+  Future<Either<Failure, Banner>> getBanners({
     required int page,
     required int amount,
     required String language,
   }) {
     return homeRepository.getBanners(
-      amount: amount,
+      // amount: amount,
       language: language,
-      page: page,
+      // page: page,
     );
   }
 }

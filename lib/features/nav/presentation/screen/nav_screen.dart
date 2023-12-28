@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:video_gozle/core/app_assets.dart';
+import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/auth/presentation/logic/user_bloc/user_bloc.dart';
 import 'package:video_gozle/features/channel/presentation/screen/channel_details_screen.dart';
 import 'package:video_gozle/features/global/presentation/widget/fade_indexed_stack.dart';
@@ -20,7 +21,6 @@ import 'package:video_gozle/generated/l10n.dart';
 class NavScreen extends StatefulWidget {
   static String routeName = '/main-nav';
   final bool showSubscribes;
-
 
   const NavScreen({super.key, required this.showSubscribes});
 
@@ -168,12 +168,12 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                   initialRoute: HomeScreen.routeName,
                   onGenerateRoute: onGenerateRoute,
                 ),
-                if(widget.showSubscribes)
+                if (widget.showSubscribes)
                   Navigator(
-                  key: _navigatorKeys[1],
-                  initialRoute: SubscriptionsScreen.routeName,
-                  onGenerateRoute: onGenerateRoute,
-                ),
+                    key: _navigatorKeys[1],
+                    initialRoute: SubscriptionsScreen.routeName,
+                    onGenerateRoute: onGenerateRoute,
+                  ),
                 Navigator(
                   key: _navigatorKeys[widget.showSubscribes ? 2 : 1],
                   initialRoute: LibraryScreen.routeName,
@@ -250,6 +250,7 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                 child: Center(
                   child: BlocBuilder<UserBloc, UserState>(
                     builder: (context, state) {
+                      final isTheme = context.theme.brightness == Brightness.dark;
                       return NavigationBar(
                         height: heightStagger.value,
                         selectedIndex: _currentIndex,
@@ -259,66 +260,80 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                           });
                         },
                         destinations: [
+                          //TODO: clean the code
                           NavigationDestination(
                             selectedIcon: SvgPicture.asset(
-                              AppAssets.homeIcon,
-                              colorFilter: ColorFilter.mode(
-                                Theme.of(context).primaryColor,
-                                BlendMode.srcIn,
-                              ),
+                              AppAssets.filledHomeIcon,
+                              height: 32,
+                              color: isTheme ? Colors.white : null,
+                              // colorFilter: ColorFilter.mode(
+                              // Theme.of(context).unselectedWidgetColor,
+                              // BlendMode.srcIn,
+                              // ),
                             ),
                             icon: SvgPicture.asset(
                               AppAssets.homeIcon,
-                              colorFilter: ColorFilter.mode(
-                                Theme.of(context).disabledColor,
-                                BlendMode.srcIn,
-                              ),
+                              color: isTheme ? Colors.white : null,
+                              // colorFilter: ColorFilter.mode(
+                              //   Theme.of(context).disabledColor,
+                              //   BlendMode.srcIn,
+                              // ),
+                              height: 30,
                             ),
                             label: S.current.main_page,
                           ),
-                          if(widget.showSubscribes)
+                          if (widget.showSubscribes)
                             NavigationDestination(
-                            selectedIcon: SvgPicture.asset(
-                              AppAssets.subscriptionsIcon,
-                              colorFilter: ColorFilter.mode(
-                                Theme.of(context).primaryColor,
-                                BlendMode.srcIn,
+                              selectedIcon: SvgPicture.asset(
+                                AppAssets.filledSubscriptionsIcon,
+                                color: isTheme ? Colors.white : null,
+                                // colorFilter: ColorFilter.mode(
+                                //   Theme.of(context).primaryColor,
+                                //   BlendMode.srcIn,
+                                // ),
+                                height: 32,
                               ),
-                            ),
-                            icon: SvgPicture.asset(
-                              AppAssets.subscriptionsIcon,
-                              colorFilter: ColorFilter.mode(
-                                Theme.of(context).disabledColor,
-                                BlendMode.srcIn,
+                              icon: SvgPicture.asset(
+                                AppAssets.subscriptionsIcon,
+                                color: isTheme ? Colors.white : null,
+                                // colorFilter: ColorFilter.mode(
+                                //   Theme.of(context).disabledColor,
+                                //   BlendMode.srcIn,
+                                // ),
+                                height: 30,
                               ),
+                              label: S.current.subscriptions,
                             ),
-                            label: S.current.subscriptions,
-                          ),
                           NavigationDestination(
                             selectedIcon: SvgPicture.asset(
-                              AppAssets.userUnsigned,
-                              colorFilter: ColorFilter.mode(
-                                Theme.of(context).primaryColor,
-                                BlendMode.srcIn,
-                              ),
+                              AppAssets.filledUserUnsigned,
+                              color: isTheme ? Colors.white : null,
+                              // colorFilter: ColorFilter.mode(
+                              //   Theme.of(context).primaryColor,
+                              //   BlendMode.srcIn,
+                              // ),
+                              height: 32,
                             ),
                             icon: state.maybeWhen(
                               orElse: () => SvgPicture.asset(
                                 AppAssets.userUnsigned,
-                                colorFilter: ColorFilter.mode(
-                                  Theme.of(context).disabledColor,
-                                  BlendMode.srcIn,
-                                ),
+                                color: isTheme ? Colors.white : null,
+                                // colorFilter: ColorFilter.mode(
+                                //   Theme.of(context).disabledColor,
+                                //   BlendMode.srcIn,
+                                // ),
+                                height: 30,
                               ),
                               authenticated: (user) => SizedBox(
-                                  width: 25,
-                                  height: 25,
-                                  child: CircleAvatar(
-                                    radius: 150,
-                                    backgroundImage: Image.network(
-                                      user.avatar ?? '',
-                                    ).image,
-                                  )),
+                                width: 30,
+                                height: 30,
+                                child: CircleAvatar(
+                                  radius: 150,
+                                  backgroundImage: Image.network(
+                                    user.avatar ?? '',
+                                  ).image,
+                                ),
+                              ),
                             ),
                             label: S.current.profile,
                           )
