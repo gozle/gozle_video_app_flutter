@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_gozle/core/app_utils.dart';
-import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/home/domain/models/banner.dart' as BannerModel;
-import 'package:video_gozle/generated/l10n.dart';
+
+import '../../../../generated/l10n.dart';
+import '../../../global/presentation/widget/place_holder.dart';
 
 class BannerWidget extends StatefulWidget {
   const BannerWidget({
@@ -13,6 +15,41 @@ class BannerWidget extends StatefulWidget {
   });
 
   final BannerModel.Banner? banner;
+
+  static Widget placeHolder(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(18, 18, 18, 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AspectRatio(
+            aspectRatio: 16 / 9,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: const CustomPlaceholder(),
+            ),
+          ),
+          const SizedBox(height: 15),
+          SizedBox(
+            height: 25,
+            width: MediaQuery.of(context).size.width * 0.7,
+            child: const CustomPlaceholder(),
+          ),
+          const SizedBox(height: 15),
+          SizedBox(
+            height: 25,
+            width: MediaQuery.of(context).size.width / 2,
+            child: const CustomPlaceholder(),
+          ),
+          const SizedBox(height: 15),
+          const SizedBox(
+            height: 40,
+            child: CustomPlaceholder(),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   State<BannerWidget> createState() => _BannerWidgetState();
@@ -26,6 +63,7 @@ class _BannerWidgetState extends State<BannerWidget> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(18, 18, 18, 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(18),
@@ -40,32 +78,24 @@ class _BannerWidgetState extends State<BannerWidget> {
               ),
             ),
           ),
-          const SizedBox(height: 5),
-          ExpansionTile(
-            tilePadding: const EdgeInsets.all(0),
-            onExpansionChanged: (value) {
-              isExpanded = value;
-              setState(() {
-                //no-op
-              });
-            },
-            title: Text(widget.banner?.text ?? '', style: Theme.of(context).textTheme.titleLarge),
-            subtitle: !isExpanded!
-                ? Text(
-                    widget.banner?.description ?? '',
-                    maxLines: 2,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  )
-                : null,
-            trailing: const Text('more'),
-            expandedCrossAxisAlignment: CrossAxisAlignment.start,
-            collapsedIconColor: context.theme.brightness == Brightness.dark ? Colors.white : null,
-            children: [
-              Text(
-                widget.banner?.description ?? '',
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-            ],
+          const SizedBox(height: 10),
+          Text(
+            widget.banner?.text ?? '',
+            maxLines: !isExpanded! ? 1 : null,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(height: 10),
+          ExpandableText(
+            widget.banner?.description ?? '',
+            expandText: S.current.more,
+            collapseText: S.current.hide,
+            maxLines: 2,
+            linkColor: Colors.blue,
+            animation: true,
+            expandOnTextTap: true,
+            collapseOnTextTap: true,
+            animationCurve: Curves.ease,
+            animationDuration: const Duration(milliseconds: 320),
           ),
           const SizedBox(height: 10),
           ElevatedButton(

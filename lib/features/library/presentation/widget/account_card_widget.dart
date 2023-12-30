@@ -8,6 +8,7 @@ import 'package:video_gozle/generated/l10n.dart';
 
 class AccountCardWidget extends StatelessWidget {
   final User user;
+
   const AccountCardWidget({super.key, required this.user});
 
   @override
@@ -28,7 +29,7 @@ class AccountCardWidget extends StatelessWidget {
             backgroundColor: Theme.of(context).secondaryHeaderColor,
             backgroundImage: Image.network('${user.avatar}').image,
           ),
-          const SizedBox(width: 24),
+          const SizedBox(width: 23),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

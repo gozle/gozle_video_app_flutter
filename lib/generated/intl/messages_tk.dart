@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "go": MessageLookupByLibrary.simpleMessage("Geçmek"),
         "gozle_video": MessageLookupByLibrary.simpleMessage("Gozle Video"),
         "help": MessageLookupByLibrary.simpleMessage("Salgylanma"),
+        "hide": MessageLookupByLibrary.simpleMessage("Gizle"),
         "history": MessageLookupByLibrary.simpleMessage("Taryh"),
         "history_and_privacy":
             MessageLookupByLibrary.simpleMessage("Taryh we gizlinlik"),
@@ -173,6 +174,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "video_starts_at": m2,
         "videos": MessageLookupByLibrary.simpleMessage("Wideo"),
         "views": MessageLookupByLibrary.simpleMessage("Görülen"),
+        "want_to_like":
+            MessageLookupByLibrary.simpleMessage("Wideony haladyňyzmy?"),
         "want_to_subscribe": MessageLookupByLibrary.simpleMessage(
             "Bu kanala ýazylmak isleýärsiňizmi?"),
         "watch_later": MessageLookupByLibrary.simpleMessage("Soň görmek"),

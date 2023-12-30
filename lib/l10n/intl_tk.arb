@@ -2,6 +2,7 @@
     "@@locale": "tk",
     "lang": "tk",
     "more": "Has köp",
+    "hide": "Gizle",
     "views": "Görülen",
     "subscribe": "Yzarlamak",
     "likes": "Bellikler \"Haladym\"",
@@ -133,5 +134,6 @@
     "not_found_error": "404 НЕ НАЙДЕНО",
     "undefined_issue": "Что то пошло не так. Пожалуйста, попробуйте еще раз",
     "install": "ýüklemek",
-    "want_to_subscribe":"Bu kanala ýazylmak isleýärsiňizmi?"
+    "want_to_subscribe":"Bu kanala ýazylmak isleýärsiňizmi?",
+    "want_to_like":"Wideony haladyňyzmy?"
 }

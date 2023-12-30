@@ -28,7 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: MaterialStateProperty.all(const Color(0xffF5F5F5)),
       textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18)),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: Color(0xffF5F5F5)))),
+          borderRadius: BorderRadius.circular(8.0),
+          side: const BorderSide(color: Color(0xffF5F5F5)))),
       padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)),
     );
     var darkCategoryStyle = ButtonStyle(
@@ -36,7 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: MaterialStatePropertyAll(Theme.of(context).secondaryHeaderColor),
         foregroundColor: const MaterialStatePropertyAll(Color(0xffF5F5F5)),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0), side: const BorderSide(color: Color(0xffF5F5F5)))),
+            borderRadius: BorderRadius.circular(8.0),
+            side: const BorderSide(color: Color(0xffF5F5F5)))),
         padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(8, 12, 8, 12)));
     return Scaffold(
       body: BlocConsumer<UserBloc, UserState>(
@@ -77,15 +79,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const Spacer(),
                             TextButton(
-                                style: ButtonStyle(
-                                    textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18))),
-                                onPressed: () {
-                                  context.read<UserBloc>().add(const UserEvent.skipLogin(skipped: true));
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [Text(S.current.skip), const Icon(Icons.arrow_forward_ios)],
-                                ))
+                              style: ButtonStyle(
+                                  textStyle:
+                                      MaterialStateProperty.all(const TextStyle(fontSize: 18))),
+                              onPressed: () {
+                                context.read<UserBloc>().add(
+                                      const UserEvent.skipLogin(skipped: true),
+                                    );
+                                Navigator.of(context).pushReplacementNamed(
+                                  NavScreen.routeName,
+                                  arguments: const NavScreen(showSubscribes: false),
+                                );
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(S.current.skip),
+                                  const Icon(Icons.arrow_forward_ios)
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -130,7 +143,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: const ButtonStyle(
                                   alignment: Alignment.center,
                                   minimumSize: MaterialStatePropertyAll(Size.fromHeight(50)),
-                                  textStyle: MaterialStatePropertyAll(const TextStyle(fontSize: 18))),
+                                  textStyle:
+                                      MaterialStatePropertyAll(const TextStyle(fontSize: 18))),
                               onPressed: oAuthClientData != null
                                   ? () {
                                       context

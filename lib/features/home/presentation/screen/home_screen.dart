@@ -236,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               return SliverToBoxAdapter(
                                 child: banner_state.whenOrNull(
                                   loading: () {
-                                    return VerticalVideoItemWidget.placeHolder(context);
+                                    return BannerWidget.placeHolder(context);
                                   },
                                   loaded: (banners) {
                                     var banner = banners;
@@ -306,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               return SliverToBoxAdapter(
                                 child: banner_state.whenOrNull(
                                   loading: () {
-                                    return VerticalVideoItemWidget.placeHolder(context);
+                                    return BannerWidget.placeHolder(context);
                                   },
                                   loaded: (banners) {
                                     var banner = banners;

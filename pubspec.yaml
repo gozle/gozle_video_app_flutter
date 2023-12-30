@@ -81,6 +81,7 @@ dependencies:
   flutter_animated_progress_bar: ^1.0.5
   flutter_cache_manager: ^3.3.1
   flutter_native_splash: ^2.3.8
+  expandable_text: ^2.3.0
 
   firebase_core: ^2.24.2
 

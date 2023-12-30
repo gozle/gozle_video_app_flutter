@@ -67,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "go": MessageLookupByLibrary.simpleMessage("Go"),
         "gozle_video": MessageLookupByLibrary.simpleMessage("Gozle Video"),
         "help": MessageLookupByLibrary.simpleMessage("Help"),
+        "hide": MessageLookupByLibrary.simpleMessage("Hide"),
         "history": MessageLookupByLibrary.simpleMessage("History"),
         "history_and_privacy":
             MessageLookupByLibrary.simpleMessage("History and Privacy"),
@@ -172,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "video_starts_at": m2,
         "videos": MessageLookupByLibrary.simpleMessage("Videos"),
         "views": MessageLookupByLibrary.simpleMessage("Views"),
+        "want_to_like":
+            MessageLookupByLibrary.simpleMessage("Did you like the video?"),
         "want_to_subscribe": MessageLookupByLibrary.simpleMessage(
             "Want to subscribe to this account?"),
         "watch_later": MessageLookupByLibrary.simpleMessage("Watch Later"),

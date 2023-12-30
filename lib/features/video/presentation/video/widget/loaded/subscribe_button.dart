@@ -21,7 +21,7 @@ class SubscribeButton extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           unauthenticated: () async {
-            SubscribeAlertDialog.show(context);
+            SubscribeAlertDialog.show(context, S.current.want_to_subscribe);
           },
         );
       },

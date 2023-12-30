@@ -264,7 +264,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                                           },
                                         );
                                       },
-                                      child: const Text('show more'),
+                                      child: Text(S.current.more),
                                     ),
                                   if (selectedFilter == 0 && tappedShowMore)
                                     TextButton(
@@ -276,7 +276,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                                           },
                                         );
                                       },
-                                      child: const Text('hide more'),
+                                      child: Text(S.current.hide),
                                     ),
                                   selectedFilter == 0 ? const Divider() : Container(),
                                 ],

@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     TestApiClient.test();
 
-    Future.delayed(const Duration(seconds: 2)).then(
+    Future.delayed(const Duration(seconds: 3)).then(
       (_) {
         context.read<UserBloc>().add(const UserEvent.restore());
       },

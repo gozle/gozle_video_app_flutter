@@ -6,6 +6,9 @@ import 'package:video_gozle/core/app_utils.dart';
 import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/video/presentation/video/logic/video_like/video_like_cubit.dart';
 
+import '../../../../../../../generated/l10n.dart';
+import '../subcribe_alert_dialog.dart';
+
 class LikeButton extends StatefulWidget {
   const LikeButton({super.key});
 
@@ -18,9 +21,20 @@ class _LikeButtonState extends State<LikeButton> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<VideoLikeCubit, VideoLikeState>(
+    return BlocConsumer<VideoLikeCubit, VideoLikeState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          unauthenticated: (likesCount) async {
+            SubscribeAlertDialog.show(context, S.current.want_to_like);
+          },
+        );
+      },
       builder: (context, state) {
-        final isLiked = state.when(liked: (likesCount) => true, notLiked: (likesCount) => false);
+        final isLiked = state.when(
+          liked: (likesCount) => true,
+          notLiked: (likesCount) => false,
+          unauthenticated: (likesCount) => false,
+        );
         return ElevatedButton(
           style: ButtonStyle(
             padding: const MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 20)),
@@ -72,7 +86,10 @@ class _LikeButtonState extends State<LikeButton> {
                 notLiked: (likesCount) {
                   return AppUtils.compact(likesCount);
                 },
-              )),
+                unauthenticated: (likesCount) {
+                  return AppUtils.compact(likesCount);
+                },
+              ),),
             ],
           ),
         );

@@ -5,22 +5,22 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_gozle/core/app_assets.dart';
 import 'package:video_gozle/core/constants.dart';
-import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/auth/presentation/logic/user_bloc/user_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:video_gozle/features/global/presentation/widget/smart_refresher_header.dart';
-import 'package:video_gozle/features/library/presentation/widget/account_card_widget.dart';
 import 'package:video_gozle/features/auth/presentation/widget/logout_alert_dialog.dart';
 import 'package:video_gozle/features/global/presentation/widget/menu_item_widget.dart';
+import 'package:video_gozle/features/global/presentation/widget/smart_refresher_header.dart';
 import 'package:video_gozle/features/global/presentation/widget/video_item_widget/small_video_item_widget.dart';
 import 'package:video_gozle/features/library/presentation/logic/history_list_bloc/history_list_bloc.dart';
+import 'package:video_gozle/features/library/presentation/widget/account_card_widget.dart';
 import 'package:video_gozle/features/nav/presentation/widget/main_app_bar.dart';
 import 'package:video_gozle/features/settings/presentation/logic/settings/settings_provider.dart';
 import 'package:video_gozle/features/settings/presentation/screen/settings_screen.dart';
+import 'package:video_gozle/features/splash/presentation/screen/splash_screen.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
 class LibraryScreen extends StatefulWidget {
   static const String routeName = '/library';
+
   const LibraryScreen({super.key});
 
   @override
@@ -91,19 +91,25 @@ class LibraryScreenState extends State<LibraryScreen> {
                               ),
                               ElevatedButton(
                                 style: const ButtonStyle(
-                                    alignment: Alignment.center,
-                                    minimumSize: MaterialStatePropertyAll(Size.fromHeight(40))),
+                                  alignment: Alignment.center,
+                                  minimumSize: MaterialStatePropertyAll(
+                                    Size.fromHeight(40),
+                                  ),
+                                ),
                                 onPressed: () {
                                   context.read<UserBloc>().state.whenOrNull(
-                                      unauthenticated: (oAuthClientData) {
-                                    if (oAuthClientData != null) {
-                                      context
-                                          .read<UserBloc>()
-                                          .add(UserEvent.login(oAuthClientData: oAuthClientData));
-                                    }
-                                  });
-                                  // Navigator.of(context, rootNavigator: true)
-                                  //     .pushReplacementNamed(LoginScreen.routeName);
+                                    unauthenticated: (oAuthClientData) {
+                                      if (oAuthClientData != null) {
+                                        context.read<UserBloc>().add(
+                                              UserEvent.login(oAuthClientData: oAuthClientData),
+                                            );
+                                      }
+                                    },
+                                  );
+                                  Future.delayed(const Duration(seconds: 2)).then(
+                                    (value) => Navigator.of(context, rootNavigator: true)
+                                        .pushReplacementNamed(SplashScreen.routeName),
+                                  );
                                 },
                                 child: Text(S.current.sign_in),
                               )
@@ -113,8 +119,8 @@ class LibraryScreenState extends State<LibraryScreen> {
                         const Spacer(),
                         MenuItemWidget(
                           onTap: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context) => const SettingsScreen()));
                           },
                           label: S.current.settings,
                         ),
@@ -191,7 +197,8 @@ class LibraryScreenState extends State<LibraryScreen> {
                                       itemBuilder: (context, index) {
                                         return Container(
                                           margin: EdgeInsets.only(
-                                              left: index == 0 ? 24 : 0, right: index + 1 == 5 ? 24 : 10),
+                                              left: index == 0 ? 24 : 0,
+                                              right: index + 1 == 5 ? 24 : 10),
                                           child: SmallVideoItemWidget.placeHolder(context),
                                         );
                                       },
@@ -215,8 +222,8 @@ class LibraryScreenState extends State<LibraryScreen> {
                         SliverToBoxAdapter(
                           child: MenuItemWidget(
                             onTap: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) => const SettingsScreen()));
                             },
                             label: S.current.settings,
                           ),

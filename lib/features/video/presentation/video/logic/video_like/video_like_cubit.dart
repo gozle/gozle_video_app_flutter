@@ -3,6 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:video_gozle/features/video/domain/usecases/video_use_cases.dart';
 import 'package:video_gozle/injection.dart';
 
+import '../../../../../auth/domain/use_cases/auth_use_cases.dart';
+
 part 'video_like_state.dart';
 part 'video_like_cubit.freezed.dart';
 
@@ -24,9 +26,15 @@ class VideoLikeCubit extends Cubit<VideoLikeState> {
   }
 
   VideoUseCases get videoUseCases => locator<VideoUseCases>();
+  AuthUseCases get authUseCases => locator<AuthUseCases>();
 
   Future<void> likeVideo() async {
     final newLikesCount = isLiked ? likesCount : likesCount + 1; // Учет изначального состояния
+    var user = await authUseCases.restoreUser();
+    if (user == null) {
+      emit(VideoLikeState.unauthenticated(likesCount: newLikesCount));
+      return;
+    }
     emit(VideoLikeState.liked(likesCount: newLikesCount));
 
     final result = await videoUseCases.likeVideo(videoId: videoId);

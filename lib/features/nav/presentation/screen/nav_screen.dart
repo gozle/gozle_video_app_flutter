@@ -22,7 +22,7 @@ class NavScreen extends StatefulWidget {
   static String routeName = '/main-nav';
   final bool showSubscribes;
 
-  const NavScreen({super.key, required this.showSubscribes});
+  const NavScreen({super.key, required this.showSubscribes,});
 
   @override
   State<NavScreen> createState() => _NavScreenState();
@@ -31,7 +31,6 @@ class NavScreen extends StatefulWidget {
 class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMixin {
   late AnimationController miniplayerAnimationController;
   late PanelController miniplayerController;
-
   @override
   void initState() {
     miniplayerAnimationController = AnimationController(
@@ -263,21 +262,12 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                           //TODO: clean the code
                           NavigationDestination(
                             selectedIcon: SvgPicture.asset(
-                              AppAssets.filledHomeIcon,
+                              isTheme ? AppAssets.whiteHomeIcon : AppAssets.filledHomeIcon,
                               height: 32,
-                              color: isTheme ? Colors.white : null,
-                              // colorFilter: ColorFilter.mode(
-                              // Theme.of(context).unselectedWidgetColor,
-                              // BlendMode.srcIn,
-                              // ),
                             ),
                             icon: SvgPicture.asset(
                               AppAssets.homeIcon,
                               color: isTheme ? Colors.white : null,
-                              // colorFilter: ColorFilter.mode(
-                              //   Theme.of(context).disabledColor,
-                              //   BlendMode.srcIn,
-                              // ),
                               height: 30,
                             ),
                             label: S.current.main_page,
@@ -287,19 +277,11 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                               selectedIcon: SvgPicture.asset(
                                 AppAssets.filledSubscriptionsIcon,
                                 color: isTheme ? Colors.white : null,
-                                // colorFilter: ColorFilter.mode(
-                                //   Theme.of(context).primaryColor,
-                                //   BlendMode.srcIn,
-                                // ),
                                 height: 32,
                               ),
                               icon: SvgPicture.asset(
                                 AppAssets.subscriptionsIcon,
                                 color: isTheme ? Colors.white : null,
-                                // colorFilter: ColorFilter.mode(
-                                //   Theme.of(context).disabledColor,
-                                //   BlendMode.srcIn,
-                                // ),
                                 height: 30,
                               ),
                               label: S.current.subscriptions,
@@ -308,20 +290,12 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                             selectedIcon: SvgPicture.asset(
                               AppAssets.filledUserUnsigned,
                               color: isTheme ? Colors.white : null,
-                              // colorFilter: ColorFilter.mode(
-                              //   Theme.of(context).primaryColor,
-                              //   BlendMode.srcIn,
-                              // ),
                               height: 32,
                             ),
                             icon: state.maybeWhen(
                               orElse: () => SvgPicture.asset(
                                 AppAssets.userUnsigned,
                                 color: isTheme ? Colors.white : null,
-                                // colorFilter: ColorFilter.mode(
-                                //   Theme.of(context).disabledColor,
-                                //   BlendMode.srcIn,
-                                // ),
                                 height: 30,
                               ),
                               authenticated: (user) => SizedBox(

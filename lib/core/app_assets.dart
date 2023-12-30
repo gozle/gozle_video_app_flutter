@@ -1,6 +1,8 @@
 class AppAssets {
   static const String homeIcon = 'assets/icons/menu/ic_home.svg';
 
+  static const String whiteHomeIcon = 'assets/icons/menu/white-home.svg';
+
   static const String filledHomeIcon = 'assets/icons/menu/filled_home.svg';
 
   static const String subscriptionsIcon = 'assets/icons/menu/ic_subscriptions.svg';

@@ -2,6 +2,7 @@
     "@@locale": "en",
     "lang": "en",
     "more": "More",
+    "hide": "Hide",
     "views": "Views",
     "subscribe": "Subscribe",
     "likes": "Likes",
@@ -132,5 +133,6 @@
     "not_found_error": "404 NOT FOUND",
     "undefined_issue": "An unexpected issue occurred. Please try again",
     "install": "install",
-    "want_to_subscribe":"Want to subscribe to this account?"
+    "want_to_subscribe":"Want to subscribe to this account?",
+    "want_to_like":"Did you like the video?"
 }

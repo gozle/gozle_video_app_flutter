@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Hide`
+  String get hide {
+    return Intl.message(
+      'Hide',
+      name: 'hide',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Views`
   String get views {
     return Intl.message(
@@ -1165,6 +1175,16 @@ class S {
     return Intl.message(
       'Want to subscribe to this account?',
       name: 'want_to_subscribe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Did you like the video?`
+  String get want_to_like {
+    return Intl.message(
+      'Did you like the video?',
+      name: 'want_to_like',
       desc: '',
       args: [],
     );
