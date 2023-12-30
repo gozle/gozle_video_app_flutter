@@ -120,7 +120,10 @@ class MainVideoWidget extends AnimatedWidget {
                       children: [
                         CustomProgressBar(
                           controller: videoPlayerProvider.adsVideoController!,
-                          progressBarTheme: ProgressBarTheme(),
+                          progressBarTheme: ProgressBarTheme(
+                            collapsedBufferedBarColor: Colors.white,
+                            collapsedProgressBarColor: Colors.red,
+                          ),
                         ),
                         Positioned(
                           bottom: 0,

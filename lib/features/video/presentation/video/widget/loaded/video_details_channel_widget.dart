@@ -16,6 +16,7 @@ class VideoDetailsChannelWidget extends StatelessWidget {
         isSubscribed: video.isSubscribed,
         name: video.channelName,
         pk: video.channelId,
+        view: video.view,
       ),
     );
   }

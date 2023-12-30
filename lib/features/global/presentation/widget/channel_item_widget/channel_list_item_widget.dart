@@ -40,6 +40,7 @@ class ChannelListItemWidget extends StatelessWidget {
                   arguments: {
                     'channel_id': channel.pk,
                     'channel_name': channel.name,
+                    'channel_view': channel.view,
                   },
                 );
               },
@@ -61,7 +62,7 @@ class ChannelListItemWidget extends StatelessWidget {
                           maxLines: 1,
                         ),
                         Text(
-                          '${AppUtils.formatViews(channel.view)}',
+                          AppUtils.formatViews(channel.view),
                           textAlign: TextAlign.center,
                           style: context.textTheme.titleSmall,
                         ),

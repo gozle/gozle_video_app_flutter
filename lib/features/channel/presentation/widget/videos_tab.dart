@@ -68,7 +68,7 @@ class _VideosTabState extends State<VideosTab> {
                                 latestLoading: (_) => true,
                               ) ??
                               false,
-                          name: S.current.old,
+                          name: S.current.all,
                         ),
                         const SizedBox(width: 15),
                         CategoryItemWidget(

@@ -63,74 +63,78 @@ class LibraryScreenState extends State<LibraryScreen> {
                 orElse: () {
                   return CustomScrollView(
                     slivers: [
-                      SliverList.list(children: [
-                        Image.asset(
-                          AppAssets.signInImage,
-                          fit: BoxFit.fitHeight,
-                          height: MediaQuery.of(context).size.height / 3,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                S.current.sign_in_gozle_account,
-                                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                S.current.without_sign_missing_features,
-                                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              ElevatedButton(
-                                style: const ButtonStyle(
-                                  alignment: Alignment.center,
-                                  minimumSize: MaterialStatePropertyAll(
-                                    Size.fromHeight(40),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  context.read<UserBloc>().state.whenOrNull(
-                                    unauthenticated: (oAuthClientData) {
-                                      if (oAuthClientData != null) {
-                                        context.read<UserBloc>().add(
-                                              UserEvent.login(oAuthClientData: oAuthClientData),
-                                            );
-                                      }
-                                    },
-                                  );
-                                  Future.delayed(const Duration(seconds: 2)).then(
-                                    (value) => Navigator.of(context, rootNavigator: true)
-                                        .pushReplacementNamed(SplashScreen.routeName),
-                                  );
-                                },
-                                child: Text(S.current.sign_in),
-                              )
-                            ],
+                      SliverList.list(
+                        children: [
+                          Image.asset(
+                            AppAssets.signInImage,
+                            fit: BoxFit.fitHeight,
+                            height: MediaQuery.of(context).size.height / 3,
                           ),
-                        ),
-                        const Spacer(),
-                        MenuItemWidget(
-                          onTap: () {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => const SettingsScreen()));
-                          },
-                          label: S.current.settings,
-                        ),
-                        MenuItemWidget(
-                          onTap: () {
-                            launchUrlString(AppConstants.supportLink);
-                          },
-                          label: S.current.help,
-                        )
-                      ]),
+                          Container(
+                            padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                            child: Column(
+                              children: [
+                                Text(
+                                  S.current.sign_in_gozle_account,
+                                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  S.current.without_sign_missing_features,
+                                  style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                ElevatedButton(
+                                  style: const ButtonStyle(
+                                    alignment: Alignment.center,
+                                    minimumSize: MaterialStatePropertyAll(
+                                      Size.fromHeight(40),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    context.read<UserBloc>().state.whenOrNull(
+                                      unauthenticated: (oAuthClientData) {
+                                        if (oAuthClientData != null) {
+                                          context.read<UserBloc>().add(
+                                                UserEvent.login(oAuthClientData: oAuthClientData),
+                                              );
+                                        }
+                                      },
+                                    );
+                                    Future.delayed(const Duration(seconds: 2)).then(
+                                      (value) => Navigator.of(context, rootNavigator: true)
+                                          .pushReplacementNamed(SplashScreen.routeName),
+                                    );
+                                  },
+                                  child: Text(S.current.sign_in),
+                                )
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          MenuItemWidget(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                            },
+                            label: S.current.settings,
+                          ),
+                          const Divider(),
+                          MenuItemWidget(
+                            onTap: () {
+                              launchUrlString(AppConstants.supportLink);
+                            },
+                            label: S.current.help,
+                          ),
+                          const Divider(),
+                        ],
+                      ),
                     ],
                   );
                 },
@@ -228,6 +232,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                             label: S.current.settings,
                           ),
                         ),
+                        const SliverToBoxAdapter(child: Divider()),
                         SliverToBoxAdapter(
                           child: MenuItemWidget(
                             onTap: () {
@@ -236,6 +241,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                             label: S.current.help,
                           ),
                         ),
+                        const SliverToBoxAdapter(child: Divider()),
                         SliverToBoxAdapter(
                           child: MenuItemWidget(
                             onTap: () {

@@ -296,7 +296,7 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
                               orElse: () => SvgPicture.asset(
                                 AppAssets.userUnsigned,
                                 color: isTheme ? Colors.white : null,
-                                height: 30,
+                                height: 32,
                               ),
                               authenticated: (user) => SizedBox(
                                 width: 30,
