@@ -12,6 +12,8 @@ import 'package:video_gozle/features/video/presentation/video_player/logic/video
 import 'package:video_gozle/injection.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../../../../settings/domain/use_cases/settings_use_cases.dart';
+
 part 'video_event.dart';
 part 'video_state.dart';
 part 'video_bloc.freezed.dart';
@@ -77,6 +79,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
       );
     }
   }
+  SettingUseCases get settingsUseCases => locator<SettingUseCases>();
 
   Future<void> _onPlayNetwork(_PlayNetwork event, Emitter<VideoState> emit) async {
     _playNetworkEvent = event;
@@ -92,6 +95,8 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
       title: event.title,
     ));
     var lastView = videoUseCases.getAdsLastView();
+    var locale = settingsUseCases.readLocale();
+
     if (lastView?.isAfter(DateTime.now().add(const Duration(minutes: -10))) == true) {
       add(const _CloseAdd());
       return;
@@ -99,7 +104,7 @@ class VideoBloc extends Bloc<VideoEvent, VideoState> {
       await videoUseCases.updateAdsLastView();
     }
     //fetching advertisement
-    final videoAdResult = await videoUseCases.getVideoAd();
+    final videoAdResult = await videoUseCases.getVideoAd(language: locale.languageCode);
     // final videoAdResult = await videoUseCases.getTestVideoAd();
 
     videoAdResult.fold(

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +16,6 @@ import 'package:video_gozle/features/home/presentation/widget/video_list_widget.
 import 'package:video_gozle/features/nav/presentation/widget/main_app_bar.dart';
 import 'package:video_gozle/features/settings/presentation/logic/settings/settings_provider.dart';
 import 'package:video_gozle/generated/l10n.dart';
-
 import '../../../global/presentation/widget/video_item_widget/vertical_video_list_item_widget.dart';
 import '../widget/category_list_widget.dart';
 

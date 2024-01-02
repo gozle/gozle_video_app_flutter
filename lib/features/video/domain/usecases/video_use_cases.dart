@@ -16,7 +16,7 @@ class VideoUseCases {
   }) =>
       videoRepository.getVideoDetails(videoId: videoId);
 
-  Future<Either<Failure, VideoAdsModel>> getVideoAd() => videoRepository.getVideoAd();
+  Future<Either<Failure, VideoAdsModel>> getVideoAd({required String language}) => videoRepository.getVideoAd(language: language);
 
   Future<Either<Failure, VideoAdsModel>> getTestVideoAd() async {
     await Future.delayed(const Duration(seconds: 1));

@@ -5,6 +5,7 @@ import 'package:video_gozle/features/global/presentation/widget/video_item_widge
 import 'package:video_gozle/features/video/presentation/video_player/world_video_player/src/enums/fullscreen_state.dart';
 import 'package:video_gozle/features/video/presentation/video_player/world_video_player/src/fullscreen_video_player.dart';
 
+import '../../../../../../generated/l10n.dart';
 import '../../world_video_player/world_video_player.dart';
 import 'widgets/widgets.dart';
 
@@ -250,9 +251,9 @@ class _VideoAdControlsState extends State<VideoAdControls> {
                               vertical: 3,
                               horizontal: 6,
                             ),
-                            child: const Text(
-                              'Skip',
-                              style: TextStyle(
+                            child: Text(
+                              S.current.skip,
+                              style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.white,
                               ),

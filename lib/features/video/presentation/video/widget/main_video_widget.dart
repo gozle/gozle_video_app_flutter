@@ -118,13 +118,13 @@ class MainVideoWidget extends AnimatedWidget {
                     right: 0,
                     child: Stack(
                       children: [
-                        CustomProgressBar(
-                          controller: videoPlayerProvider.adsVideoController!,
-                          progressBarTheme: ProgressBarTheme(
-                            collapsedBufferedBarColor: Colors.white,
-                            collapsedProgressBarColor: Colors.red,
-                          ),
-                        ),
+                        // CustomProgressBar(
+                        //   controller: videoPlayerProvider.adsVideoController!,
+                        //   progressBarTheme: ProgressBarTheme(
+                        //     collapsedBufferedBarColor: Colors.white,
+                        //     collapsedProgressBarColor: Colors.red,
+                        //   ),
+                        // ),
                         Positioned(
                           bottom: 0,
                           left: 0,
@@ -169,15 +169,6 @@ class MainVideoWidget extends AnimatedWidget {
                       ),
                     ],
                   ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: CustomProgressBar(
-                      controller: videoPlayerProvider.worldVideoPlayerController!,
-                      progressBarTheme: ProgressBarTheme(),
-                    ),
-                  )
                 ],
               );
             }

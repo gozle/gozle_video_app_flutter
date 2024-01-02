@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_gozle/features/auth/presentation/logic/user_bloc/user_bloc.dart';
 import 'package:video_gozle/features/auth/presentation/screen/login_screen.dart';
+import 'package:video_gozle/features/splash/presentation/screen/splash_screen.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
 class LogoutAlerDialog {
@@ -58,7 +59,7 @@ class LogoutAlerDialog {
 
                         Navigator.of(context).pop();
 
-                        Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                        Navigator.of(context).pushReplacementNamed(SplashScreen.routeName);
                       },
                       child: Text(S.current.sign_out),
                     ),

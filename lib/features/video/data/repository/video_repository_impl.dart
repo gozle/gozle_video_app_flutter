@@ -37,9 +37,9 @@ class VideoRepositoryImpl implements VideoRepository {
   }
 
   @override
-  Future<Either<Failure, VideoAdsModel>> getVideoAd() async {
+  Future<Either<Failure, VideoAdsModel>> getVideoAd({required String language}) async {
     try {
-      final videoAd = await videoApiClient.getVideoAd();
+      final videoAd = await videoApiClient.getVideoAd(language: language);
       return right(videoAd);
     } on ServerException catch (_) {
       return left(ServerFailure());

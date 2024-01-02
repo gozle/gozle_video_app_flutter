@@ -260,6 +260,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                             textColor: Colors.red,
                           ),
                         ),
+                        const SliverToBoxAdapter(child: Divider(),)
                       ],
                     ),
                   );

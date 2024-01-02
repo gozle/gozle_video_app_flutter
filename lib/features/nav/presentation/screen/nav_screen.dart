@@ -214,7 +214,7 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
         bottomNavigationBar: AnimatedBuilder(
           animation: miniplayerAnimationController,
           builder: (BuildContext context, Widget? child) {
-            const int bottomNabBarMinHeight = 80;
+            const int bottomNabBarMinHeight = 60;
 
             final offset = Tween<Offset>(
               begin: const Offset(0, 0),

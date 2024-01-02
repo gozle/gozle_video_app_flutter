@@ -8,7 +8,7 @@ import '../model/video_ads_model.dart';
 abstract class VideoRepository {
   Future<Either<Failure, Video>> getVideoDetails({required String videoId});
 
-  Future<Either<Failure, VideoAdsModel>> getVideoAd();
+  Future<Either<Failure, VideoAdsModel>> getVideoAd({required String language});
 
   Future<Either<Failure, List<Video>>> getSuggestedVideos({
     required String channelId,

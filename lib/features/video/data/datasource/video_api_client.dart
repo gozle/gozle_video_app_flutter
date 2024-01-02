@@ -30,9 +30,9 @@ class VideoApiClient {
     }
   }
 
-  Future<VideoAdsModel> getVideoAd() async {
+  Future<VideoAdsModel> getVideoAd({required String language}) async {
     try {
-      final response = await dioV1.get('/video?language=en');
+      final response = await dioV1.get('/video?language=$language');
 
       if (response.statusCode == 200 && response.data['results'] != null) {
         List results = response.data['results'];
