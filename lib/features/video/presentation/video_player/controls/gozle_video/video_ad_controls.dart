@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_gozle/features/global/presentation/widget/video_item_widget/video_item_thumbnail.dart';
 import 'package:video_gozle/features/video/presentation/video_player/world_video_player/src/enums/fullscreen_state.dart';
 import 'package:video_gozle/features/video/presentation/video_player/world_video_player/src/fullscreen_video_player.dart';
 
 import '../../../../../../generated/l10n.dart';
+import '../../../video/logic/video_bloc/video_bloc.dart';
 import '../../world_video_player/world_video_player.dart';
 import 'widgets/widgets.dart';
 
@@ -54,6 +57,14 @@ class _VideoAdControlsState extends State<VideoAdControls> {
   }
 
   void _listener() {
+    Future.delayed(const Duration(seconds: 3)).then((value) {
+      if(widget.controller.value.position == widget.controller.value.totalDuration) {
+        context.read<VideoBloc>()
+            .add(const VideoEvent.closeAdd());
+      }
+      return null;
+    });
+
     if (widget.controller.value.fullScreenState != fullScreenState) {
       setState(
         () => fullScreenState = widget.controller.value.fullScreenState,
