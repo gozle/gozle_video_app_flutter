@@ -5,6 +5,7 @@ import 'package:video_gozle/features/auth/presentation/screen/login_screen.dart'
 import 'package:video_gozle/generated/l10n.dart';
 
 import '../../../../../../core/theme.dart';
+import '../../../../../splash/presentation/screen/splash_screen.dart';
 
 class SubscribeAlertDialog {
   static show(BuildContext context, String title) {
@@ -58,7 +59,19 @@ class SubscribeAlertDialog {
 
                     Navigator.of(context).pop();
 
-                    Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                    context.read<UserBloc>().state.whenOrNull(
+                      unauthenticated: (oAuthClientData) {
+                        if (oAuthClientData != null) {
+                          context.read<UserBloc>().add(
+                            UserEvent.login(oAuthClientData: oAuthClientData),
+                          );
+                        }
+                      },
+                    );
+                    Future.delayed(const Duration(seconds: 2)).then(
+                          (value) => Navigator.of(context, rootNavigator: true)
+                          .pushReplacementNamed(SplashScreen.routeName),
+                    );
                   },
                   child: Text(
                     S.current.sign_in,

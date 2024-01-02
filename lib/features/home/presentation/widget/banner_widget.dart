@@ -3,6 +3,7 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_gozle/core/app_utils.dart';
+import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/home/domain/models/banner.dart' as BannerModel;
 
 import '../../../../generated/l10n.dart';
@@ -87,6 +88,7 @@ class _BannerWidgetState extends State<BannerWidget> {
           const SizedBox(height: 10),
           ExpandableText(
             widget.banner?.description ?? '',
+            style: context.textTheme.titleSmall,
             expandText: S.current.more,
             collapseText: S.current.hide,
             maxLines: 2,

@@ -213,7 +213,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                                   .mapIndexed(
                                     (e, i) => i == SearchFilter.values[1]
                                         ? Padding(
-                                            padding: const EdgeInsets.only(right: 10),
+                                            padding: const EdgeInsets.only(right: 5),
                                             child: Container(
                                               width: 1,
                                               height: 30,
@@ -221,7 +221,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                                             ),
                                           )
                                         : Padding(
-                                            padding: const EdgeInsets.only(right: 10),
+                                            padding: const EdgeInsets.only(right: 5),
                                             child: CategoryItemWidget(
                                               onTap: () => onFilterButtonTap(i.index),
                                               isSelected: i.index == selectedFilter ? true : false,

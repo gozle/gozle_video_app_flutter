@@ -24,8 +24,8 @@ class ChannelListItemWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        height: 60,
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        // height: 70,
         child: Stack(
           children: [
             InkWrapper(
