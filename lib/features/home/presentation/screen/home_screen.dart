@@ -16,7 +16,7 @@ import 'package:video_gozle/features/home/presentation/widget/video_list_widget.
 import 'package:video_gozle/features/nav/presentation/widget/main_app_bar.dart';
 import 'package:video_gozle/features/settings/presentation/logic/settings/settings_provider.dart';
 import 'package:video_gozle/generated/l10n.dart';
-import '../../../global/presentation/widget/video_item_widget/vertical_video_list_item_widget.dart';
+
 import '../widget/category_list_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late RefreshController refreshController;
   int? cycleDuration;
   Object? pollToken;
+
   @override
   void initState() {
     scrollController = ScrollController();
@@ -75,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _onRefreshBanner();
     }
   }
+
   void _onRefreshBanner() {
     context.read<BannerCubit>().load();
     context.read<BannerCubit>().state.whenOrNull(
@@ -87,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //no-op
     });
   }
+
   void _onRefresh() {
     context.read<VideoCategoryCubit>().load();
 
@@ -129,6 +132,8 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
   }
+
+  bool showBanner = false;
 
   @override
   Widget build(BuildContext context) {
@@ -202,9 +207,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               context.read<VideoListBloc>().add(
                                     VideoListEvent.byCategoryload(category: category),
                                   );
-                              scrollController.animateTo(1,
-                                  duration: const Duration(milliseconds: 100),
-                                  curve: Curves.linear);
+                              scrollController.animateTo(
+                                1,
+                                duration: const Duration(milliseconds: 100),
+                                curve: Curves.linear,
+                              );
                             }
                           },
                         ),
@@ -223,162 +230,86 @@ class _HomeScreenState extends State<HomeScreen> {
                   enablePullUp: true,
                   enablePullDown: true,
                   footer: const SmartRefresherFooter(),
-                  child: state.when(
-                    popularLoaded: (videos, hasReachedMax) {
-                      return CustomScrollView(
-                        controller: scrollController,
-                        slivers: [
-                          BlocBuilder<BannerCubit, BannerState>(
-                            builder: (_, banner_state) {
-                              return SliverToBoxAdapter(
-                                child: banner_state.whenOrNull(
-                                  loading: () {
-                                    return BannerWidget.placeHolder(context);
-                                  },
-                                  loaded: (banners) {
-                                    var banner = banners;
-                                    cycleDuration = banners?.cycleDuration;
-                                    return BannerWidget(banner: banner);
-                                  },
-                                ),
-                              );
-                            },
-                            bloc: BannerCubit(),
-                          ),
-                          VideoListWidget(
-                            videos: videos,
-                          ),
-                        ],
-                      );
-                    },
-                    popularLoading: (oldItems) {
-                      if (oldItems.isNotEmpty) {
-                        return CustomScrollView(
-                          controller: scrollController,
-                          slivers: [
-                            VideoListWidget(
-                              videos: oldItems,
+                  child: CustomScrollView(
+                    slivers: [
+                      BlocBuilder<BannerCubit, BannerState>(
+                        builder: (_, banner_state) {
+                          return SliverToBoxAdapter(
+                            child: banner_state.when(
+                              loading: () {
+                                return BannerWidget.placeHolder(context);
+                              },
+                              loaded: (banners) {
+                                var banner = banners;
+                                cycleDuration = banners?.cycleDuration;
+                                if (!showBanner) {
+                                  return BannerWidget.placeHolder(context);
+                                }
+                                return BannerWidget(banner: banner);
+                              },
+                              error: (falure) {
+                                return Container();
+                              },
                             ),
-                          ],
-                        );
-                      } else {
-                        return CustomScrollView(
-                          controller: scrollController,
-                          slivers: const [
-                            VideoListWidget(
+                          );
+                        },
+                        bloc: BannerCubit(),
+                      ),
+                      state.when(
+                        popularLoaded: (videos, hasReachedMax) {
+                          showBanner = true;
+                          return VideoListWidget(videos: videos);
+                        },
+                        popularLoading: (oldItems) {
+                          showBanner = false;
+                          if (oldItems.isNotEmpty) {
+                            return VideoListWidget(videos: oldItems);
+                          } else {
+                            return const VideoListWidget(
                               videos: [],
                               videoListType: VideoListType.PLACEHOLDER,
-                            ),
-                          ],
-                        );
-                      }
-                    },
-                    latestLoading: (videos) {
-                      if (videos.isNotEmpty) {
-                        return CustomScrollView(
-                          controller: scrollController,
-                          slivers: [
-                            VideoListWidget(
-                              videos: videos,
-                            ),
-                          ],
-                        );
-                      }
-                      return CustomScrollView(
-                        controller: scrollController,
-                        slivers: const [
-                          VideoListWidget(
+                            );
+                          }
+                        },
+                        latestLoading: (videos) {
+                          showBanner = false;
+                          if (videos.isNotEmpty) {
+                            return VideoListWidget(videos: videos);
+                          }
+                          return const VideoListWidget(
                             videos: [],
                             videoListType: VideoListType.PLACEHOLDER,
-                          ),
-                        ],
-                      );
-                    },
-                    latestLoaded: (videos, _) {
-                      return CustomScrollView(
-                        controller: scrollController,
-                        slivers: [
-                          BlocBuilder<BannerCubit, BannerState>(
-                            builder: (_, banner_state) {
-                              return SliverToBoxAdapter(
-                                child: banner_state.whenOrNull(
-                                  loading: () {
-                                    return BannerWidget.placeHolder(context);
-                                  },
-                                  loaded: (banners) {
-                                    var banner = banners;
-                                    return BannerWidget(banner: banner);
-                                  },
-                                ),
-                              );
-                            },
-                            bloc: BannerCubit(),
-                          ),
-                          VideoListWidget(
-                            videos: videos,
-                          ),
-                        ],
-                      );
-                    },
-                    byCategoryLoaded: (videos, category, hasReachedMax) {
-                      return CustomScrollView(
-                        controller: scrollController,
-                        slivers: [
-                          BlocBuilder<BannerCubit, BannerState>(
-                            builder: (_, banner_state) {
-                              return SliverToBoxAdapter(
-                                child: banner_state.whenOrNull(
-                                  loading: () {
-                                    return VerticalVideoItemWidget.placeHolder(context);
-                                  },
-                                  loaded: (banners) {
-                                    var banner = banners;
-                                    return BannerWidget(banner: banner);
-                                  },
-                                ),
-                              );
-                            },
-                            bloc: BannerCubit(),
-                          ),
-                          VideoListWidget(videos: videos),
-                        ],
-                      );
-                    },
-                    categoryLoading: (oldItems, category) {
-                      if (oldItems.isNotEmpty) {
-                        return CustomScrollView(
-                          controller: scrollController,
-                          slivers: [
-                            VideoListWidget(
-                              videos: oldItems,
-                            ),
-                          ],
-                        );
-                      } else {
-                        return CustomScrollView(
-                          controller: scrollController,
-                          slivers: const [
-                            VideoListWidget(
+                          );
+                        },
+                        latestLoaded: (videos, _) {
+                          showBanner = true;
+                          return VideoListWidget(videos: videos);
+                        },
+                        byCategoryLoaded: (videos, category, hasReachedMax) {
+                          showBanner = true;
+                          return VideoListWidget(videos: videos);
+                        },
+                        categoryLoading: (oldItems, category) {
+                          showBanner = false;
+                          if (oldItems.isNotEmpty) {
+                            return VideoListWidget(videos: oldItems);
+                          } else {
+                            return const VideoListWidget(
                               videos: [],
                               videoListType: VideoListType.PLACEHOLDER,
-                            ),
-                          ],
-                        );
-                      }
-                    },
-                    error: (oldItems, failure, event) {
-                      return CustomScrollView(
-                        controller: scrollController,
-                        slivers: [
-                          SliverCustomErrorWidget(
+                            );
+                          }
+                        },
+                        error: (oldItems, failure, event) {
+                          return SliverCustomErrorWidget(
                             failure: failure,
                             onTap: () {
                               context.read<VideoListBloc>().add(event);
                             },
-                          ),
-                        ],
-                      );
-                    },
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),

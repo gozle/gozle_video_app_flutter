@@ -32,7 +32,7 @@ class BannerWidget extends StatefulWidget {
           ),
           const SizedBox(height: 15),
           SizedBox(
-            height: 25,
+            height: 22,
             width: MediaQuery.of(context).size.width * 0.7,
             child: const CustomPlaceholder(),
           ),
@@ -57,7 +57,7 @@ class BannerWidget extends StatefulWidget {
 }
 
 class _BannerWidgetState extends State<BannerWidget> {
-  bool? isExpanded = false;
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -82,22 +82,31 @@ class _BannerWidgetState extends State<BannerWidget> {
           const SizedBox(height: 10),
           Text(
             widget.banner?.text ?? '',
-            maxLines: !isExpanded! ? 1 : null,
+            maxLines: isExpanded ? null : 1,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 10),
-          ExpandableText(
-            widget.banner?.description ?? '',
-            style: context.textTheme.titleSmall,
-            expandText: S.current.more,
-            collapseText: S.current.hide,
-            maxLines: 2,
-            linkColor: Colors.blue,
-            animation: true,
-            expandOnTextTap: true,
-            collapseOnTextTap: true,
-            animationCurve: Curves.ease,
-            animationDuration: const Duration(milliseconds: 320),
+          SizedBox(
+            height: isExpanded ? null : 34,
+            child: ExpandableText(
+              widget.banner?.description ?? '',
+              style: context.textTheme.titleSmall,
+              expandText: S.current.more,
+              collapseText: S.current.hide,
+              maxLines: 2,
+              linkColor: Colors.blue,
+              animation: true,
+              expandOnTextTap: true,
+              collapseOnTextTap: true,
+              animationCurve: Curves.easeInOut,
+              animationDuration: const Duration(milliseconds: 320),
+              onExpandedChanged: (value) {
+                isExpanded = !isExpanded;
+                setState(() {
+                  //no-op
+                });
+              },
+            ),
           ),
           const SizedBox(height: 10),
           ElevatedButton(
