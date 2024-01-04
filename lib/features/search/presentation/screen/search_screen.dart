@@ -245,7 +245,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                                   ListView.separated(
                                     shrinkWrap: true,
                                     physics: const ScrollPhysics(),
-                                    itemCount: filterAll ? 2 : channels.length,
+                                    itemCount: filterAll && channels.length > 2 ? 2 : channels.length,
                                     itemBuilder: (context, index) {
                                       return ChannelListItemWidget(
                                         channel: channels[index],
@@ -254,7 +254,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                                     separatorBuilder: (BuildContext context, int index) =>
                                         const Divider(),
                                   ),
-                                  if (filterAll)
+                                  if (filterAll && channels.length > 2)
                                     TextButton(
                                       onPressed: () {
                                         tappedShowMore = true;
