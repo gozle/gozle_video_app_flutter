@@ -31,6 +31,18 @@ class VideoListState with _$VideoListState {
     required bool hasReachedMax,
   }) = _ByCategoryLoadedState;
 
+  //TODO: if no need clear it
+  // const factory VideoListState.drawerMenuCategoryLoading({
+  //   required List<Video> oldVideos,
+  //   DrawerMenuCategory? category,
+  // }) = _ByDrawerMenuCategoryLoadingState;
+  //
+  // const factory VideoListState.byDrawerMenuCategoryLoaded({
+  //   required List<Video> videos,
+  //   required DrawerMenuCategory category,
+  //   required bool hasReachedMax,
+  // }) = _ByDrawerMenuCategoryLoadedState;
+
   const factory VideoListState.error({
     required List<Video> oldVideos,
     required Failure falure,

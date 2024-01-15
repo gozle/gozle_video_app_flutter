@@ -48,12 +48,22 @@ class CategoryItemWidget extends StatelessWidget {
         ? (context.theme.brightness == Brightness.dark
             ? Theme.of(context).secondaryHeaderColor
             : Colors.white)
-        : (context.theme.brightness == Brightness.dark ? Colors.white : Color(0xFF292D32));
+        : (context.theme.brightness == Brightness.dark ? Colors.white : const Color(0xFF292D32));
     return SizedBox(
       height: 32,
+      width: name!.isEmpty && iconAsset == null ? 1 : null,
       child: ElevatedButton(
         onPressed: onTap,
-        style: context.theme.brightness == Brightness.dark ? darkCategoryStyle : lightCategoryStyle,
+        style: context.theme.brightness == Brightness.dark
+            ? name!.isEmpty && iconAsset == null ? darkCategoryStyle.copyWith(
+                minimumSize: const MaterialStatePropertyAll(
+                  Size(1, 32),
+                ),
+          maximumSize: const MaterialStatePropertyAll(
+                  Size(1 , 32),
+                ),
+              ) : darkCategoryStyle
+            : lightCategoryStyle,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

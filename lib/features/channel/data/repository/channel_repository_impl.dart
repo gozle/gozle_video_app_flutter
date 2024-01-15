@@ -126,4 +126,23 @@ class ChannelRepositoryImpl extends ChannelRepository {
       return left(UnexpectedFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<Channel>>> getChannelsPopular({String? channelId, int? amount, int? page}) async{
+    try {
+      final List<Channel> channelList =
+          await channelApiClient.getChannelsPopular(channelId: channelId, amount: amount, page: page);
+      return right(channelList);
+    } on ServerException catch (_) {
+      return left(ServerFailure());
+    } on InternetException catch (_) {
+      return left(SocketFailure());
+    } on NotFoundException catch (_) {
+      return left(NotFoundFailure());
+    } on AuthenticationException catch (_) {
+      return left(AuthenticationFailure());
+    } catch (e) {
+      return left(UnexpectedFailure());
+    }
+  }
 }

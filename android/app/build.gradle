@@ -53,8 +53,8 @@ android {
         applicationId "tm.gozle.video"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 7
-        versionName "1.0.7"
+        versionCode 9
+        versionName "1.0.9"
     }
 
     signingConfigs {
@@ -79,6 +79,8 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation platform('com.google.firebase:firebase-bom:31.2.3')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+    implementation 'com.google.firebase:firebase-analytics'
+//    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+//    implementation 'com.google.firebase:firebase-analytics-ktx'
 }

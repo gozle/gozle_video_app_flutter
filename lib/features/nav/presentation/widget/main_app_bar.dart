@@ -18,15 +18,19 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: 50,
-      title: Row(
-        children: [
-          SvgPicture.asset(
-            Theme.of(context).brightness == Brightness.dark
-                ? AppAssets.appBarDarkLogo
-                : AppAssets.appBarLightLogo,
-            height: 30,
-          ),
-        ],
+      leading: const SizedBox(),
+      title: Transform.translate(
+        offset: const Offset(-56, 0),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              Theme.of(context).brightness == Brightness.dark
+                  ? AppAssets.appBarDarkLogo
+                  : AppAssets.appBarLightLogo,
+              height: 30,
+            ),
+          ],
+        ),
       ),
       actions: [
         IconButton(

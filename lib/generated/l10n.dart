@@ -200,6 +200,16 @@ class S {
     );
   }
 
+  /// `Popular channels`
+  String get popular_channels {
+    return Intl.message(
+      'Popular channels',
+      name: 'popular_channels',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Channel search`
   String get search_channels {
     return Intl.message(

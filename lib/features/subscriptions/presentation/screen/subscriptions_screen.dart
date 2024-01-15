@@ -272,8 +272,8 @@ class NoSubscriptionsWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                SliverFillRemaining(
-                  hasScrollBody: true,
+                SliverToBoxAdapter(
+                  // hasScrollBody: true,
                   child: state.when(
                     loading: (oldChannels) {
                       return const Center(
@@ -282,6 +282,7 @@ class NoSubscriptionsWidget extends StatelessWidget {
                     },
                     loaded: (channels, hasReachedMax) {
                       return ListView.builder(
+                        shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: channels.length,
                         itemBuilder: (context, index) {
@@ -303,7 +304,7 @@ class NoSubscriptionsWidget extends StatelessWidget {
                       );
                     },
                   ),
-                )
+                ),
               ],
             );
           },

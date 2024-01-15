@@ -18,6 +18,11 @@ class VideoListEvent with _$VideoListEvent {
     required VideoCategory category,
   }) = _ByCategoryLoadEvent;
 
+  //TODO: if no need clear it
+  // const factory VideoListEvent.byDrawerMenuCategoryload({
+  //   required DrawerMenuCategory category,
+  // }) = _ByDrawerMenuCategoryLoadEvent;
+
   const factory VideoListEvent.byCategoryloadMore({
     required List<Video> oldVideos,
     required VideoCategory category,

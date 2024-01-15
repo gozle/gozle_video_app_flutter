@@ -13,6 +13,18 @@ class ChannelUseCases {
     return await channelRepository.getChannelDetails(channelId: channelId);
   }
 
+  Future<Either<Failure, List<Channel>>> getChannelsPopular({
+    String? channelId,
+    int? amount,
+    int? page,
+  }) async {
+    return await channelRepository.getChannelsPopular(
+      channelId: channelId,
+      amount: amount,
+      page: page,
+    );
+  }
+
   Future<Either<Failure, void>> subscribe({required String channelId}) async {
     return await channelRepository.subscribe(channelId: channelId);
   }

@@ -115,6 +115,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Playback speed"),
         "playlists": MessageLookupByLibrary.simpleMessage("Playlists"),
         "popular": MessageLookupByLibrary.simpleMessage("Popular"),
+        "popular_channels":
+            MessageLookupByLibrary.simpleMessage("Popular channels"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "purchases_and_subscriptions":
             MessageLookupByLibrary.simpleMessage("Purchases and Subscriptions"),

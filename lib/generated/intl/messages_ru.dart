@@ -116,6 +116,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Скорость вопроизведения"),
         "playlists": MessageLookupByLibrary.simpleMessage("Плейлисты"),
         "popular": MessageLookupByLibrary.simpleMessage("Популярные"),
+        "popular_channels":
+            MessageLookupByLibrary.simpleMessage("Популярные каналы"),
         "profile": MessageLookupByLibrary.simpleMessage("Профиль"),
         "purchases_and_subscriptions":
             MessageLookupByLibrary.simpleMessage("Покупки и платные подписки"),

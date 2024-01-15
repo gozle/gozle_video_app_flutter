@@ -10,6 +10,8 @@ import 'package:video_gozle/generated/l10n.dart';
 import 'package:video_gozle/injection.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'fcm.dart' as fcm;
+import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +19,18 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
+
+  try {
+    await fcm.globalInitFcm();
+  } catch (e) {
+    //ignore
+  }
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await S.load(AppConstants.defaultLocale);

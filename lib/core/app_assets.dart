@@ -13,6 +13,8 @@ class AppAssets {
 
   static const String searchIcon = 'assets/icons/ic_search.svg';
 
+  static const String menuIcon = 'assets/icons/ic_menu.svg';
+
   static const String videoLogo = 'assets/icons/video_logo.svg';
 
   static const String popularIcon = 'assets/icons/ic_popular.svg';

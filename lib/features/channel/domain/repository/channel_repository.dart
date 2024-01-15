@@ -6,6 +6,9 @@ import 'package:video_gozle/features/global/domain/models/video_model.dart';
 abstract class ChannelRepository {
   Future<Either<Failure, Channel>> getChannelDetails({required String channelId});
 
+  Future<Either<Failure, List<Channel>>> getChannelsPopular(
+      {String? channelId, int? amount, int? page});
+
   Future<Either<Failure, void>> unsubscribe({required String channelId});
 
   Future<Either<Failure, void>> subscribe({required String channelId});

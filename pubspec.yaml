@@ -2,7 +2,7 @@ name: video_gozle
 description: Gozle Video App
 publish_to: 'none'
 
-version: 1.0.7
+version: 1.0.9
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -83,7 +83,10 @@ dependencies:
   flutter_native_splash: ^2.3.8
   expandable_text: ^2.3.0
 
+  flutter_local_notifications: ^16.3.0
+  firebase_messaging: ^14.7.9
   firebase_core: ^2.24.2
+  permission_handler: ^11.1.0
 
 dev_dependencies:
   flutter_test:

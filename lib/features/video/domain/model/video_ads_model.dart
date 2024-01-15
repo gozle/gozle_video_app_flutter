@@ -60,6 +60,14 @@ class VideoAdsModel extends Equatable {
     return [
       id,
       uuid,
+      text,
+      description,
+      link ?? '',
+      video,
+      image,
+      skip_duration,
+      language,
+      status,
     ];
   }
 

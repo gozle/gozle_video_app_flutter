@@ -5,6 +5,8 @@ import 'package:video_gozle/features/global/domain/models/video_model.dart';
 import 'package:video_gozle/features/home/domain/models/banner.dart';
 import 'package:video_gozle/features/home/domain/repository/home_repository_interface.dart';
 
+import '../models/drawer_menu_category.dart';
+
 class HomeUseCases {
   final HomeRepository homeRepository;
 
@@ -44,9 +46,28 @@ class HomeUseCases {
     );
   }
 
+  //TODO: if no need clear it
+  // Future<Either<Failure, List<Video>>> getVideoByDrawerMenuCategory({
+  //   required int page,
+  //   required int amount,
+  //   required DrawerMenuCategory category,
+  // }) {
+  //   return homeRepository.getVideoByDrawerMenuCategory(
+  //     amount: amount,
+  //     category: category,
+  //     page: page,
+  //   );
+  // }
+
   Future<Either<Failure, List<VideoCategory>>> getVideoCategories() {
     return homeRepository.getVideoCategories();
   }
+
+  //TODO: if no need clear it
+  // Future<Either<Failure, List<DrawerMenuCategory>>> getDrawerCategories() {
+  //   return homeRepository.getDrawerCategories();
+  // }
+
 //TODO: FIX and clean
   Future<Either<Failure, Banner>> getBanners({
     required int page,

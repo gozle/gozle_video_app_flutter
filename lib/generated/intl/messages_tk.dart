@@ -114,6 +114,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "playback_speed": MessageLookupByLibrary.simpleMessage("Wideo tizligi"),
         "playlists": MessageLookupByLibrary.simpleMessage("Sanawlar"),
         "popular": MessageLookupByLibrary.simpleMessage("Meşhur"),
+        "popular_channels":
+            MessageLookupByLibrary.simpleMessage("Meşhur kanallar"),
         "profile": MessageLookupByLibrary.simpleMessage("Profil"),
         "purchases_and_subscriptions": MessageLookupByLibrary.simpleMessage(
             "Satyn almak we tölegli aýratynlyklar"),

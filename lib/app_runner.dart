@@ -28,6 +28,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 // ignore: library_prefixes
 import 'package:hooks_riverpod/hooks_riverpod.dart' as videoDoubleTap;
 
+import 'features/channel/presentation/logic/channel_popular_details_bloc/channel_popular_details_bloc.dart';
+import 'features/home/presentation/logic/drawer_category_cubit/drawer_category_cubit.dart';
+
 void appRunner() {
   final UserBloc userBloc = UserBloc();
 
@@ -43,7 +46,11 @@ void appRunner() {
           BlocProvider(create: (context) => VideoListBloc(userBloc: userBloc)),
           BlocProvider(create: (context) => VideoBloc(videoPlayerProvider)),
           BlocProvider(create: (context) => VideoCategoryCubit()),
+          //TODO: if no need clear it
+          // BlocProvider(create: (context) => DrawerMenuCategoryCubit()),
           BlocProvider(create: (context) => BannerCubit()),
+          //Channels
+          BlocProvider(create: (context) => ChannelPopularDetailsBloc()),
           // SubscribedChannels
           BlocProvider(create: (context) => SubscribedChannelListBloc()),
           BlocProvider(create: (context) => SubscribedChannelVideoListBloc()),

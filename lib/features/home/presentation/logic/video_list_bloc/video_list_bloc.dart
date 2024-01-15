@@ -9,6 +9,7 @@ import 'package:video_gozle/core/failure/failure.dart';
 import 'package:video_gozle/features/auth/presentation/logic/user_bloc/user_bloc.dart';
 import 'package:video_gozle/features/global/domain/models/video_category_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_model.dart';
+import 'package:video_gozle/features/home/domain/models/drawer_menu_category.dart';
 import 'package:video_gozle/features/home/domain/use_cases/home_use_case.dart';
 import 'package:video_gozle/injection.dart';
 
@@ -23,6 +24,8 @@ class VideoListBloc extends Bloc<VideoListEvent, VideoListState> {
     on<_LoadEvent>(_onPopularLoad);
     on<_LoadMoreEvent>(_onPopularLoadMore);
     on<_ByCategoryLoadEvent>(_onByCategoryLoad);
+    //TODO: if no need clear it
+    // on<_ByDrawerMenuCategoryLoadEvent>(_onByDrawerMenuCategoryLoad);
     on<_ByCategoryLoadMoreEvent>(_onByCategoryLoadMore);
     on<_LatestEvent>(_onLatestLoad);
     on<_LatestMoreEvent>(_onLatestLoadMore);
@@ -164,6 +167,55 @@ class VideoListBloc extends Bloc<VideoListEvent, VideoListState> {
       },
     );
   }
+  //TODO: if no need clear it
+  // Future<void> _onByDrawerMenuCategoryLoad(
+  //     _ByDrawerMenuCategoryLoadEvent event,
+  //     Emitter<VideoListState> emit,
+  //     ) async {
+  //   lastEvent = event;
+  //
+  //   emit(VideoListState.drawerMenuCategoryLoading(
+  //     oldVideos: [],
+  //     category: event.category,
+  //   ));
+  //
+  //   final result = await _homeUseCases.getVideoByDrawerMenuCategory(
+  //     page: 1,
+  //     amount: amount,
+  //     category: event.category,
+  //   );
+  //
+  //   if (lastEvent != event) return;
+  //
+  //   result.fold(
+  //         (failure) {
+  //       if (failure is SocketFailure) {
+  //         Future.delayed(const Duration(seconds: 5)).then((value) {
+  //           add(event);
+  //         });
+  //       } else {
+  //         emit(VideoListState.error(
+  //           lastEvent: event,
+  //           falure: failure,
+  //           oldVideos: [],
+  //         ));
+  //       }
+  //     },
+  //         (videos) {
+  //       final hasReachedMax = videos.length != amount;
+  //       state.whenOrNull(
+  //         categoryLoading: (oldItems, category) {
+  //           if (category != event.category) return;
+  //           emit(VideoListState.byDrawerMenuCategoryLoaded(
+  //             videos: videos,
+  //             hasReachedMax: hasReachedMax,
+  //             category: event.category,
+  //           ));
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
 
   Future<void> _onByCategoryLoadMore(
     _ByCategoryLoadMoreEvent event,

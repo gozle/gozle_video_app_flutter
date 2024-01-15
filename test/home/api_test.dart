@@ -14,7 +14,7 @@ void main() async {
         receiveTimeout: const Duration(seconds: 5),
       ),
     );
-    var home = HomeApiClient(dio: dio, dioV1: dio);
+    var home = HomeApiClient(dioNew: dio, dioV1: dio);
     var banners = await home.getBanners(language: 'en');
     expect(banners, isNotEmpty);
   });

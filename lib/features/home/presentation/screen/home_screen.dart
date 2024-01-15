@@ -12,11 +12,13 @@ import 'package:video_gozle/features/home/presentation/logic/banner_cubit/banner
 import 'package:video_gozle/features/home/presentation/logic/video_category_cubit/video_category_cubit.dart';
 import 'package:video_gozle/features/home/presentation/logic/video_list_bloc/video_list_bloc.dart';
 import 'package:video_gozle/features/home/presentation/widget/banner_widget.dart';
+import 'package:video_gozle/features/home/presentation/widget/channels_widget.dart';
 import 'package:video_gozle/features/home/presentation/widget/video_list_widget.dart';
 import 'package:video_gozle/features/nav/presentation/widget/main_app_bar.dart';
 import 'package:video_gozle/features/settings/presentation/logic/settings/settings_provider.dart';
 import 'package:video_gozle/generated/l10n.dart';
 
+import '../../../channel/presentation/logic/channel_popular_details_bloc/channel_popular_details_bloc.dart';
 import '../widget/category_list_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,6 +31,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  GlobalKey<ScaffoldState> _key = GlobalKey();
   late ScrollController scrollController;
   late RefreshController refreshController;
   int? cycleDuration;
@@ -93,6 +96,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onRefresh() {
     context.read<VideoCategoryCubit>().load();
 
+    context.read<ChannelPopularDetailsBloc>().add(
+          const ChannelPopularDetailsEvent.load(),
+        );
+
     context.read<VideoListBloc>().state.whenOrNull(
       byCategoryLoaded: (_, category, __) {
         context.read<VideoListBloc>().add(
@@ -102,6 +109,11 @@ class _HomeScreenState extends State<HomeScreen> {
       popularLoaded: (videos, _) {
         context.read<VideoListBloc>().add(
               const VideoListEvent.popularLoad(),
+            );
+      },
+      latestLoaded: (videos, _) {
+        context.read<VideoListBloc>().add(
+              const VideoListEvent.latestLoad(),
             );
       },
     );
@@ -134,6 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   bool showBanner = false;
+  bool showChannels = false;
 
   @override
   Widget build(BuildContext context) {
@@ -161,11 +174,19 @@ class _HomeScreenState extends State<HomeScreen> {
         return Consumer<SettingsProvider>(
           builder: (_, __, ___) {
             return Scaffold(
+              key: _key,
               appBar: MainAppBar(
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(40),
                   child: BlocBuilder<VideoCategoryCubit, VideoCategoryState>(
                     builder: (context, videoCategoryState) {
+                      //TODO: if don't need clear it
+                      // const menuVideoCategory = VideoCategory(
+                      //   pk: -3,
+                      //   iconAsset: AppAssets.menuIcon,
+                      // );
+                      //NOTE: just for driver
+                      // const dividerVideoCategory = VideoCategory(pk: -2);
                       final popularVideoCategory = VideoCategory(
                           pk: 0,
                           name: 'popular',
@@ -200,10 +221,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           onCategorySelected: (category) {
                             if (category == popularVideoCategory) {
+                              showChannels = true;
+                              context.read<ChannelPopularDetailsBloc>().add(
+                                const ChannelPopularDetailsEvent.load(),
+                              );
                               context.read<VideoListBloc>().add(const VideoListEvent.popularLoad());
                             } else if (category == latestVideoCategory) {
+                              showChannels = false;
                               context.read<VideoListBloc>().add(const VideoListEvent.latestLoad());
                             } else {
+                              showChannels = false;
                               context.read<VideoListBloc>().add(
                                     VideoListEvent.byCategoryload(category: category),
                                   );
@@ -255,13 +282,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         bloc: BannerCubit(),
                       ),
+                      if (showChannels)
+                        BlocBuilder<ChannelPopularDetailsBloc, ChannelPopularDetailsState>(
+                          builder: (_, channel_state) => SliverToBoxAdapter(
+                            child: channel_state.when(
+                              loading: (oldItems) => ChannelsWidget.placeHolder(context),
+                              loaded: (channel, _) => ChannelsWidget(channel: channel),
+                              error: (falure, oldItems, l) => Text(falure.toString()),
+                            ),
+                          ),
+                        ),
                       state.when(
                         popularLoaded: (videos, hasReachedMax) {
-                          showBanner = true;
+                          showChannels = true;
                           return VideoListWidget(videos: videos);
                         },
                         popularLoading: (oldItems) {
-                          showBanner = false;
+                          showChannels = true;
                           if (oldItems.isNotEmpty) {
                             return VideoListWidget(videos: oldItems);
                           } else {

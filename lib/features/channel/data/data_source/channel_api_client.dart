@@ -24,6 +24,31 @@ class ChannelApiClient {
     }
   }
 
+  Future<List<Channel>> getChannelsPopular({
+    String? channelId,
+    int? amount,
+    int? page,
+  }) async {
+    try {
+      final response = await dio.get(
+        '/channels',
+        queryParameters: {
+          "pk": channelId,
+          "page": page,
+          "amount": amount,
+        },
+      );
+      if (response.statusCode == 200) {
+        final channelsJsonList = response.data as List<dynamic>;
+        return channelsJsonList.map((channelJson) => Channel.fromJson(channelJson)).toList();
+      } else {
+        throw ExceptionUtils.dioStatusCodeErrorHandle(response.statusCode);
+      }
+    } on DioException catch (e, stacktrace) {
+      throw ExceptionUtils.dioErrorHandle(e, stacktrace);
+    }
+  }
+
   Future<void> unsubscribe({required String channelId}) async {
     try {
       final response = await dio.get(

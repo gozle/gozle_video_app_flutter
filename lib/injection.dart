@@ -77,10 +77,14 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => HomeUseCases(homeRepository: locator()));
   locator.registerFactory<HomeRepository>(() => HomeRepositoryImpl(homeApiClient: locator()));
   locator.registerFactory<HomeApiClient>(() {
-    final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
+    //TODO: if no need clear it
+    // final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
+    final Dio dioNew = prepareApiClient(RestApiUrls.baseNewUrl);
     final Dio dioV1 = prepareApiClient(RestApiUrls.baseUrlV1);
     return HomeApiClient(
-      dio: dio,
+      //TODO: if no need clear it
+      // dio: dio,
+      dioNew: dioNew,
       dioV1: dioV1,
     );
   });
@@ -91,7 +95,7 @@ Future<void> setupLocator() async {
   locator.registerFactory<VideoRepository>(
       () => VideoRepositoryImpl(videoApiClient: locator(), adsStorage: adsStorage));
   locator.registerFactory<VideoApiClient>(() {
-    final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
+    final Dio dio = prepareApiClient(RestApiUrls.baseNewUrl);
     final Dio dioV1 = prepareApiClient(RestApiUrls.baseUrlV1);
     return VideoApiClient(
       dio: dio,
@@ -103,7 +107,7 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => LibraryUseCases(libraryRepository: locator()));
   locator.registerFactory<LibraryRepository>(() => LibraryRepositoryImpl(libraryApiClient: locator()));
   locator.registerFactory<LibraryApiClient>(() {
-    final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
+    final Dio dio = prepareApiClient(RestApiUrls.baseNewUrl);
     return LibraryApiClient(dio: dio);
   });
 
@@ -116,7 +120,7 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => ChannelUseCases(channelRepository: locator()));
   locator.registerFactory<ChannelRepository>(() => ChannelRepositoryImpl(channelApiClient: locator()));
   locator.registerFactory<ChannelApiClient>(() {
-    final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
+    final Dio dio = prepareApiClient(RestApiUrls.baseNewUrl);
     return ChannelApiClient(dio: dio);
   });
 
@@ -125,7 +129,7 @@ Future<void> setupLocator() async {
   locator.registerFactory<SubscriptionsRepository>(
       () => SubscriptionsRepositoryImpl(subscriptionsApiClient: locator()));
   locator.registerFactory<SubscriptionsApiClient>(() {
-    final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
+    final Dio dio = prepareApiClient(RestApiUrls.baseNewUrl);
     return SubscriptionsApiClient(dio: dio);
   });
   // Subscriptions
@@ -133,7 +137,7 @@ Future<void> setupLocator() async {
   locator.registerFactory<CheckUpdatesRepository>(
       () => CheckUpdatesRepositoryImpl(checkUpdatesApiClient: locator()));
   locator.registerFactory<CheckUpdatesApiClient>(() {
-    final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
+    final Dio dio = prepareApiClient(RestApiUrls.baseNewUrl);
     return CheckUpdatesApiClient(dio: dio);
   });
 
@@ -146,7 +150,7 @@ Future<void> setupLocator() async {
   locator.registerFactory<SearchStorage>(() => SearchStorage(prefs: prefs));
 
   locator.registerFactory<SearchApiClient>(() {
-    final Dio dio = prepareApiClient(RestApiUrls.baseUrl);
+    final Dio dio = prepareApiClient(RestApiUrls.baseNewUrl);
     return SearchApiClient(dio: dio);
   });
 }
