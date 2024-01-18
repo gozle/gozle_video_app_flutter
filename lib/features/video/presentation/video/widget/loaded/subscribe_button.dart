@@ -41,7 +41,7 @@ class SubscribeButton extends StatelessWidget {
         // }
         return ElevatedButton(
           style: ButtonStyle(
-            padding: const MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 20)),
+            padding: const MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 10)),
             backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
             elevation: const MaterialStatePropertyAll(0),
             foregroundColor: isSubscribed

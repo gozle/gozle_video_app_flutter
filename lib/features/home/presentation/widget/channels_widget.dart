@@ -5,11 +5,15 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_gozle/core/app_utils.dart';
+import 'package:video_gozle/features/global/presentation/widget/ink_wrapper.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../channel/domain/models/channel_model.dart';
 import '../../../channel/presentation/logic/channel_subscription_cubit/channel_subscription_cubit.dart';
+import '../../../channel/presentation/screen/channel_details_screen.dart';
 import '../../../global/presentation/widget/place_holder.dart';
+import '../../../nav/presentation/widget/nav_key_provider.dart';
+import '../../../video/presentation/video/logic/video_bloc/video_bloc.dart';
 import '../../../video/presentation/video/widget/loaded/subscribe_button.dart';
 
 class ChannelsWidget extends StatefulWidget {
@@ -26,45 +30,42 @@ class ChannelsWidget extends StatefulWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 19,
-            width: 150,
-            child: CustomPlaceholder(),
-          ),
-          const SizedBox(height: 7),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-              3,
-              (index) => const Column(
-                children: [
-                  SizedBox(
-                    width: 90,
-                    height: 90,
-                    child: CustomPlaceholder(borderRadius: 50),
+          GridView.builder(
+            shrinkWrap: true,
+            itemCount: 21,
+            physics: const ScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisExtent: 190,
+            ),
+            itemBuilder: (context, index) => const Column(
+              children: [
+                SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: CustomPlaceholder(borderRadius: 50),
+                ),
+                SizedBox(height: 7),
+                SizedBox(
+                  height: 16,
+                  width: 50,
+                  child: CustomPlaceholder(),
+                ),
+                SizedBox(height: 7),
+                SizedBox(
+                  height: 13,
+                  width: 70,
+                  child: CustomPlaceholder(),
+                ),
+                SizedBox(height: 7),
+                SizedBox(
+                  height: 34,
+                  width: 108,
+                  child: CustomPlaceholder(
+                    borderRadius: 42,
                   ),
-                  SizedBox(height: 7),
-                  SizedBox(
-                    height: 18,
-                    width: 50,
-                    child: CustomPlaceholder(),
-                  ),
-                  SizedBox(height: 7),
-                  SizedBox(
-                    height: 14,
-                    width: 70,
-                    child: CustomPlaceholder(),
-                  ),
-                  SizedBox(height: 7),
-                  SizedBox(
-                    height: 34,
-                    width: 100,
-                    child: CustomPlaceholder(
-                      borderRadius: 42,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -79,73 +80,82 @@ class ChannelsWidget extends StatefulWidget {
 class _ChannelsWidgetState extends State<ChannelsWidget> {
   @override
   Widget build(BuildContext context) {
-    log(widget.channel[1].isSubscribed.toString());
     return Padding(
       padding: const EdgeInsets.fromLTRB(18, 18, 18, 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            S.current.popular_channels,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: widget.channel
-                .slice(0, 3)
-                .map(
-                  (e) => Flexible(
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 7),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(18),
-                          child: SizedBox(
-                            width: 90,
-                            height: 90,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: CachedNetworkImage(
-                                imageUrl: e.channelAvatar ?? '',
-                                errorWidget: (_, __, ___) => Container(),
-                                placeholder: (_, __) => Container(),
-                                fit: BoxFit.cover,
-                                cacheManager: CustomCacheManager.instance,
-                              ),
-                            ),
-                          ),
+          GridView.builder(
+            shrinkWrap: true,
+            itemCount: widget.channel.length,
+            physics: const ScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisExtent: 180,
+              crossAxisSpacing: 10,
+            ),
+            itemBuilder: (context, index) => InkWell(
+              onTap: () {
+                context.read<VideoBloc>().add(const VideoEvent.minimize());
+
+                final navigator = NavKeyProvider.maybeOf(context)?.navKey.currentState ??
+                    Navigator.of(context);
+
+                navigator.pushNamed(
+                  ChannelDetailsScreen.routeName,
+                  arguments: {
+                    'channel_id': widget.channel[index].pk,
+                    'channel_name': widget.channel[index].name,
+                    'channel_view': widget.channel[index].view,
+                  },
+                );
+              },
+              child: Column(
+                children: [
+                  const SizedBox(height: 7),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child: SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: CachedNetworkImage(
+                          imageUrl: widget.channel[index].channelAvatar ?? '',
+                          errorWidget: (_, __, ___) => Container(),
+                          placeholder: (_, __) => Container(),
+                          fit: BoxFit.cover,
+                          cacheManager: CustomCacheManager.instance,
                         ),
-                        const SizedBox(height: 7),
-                        Text(
-                          e.name ?? '',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        Text(
-                          AppUtils.formatViews(e.view),
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        BlocProvider(
-                          create: (context) {
-                            return ChannelSubscriptionCubit(
-                                channelId: e.pk, isSubscribed: e.isSubscribed ?? false);
-                          },
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 108,
-                                child: SubscribeButton(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                )
-                .toList(),
+                  const SizedBox(height: 7),
+                  Text(
+                    widget.channel[index].name ?? '',
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 13),
+                  ),
+                  Expanded(
+                    child: Text(
+                      AppUtils.formatViews(widget.channel[index].view),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ),
+                  BlocProvider(
+                    create: (context) {
+                      return ChannelSubscriptionCubit(
+                        channelId: widget.channel[index].pk,
+                        isSubscribed: widget.channel[index].isSubscribed ?? false,
+                      );
+                    },
+                    child: const SubscribeButton(),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),

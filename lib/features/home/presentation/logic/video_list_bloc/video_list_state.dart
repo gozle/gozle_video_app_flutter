@@ -20,6 +20,15 @@ class VideoListState with _$VideoListState {
     required bool hasReachedMax,
   }) = _LatestLoadedState;
 
+  const factory VideoListState.channelsLoading({
+    required List<Channel> channels,
+  }) = _ChannelsLoadingState;
+
+  const factory VideoListState.channelsLoaded({
+    required List<Channel> channels,
+    required bool hasReachedMax,
+  }) = _ChannelsLoadedState;
+
   const factory VideoListState.categoryLoading({
     required List<Video> oldVideos,
     VideoCategory? category,
@@ -31,21 +40,15 @@ class VideoListState with _$VideoListState {
     required bool hasReachedMax,
   }) = _ByCategoryLoadedState;
 
-  //TODO: if no need clear it
-  // const factory VideoListState.drawerMenuCategoryLoading({
-  //   required List<Video> oldVideos,
-  //   DrawerMenuCategory? category,
-  // }) = _ByDrawerMenuCategoryLoadingState;
-  //
-  // const factory VideoListState.byDrawerMenuCategoryLoaded({
-  //   required List<Video> videos,
-  //   required DrawerMenuCategory category,
-  //   required bool hasReachedMax,
-  // }) = _ByDrawerMenuCategoryLoadedState;
-
   const factory VideoListState.error({
     required List<Video> oldVideos,
     required Failure falure,
     required VideoListEvent lastEvent,
   }) = _ErrorState;
+
+  const factory VideoListState.errorChannels({
+    required List<Channel> channel,
+    required Failure falure,
+    required VideoListEvent lastEvent,
+  }) = _ErrorChannelState;
 }

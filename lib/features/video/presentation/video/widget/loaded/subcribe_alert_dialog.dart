@@ -57,7 +57,7 @@ class SubscribeAlertDialog {
                   onPressed: () {
                     context.read<UserBloc>().add(const UserEvent.logout());
 
-                    Navigator.of(context).pop();
+                    // Navigator.of(context).pop();
 
                     context.read<UserBloc>().state.whenOrNull(
                       unauthenticated: (oAuthClientData) {
@@ -68,6 +68,7 @@ class SubscribeAlertDialog {
                         }
                       },
                     );
+
                     Future.delayed(const Duration(seconds: 2)).then(
                           (value) => Navigator.of(context, rootNavigator: true)
                           .pushReplacementNamed(SplashScreen.routeName),

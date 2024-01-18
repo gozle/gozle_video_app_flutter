@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -73,6 +74,7 @@ void appRunner() {
 }
 
 class VideoGozle extends StatelessWidget {
+  static FirebaseInAppMessaging firebaseInAppMessaging = FirebaseInAppMessaging.instance;
   const VideoGozle({super.key});
 
   @override

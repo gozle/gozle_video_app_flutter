@@ -96,8 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onRefresh() {
     context.read<VideoCategoryCubit>().load();
 
-    context.read<ChannelPopularDetailsBloc>().add(
-          const ChannelPopularDetailsEvent.load(),
+    context.read<VideoListBloc>().add(
+          const VideoListEvent.channelsLoad(),
         );
 
     context.read<VideoListBloc>().state.whenOrNull(
@@ -121,32 +121,48 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onLoadMore() {
     context.read<VideoListBloc>().state.whenOrNull(
-        byCategoryLoaded: (videos, category, hasReachedMax) {
-      if (!hasReachedMax) {
-        context.read<VideoListBloc>().add(
-              VideoListEvent.byCategoryloadMore(
-                category: category,
-                oldVideos: videos,
-              ),
-            );
-      }
-    }, popularLoaded: (videos, hasReachedMax) {
-      if (!hasReachedMax) {
-        context.read<VideoListBloc>().add(
-              VideoListEvent.popularLoadMore(
-                oldVideos: videos,
-              ),
-            );
-      }
-    }, latestLoaded: (videos, hasReachedMax) {
-      if (!hasReachedMax) {
-        context.read<VideoListBloc>().add(VideoListEvent.latestLoadMore(latestVideos: videos));
-      }
-    });
+      byCategoryLoaded: (videos, category, hasReachedMax) {
+        if (!hasReachedMax) {
+          context.read<VideoListBloc>().add(
+                VideoListEvent.byCategoryloadMore(
+                  category: category,
+                  oldVideos: videos,
+                ),
+              );
+        }
+      },
+      popularLoaded: (videos, hasReachedMax) {
+        if (!hasReachedMax) {
+          context.read<VideoListBloc>().add(
+                VideoListEvent.popularLoadMore(
+                  oldVideos: videos,
+                ),
+              );
+        }
+      },
+      latestLoaded: (videos, hasReachedMax) {
+        if (!hasReachedMax) {
+          context.read<VideoListBloc>().add(
+                VideoListEvent.latestLoadMore(
+                  latestVideos: videos,
+                ),
+              );
+        }
+      },
+      channelsLoaded: (channel, hasReachedMax) {
+        if (!hasReachedMax) {
+          context.read<VideoListBloc>().add(
+                VideoListEvent.channelsLoadMore(
+                  channels: channel,
+                ),
+              );
+        }
+      },
+    );
   }
 
+  bool showLoadingBanner = false;
   bool showBanner = false;
-  bool showChannels = false;
 
   @override
   Widget build(BuildContext context) {
@@ -158,6 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
             refreshController.loadComplete();
           },
           popularLoaded: (videos, hasReachedMax) {
+            showBanner = true;
             refreshController.refreshCompleted();
             refreshController.loadComplete();
           },
@@ -165,6 +182,13 @@ class _HomeScreenState extends State<HomeScreen> {
             refreshController.refreshCompleted();
             refreshController.loadComplete();
           }),
+          channelsLoaded: ((latestVideos, hasReachedMax) {
+            refreshController.refreshCompleted();
+            refreshController.loadComplete();
+          }),
+          errorChannels: (oldVideos, message, lastEvent) {
+            refreshController.loadFailed();
+          },
           error: (oldVideos, message, lastEvent) {
             refreshController.loadFailed();
           },
@@ -180,23 +204,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   preferredSize: const Size.fromHeight(40),
                   child: BlocBuilder<VideoCategoryCubit, VideoCategoryState>(
                     builder: (context, videoCategoryState) {
-                      //TODO: if don't need clear it
-                      // const menuVideoCategory = VideoCategory(
-                      //   pk: -3,
-                      //   iconAsset: AppAssets.menuIcon,
-                      // );
-                      //NOTE: just for driver
-                      // const dividerVideoCategory = VideoCategory(pk: -2);
                       final popularVideoCategory = VideoCategory(
-                          pk: 0,
-                          name: 'popular',
-                          verbose: S.current.popular,
-                          iconAsset: AppAssets.rocketIcon);
+                        pk: 0,
+                        name: 'popular',
+                        verbose: S.current.popular,
+                        iconAsset: AppAssets.rocketIcon,
+                      );
                       final latestVideoCategory = VideoCategory(
-                          pk: -1,
-                          name: 'latest',
-                          verbose: S.current.latest,
-                          iconAsset: AppAssets.clockRewindIcon);
+                        pk: -1,
+                        name: 'latest',
+                        verbose: S.current.latest,
+                        iconAsset: AppAssets.clockRewindIcon,
+                      );
+                      final channelsCategory = VideoCategory(
+                        pk: -2,
+                        name: 'channels',
+                        verbose: S.current.channels,
+                        iconAsset: AppAssets.cubes,
+                      );
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: CategoryListWidget(
@@ -207,11 +232,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             popularLoaded: (_, __) => popularVideoCategory,
                             latestLoading: (_) => latestVideoCategory,
                             latestLoaded: (_, __) => latestVideoCategory,
+                            channelsLoading: (_) => channelsCategory,
+                            channelsLoaded: (_, __) => channelsCategory,
                           ),
                           categories: videoCategoryState.maybeWhen(
                             loaded: (categories) {
                               final List<VideoCategory> categotyList = List.from(categories);
 
+                              categotyList.insert(0, channelsCategory);
                               categotyList.insert(0, latestVideoCategory);
                               categotyList.insert(0, popularVideoCategory);
 
@@ -221,16 +249,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           onCategorySelected: (category) {
                             if (category == popularVideoCategory) {
-                              showChannels = true;
+                              showBanner = true;
                               context.read<ChannelPopularDetailsBloc>().add(
-                                const ChannelPopularDetailsEvent.load(),
-                              );
+                                    const ChannelPopularDetailsEvent.load(),
+                                  );
                               context.read<VideoListBloc>().add(const VideoListEvent.popularLoad());
                             } else if (category == latestVideoCategory) {
-                              showChannels = false;
+                              showBanner = true;
                               context.read<VideoListBloc>().add(const VideoListEvent.latestLoad());
+                            } else if (category == channelsCategory) {
+                              showBanner = false;
+                              context
+                                  .read<VideoListBloc>()
+                                  .add(const VideoListEvent.channelsLoad());
                             } else {
-                              showChannels = false;
+                              showBanner = true;
                               context.read<VideoListBloc>().add(
                                     VideoListEvent.byCategoryload(category: category),
                                   );
@@ -259,46 +292,37 @@ class _HomeScreenState extends State<HomeScreen> {
                   footer: const SmartRefresherFooter(),
                   child: CustomScrollView(
                     slivers: [
-                      BlocBuilder<BannerCubit, BannerState>(
-                        builder: (_, banner_state) {
-                          return SliverToBoxAdapter(
-                            child: banner_state.when(
-                              loading: () {
-                                return BannerWidget.placeHolder(context);
-                              },
-                              loaded: (banners) {
-                                var banner = banners;
-                                cycleDuration = banners?.cycleDuration;
-                                if (!showBanner) {
+                      if (showBanner)
+                        BlocBuilder<BannerCubit, BannerState>(
+                          builder: (_, banner_state) {
+                            return SliverToBoxAdapter(
+                              child: banner_state.when(
+                                loading: () {
                                   return BannerWidget.placeHolder(context);
-                                }
-                                return BannerWidget(banner: banner);
-                              },
-                              error: (falure) {
-                                return Container();
-                              },
-                            ),
-                          );
-                        },
-                        bloc: BannerCubit(),
-                      ),
-                      if (showChannels)
-                        BlocBuilder<ChannelPopularDetailsBloc, ChannelPopularDetailsState>(
-                          builder: (_, channel_state) => SliverToBoxAdapter(
-                            child: channel_state.when(
-                              loading: (oldItems) => ChannelsWidget.placeHolder(context),
-                              loaded: (channel, _) => ChannelsWidget(channel: channel),
-                              error: (falure, oldItems, l) => Text(falure.toString()),
-                            ),
-                          ),
+                                },
+                                loaded: (banners) {
+                                  var banner = banners;
+                                  cycleDuration = banners?.cycleDuration;
+                                  if (!showLoadingBanner) {
+                                    return BannerWidget.placeHolder(context);
+                                  }
+                                  return BannerWidget(banner: banner);
+                                },
+                                error: (falure) {
+                                  return Container();
+                                },
+                              ),
+                            );
+                          },
+                          bloc: BannerCubit(),
                         ),
                       state.when(
                         popularLoaded: (videos, hasReachedMax) {
-                          showChannels = true;
+                          showLoadingBanner = true;
                           return VideoListWidget(videos: videos);
                         },
                         popularLoading: (oldItems) {
-                          showChannels = true;
+                          showLoadingBanner = false;
                           if (oldItems.isNotEmpty) {
                             return VideoListWidget(videos: oldItems);
                           } else {
@@ -309,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                         },
                         latestLoading: (videos) {
-                          showBanner = false;
+                          showLoadingBanner = false;
                           if (videos.isNotEmpty) {
                             return VideoListWidget(videos: videos);
                           }
@@ -319,15 +343,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
                         latestLoaded: (videos, _) {
-                          showBanner = true;
+                          showLoadingBanner = true;
                           return VideoListWidget(videos: videos);
                         },
                         byCategoryLoaded: (videos, category, hasReachedMax) {
-                          showBanner = true;
+                          showLoadingBanner = true;
                           return VideoListWidget(videos: videos);
                         },
+                        channelsLoaded: (channels, hasReachedMax) {
+                          return SliverToBoxAdapter(child: ChannelsWidget(channel: channels));
+                        },
+                        channelsLoading: (channels) =>
+                            SliverToBoxAdapter(child: ChannelsWidget.placeHolder(context)),
                         categoryLoading: (oldItems, category) {
-                          showBanner = false;
+                          showLoadingBanner = false;
                           if (oldItems.isNotEmpty) {
                             return VideoListWidget(videos: oldItems);
                           } else {
@@ -336,6 +365,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               videoListType: VideoListType.PLACEHOLDER,
                             );
                           }
+                        },
+                        errorChannels: (channel, falure, event) {
+                          return SliverCustomErrorWidget(
+                            failure: falure,
+                            onTap: () {
+                              context.read<VideoListBloc>().add(event);
+                            },
+                          );
                         },
                         error: (oldItems, failure, event) {
                           return SliverCustomErrorWidget(

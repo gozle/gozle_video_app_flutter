@@ -14,14 +14,15 @@ class VideoListEvent with _$VideoListEvent {
     required List<Video> latestVideos,
   }) = _LatestMoreEvent;
 
+  const factory VideoListEvent.channelsLoad() = _ChannelEvent;
+
+  const factory VideoListEvent.channelsLoadMore({
+    required List<Channel> channels,
+  }) = _ChannelMoreEvent;
+
   const factory VideoListEvent.byCategoryload({
     required VideoCategory category,
   }) = _ByCategoryLoadEvent;
-
-  //TODO: if no need clear it
-  // const factory VideoListEvent.byDrawerMenuCategoryload({
-  //   required DrawerMenuCategory category,
-  // }) = _ByDrawerMenuCategoryLoadEvent;
 
   const factory VideoListEvent.byCategoryloadMore({
     required List<Video> oldVideos,

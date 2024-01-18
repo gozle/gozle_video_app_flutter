@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:video_gozle/core/exception/exception.dart';
 import 'package:video_gozle/core/failure/failure.dart';
+import 'package:video_gozle/features/channel/domain/models/channel_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_category_model.dart';
 import 'package:video_gozle/features/global/domain/models/video_model.dart';
 import 'package:video_gozle/features/home/data/datasources/remote.dart';
 import 'package:video_gozle/features/home/domain/models/banner.dart';
 
-import '../../domain/models/drawer_menu_category.dart';
 import '../../domain/repository/home_repository_interface.dart';
 
 class HomeRepositoryImpl extends HomeRepository {
@@ -149,30 +149,25 @@ class HomeRepositoryImpl extends HomeRepository {
     }
   }
 
-  //TODO: if no need clear it
-  // @override
-  // Future<Either<Failure, List<Video>>> getVideoByDrawerMenuCategory({
-  //   required int page,
-  //   required int amount,
-  //   required DrawerMenuCategory category,
-  // }) async{
-  //   try {
-  //     final videoList = await homeApiClient.getVideosByCategory(
-  //       pk: category.pk ?? 0,
-  //       amount: amount,
-  //       page: page,
-  //     );
-  //     return right(videoList);
-  //   } on ServerException catch (_) {
-  //     return left(ServerFailure());
-  //   } on InternetException catch (_) {
-  //     return left(SocketFailure());
-  //   } on NotFoundException catch (_) {
-  //     return left(NotFoundFailure());
-  //   } on AuthenticationException catch (_) {
-  //     return left(AuthenticationFailure());
-  //   } catch (e) {
-  //     return left(UnexpectedFailure());
-  //   }
-  // }
+  @override
+  Future<Either<Failure, List<Channel>>> getPopularChannels({required int page, required int amount}) async{
+    try {
+      final channelList = await homeApiClient.getPopularChannels(
+        amount: amount,
+        page: page,
+      );
+      return right(channelList);
+    } on ServerException catch (_) {
+      return left(ServerFailure());
+    } on InternetException catch (_) {
+      return left(SocketFailure());
+    } on NotFoundException catch (_) {
+      return left(NotFoundFailure());
+    } on AuthenticationException catch (_) {
+      return left(AuthenticationFailure());
+    } catch (e) {
+      return left(UnexpectedFailure());
+    }
+  }
+
 }
