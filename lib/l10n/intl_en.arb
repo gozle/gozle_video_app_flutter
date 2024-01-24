@@ -127,7 +127,7 @@
     "sign_in": "Sign in",
     "sign_in_gozle_account":"Sign in to Gozle Account",
     "then_sign_in_gozle_account":"Then sign in to  Gozle Account",
-    "without_sign_missing_features": "Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience.",
+    "without_sign_missing_features": "Sign in to unlock subscribing, liking, and personalized history features.",
     "server_error": "Server Error",
     "internet_connection_issues": "We are experiencing some issues with your internet connection",
     "authentication_failure": "Authentication Failure",
@@ -135,5 +135,8 @@
     "undefined_issue": "An unexpected issue occurred. Please try again",
     "install": "install",
     "want_to_subscribe":"Want to subscribe to this account?",
-    "want_to_like":"Did you like the video?"
+    "want_to_like":"Did you like the video?",
+    "have_not_watched_video": "You have not watched any video yet",
+    "order_advertising": "Order advertising",
+    "see_all": "See all"
 }

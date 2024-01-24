@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Видео будет исключено из ваших предпочтений"),
         "go": MessageLookupByLibrary.simpleMessage("Перейти"),
         "gozle_video": MessageLookupByLibrary.simpleMessage("Gozle Video"),
+        "have_not_watched_video": MessageLookupByLibrary.simpleMessage(
+            "Вы еще не смотрели ни одного видео"),
         "help": MessageLookupByLibrary.simpleMessage("Справка"),
         "hide": MessageLookupByLibrary.simpleMessage("Скрыть"),
         "history": MessageLookupByLibrary.simpleMessage("История"),
@@ -109,6 +111,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "old": MessageLookupByLibrary.simpleMessage("Старые"),
         "onlite_tv": MessageLookupByLibrary.simpleMessage("Онлайн ТВ"),
         "options": MessageLookupByLibrary.simpleMessage("Опции"),
+        "order_advertising":
+            MessageLookupByLibrary.simpleMessage("Заказать рекламу"),
         "play": MessageLookupByLibrary.simpleMessage("Воспроизвести"),
         "playback_conditions": MessageLookupByLibrary.simpleMessage(
             "Учитываются условия воспроизведения"),
@@ -145,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "search_channels":
             MessageLookupByLibrary.simpleMessage("Поиск каналов"),
         "search_videos": MessageLookupByLibrary.simpleMessage("Поиск видео"),
+        "see_all": MessageLookupByLibrary.simpleMessage("Посмотреть все"),
         "server_error": MessageLookupByLibrary.simpleMessage("Ошибка сервера"),
         "settings": MessageLookupByLibrary.simpleMessage("Настройки"),
         "share": MessageLookupByLibrary.simpleMessage("Поделиться"),
@@ -186,6 +191,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "why_need_gozle_id_account": MessageLookupByLibrary.simpleMessage(
             "Зачем нужен аккаунт Gozle ID?"),
         "without_sign_missing_features": MessageLookupByLibrary.simpleMessage(
-            "Войдите в систему, чтобы разблокировать функции подписки, лайков и персонализированной истории. Без учетной записи вы упускаете эти важные взаимодействия и индивидуальный подход.")
+            "Войдите в систему, чтобы разблокировать функции подписки, лайков и персонализированной истории.")
       };
 }

@@ -23,6 +23,8 @@ class AppConstants {
 
   static const String supportLink = 'https://gozle.com.tm/ru/contact-us';
 
+  static const String orderAdvertisingLink = 'https://ads.gozle.com.tm';
+
   static const String privacyPolicy = 'https://video.gozle.com.tm/privacy-policy';
 
   static const String accountSettins = 'https://id.gozle.com.tm/account';

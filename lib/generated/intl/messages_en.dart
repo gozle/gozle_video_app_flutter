@@ -66,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Video will be excluded from your preferences"),
         "go": MessageLookupByLibrary.simpleMessage("Go"),
         "gozle_video": MessageLookupByLibrary.simpleMessage("Gozle Video"),
+        "have_not_watched_video": MessageLookupByLibrary.simpleMessage(
+            "You have not watched any video yet"),
         "help": MessageLookupByLibrary.simpleMessage("Help"),
         "hide": MessageLookupByLibrary.simpleMessage("Hide"),
         "history": MessageLookupByLibrary.simpleMessage("History"),
@@ -108,6 +110,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "old": MessageLookupByLibrary.simpleMessage("Old"),
         "onlite_tv": MessageLookupByLibrary.simpleMessage("Online TV"),
         "options": MessageLookupByLibrary.simpleMessage("Options"),
+        "order_advertising":
+            MessageLookupByLibrary.simpleMessage("Order advertising"),
         "play": MessageLookupByLibrary.simpleMessage("Play"),
         "playback_conditions": MessageLookupByLibrary.simpleMessage(
             "Video playback conditions are taken"),
@@ -144,6 +148,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "search_channels":
             MessageLookupByLibrary.simpleMessage("Channel search"),
         "search_videos": MessageLookupByLibrary.simpleMessage("Video search"),
+        "see_all": MessageLookupByLibrary.simpleMessage("See all"),
         "server_error": MessageLookupByLibrary.simpleMessage("Server Error"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
@@ -185,6 +190,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "why_need_gozle_id_account": MessageLookupByLibrary.simpleMessage(
             "Why do you need a Gozle ID account?"),
         "without_sign_missing_features": MessageLookupByLibrary.simpleMessage(
-            "Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience.")
+            "Sign in to unlock subscribing, liking, and personalized history features.")
       };
 }

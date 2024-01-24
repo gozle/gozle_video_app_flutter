@@ -15,9 +15,9 @@ class AccountCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).secondaryHeaderColor,
-        ),
+        color: Theme.of(context).brightness == Brightness.dark
+            ? AppColors.darkBarColor
+            : AppColors.lightBackground,
         borderRadius: BorderRadius.circular(10),
       ),
       padding: const EdgeInsets.all(15),

@@ -80,84 +80,74 @@ class ChannelsWidget extends StatefulWidget {
 class _ChannelsWidgetState extends State<ChannelsWidget> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(18, 18, 18, 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GridView.builder(
-            shrinkWrap: true,
-            itemCount: widget.channel.length,
-            physics: const ScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisExtent: 180,
-              crossAxisSpacing: 10,
-            ),
-            itemBuilder: (context, index) => InkWell(
-              onTap: () {
-                context.read<VideoBloc>().add(const VideoEvent.minimize());
+    return SliverGrid.builder(
+      itemCount: widget.channel.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisExtent: 180,
+        crossAxisSpacing: 10,
+      ),
+      itemBuilder: (context, index) => InkWell(
+        onTap: () {
+          context.read<VideoBloc>().add(const VideoEvent.minimize());
 
-                final navigator = NavKeyProvider.maybeOf(context)?.navKey.currentState ??
-                    Navigator.of(context);
+          final navigator = NavKeyProvider.maybeOf(context)?.navKey.currentState ??
+              Navigator.of(context);
 
-                navigator.pushNamed(
-                  ChannelDetailsScreen.routeName,
-                  arguments: {
-                    'channel_id': widget.channel[index].pk,
-                    'channel_name': widget.channel[index].name,
-                    'channel_view': widget.channel[index].view,
-                  },
-                );
-              },
-              child: Column(
-                children: [
-                  const SizedBox(height: 7),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(18),
-                    child: SizedBox(
-                      width: 60,
-                      height: 60,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: CachedNetworkImage(
-                          imageUrl: widget.channel[index].channelAvatar ?? '',
-                          errorWidget: (_, __, ___) => Container(),
-                          placeholder: (_, __) => Container(),
-                          fit: BoxFit.cover,
-                          cacheManager: CustomCacheManager.instance,
-                        ),
-                      ),
-                    ),
+          navigator.pushNamed(
+            ChannelDetailsScreen.routeName,
+            arguments: {
+              'channel_id': widget.channel[index].pk,
+              'channel_name': widget.channel[index].name,
+              'channel_view': widget.channel[index].view,
+            },
+          );
+        },
+        child: Column(
+          children: [
+            const SizedBox(height: 7),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(18),
+              child: SizedBox(
+                width: 60,
+                height: 60,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: CachedNetworkImage(
+                    imageUrl: widget.channel[index].channelAvatar ?? '',
+                    errorWidget: (_, __, ___) => Container(),
+                    placeholder: (_, __) => Container(),
+                    fit: BoxFit.cover,
+                    cacheManager: CustomCacheManager.instance,
                   ),
-                  const SizedBox(height: 7),
-                  Text(
-                    widget.channel[index].name ?? '',
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 13),
-                  ),
-                  Expanded(
-                    child: Text(
-                      AppUtils.formatViews(widget.channel[index].view),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                  ),
-                  BlocProvider(
-                    create: (context) {
-                      return ChannelSubscriptionCubit(
-                        channelId: widget.channel[index].pk,
-                        isSubscribed: widget.channel[index].isSubscribed ?? false,
-                      );
-                    },
-                    child: const SubscribeButton(),
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 7),
+            Text(
+              widget.channel[index].name ?? '',
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 13),
+            ),
+            Expanded(
+              child: Text(
+                AppUtils.formatViews(widget.channel[index].view),
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+            ),
+            BlocProvider(
+              create: (context) {
+                return ChannelSubscriptionCubit(
+                  channelId: widget.channel[index].pk,
+                  isSubscribed: widget.channel[index].isSubscribed ?? false,
+                );
+              },
+              child: const SubscribeButton(),
+            ),
+          ],
+        ),
       ),
     );
   }

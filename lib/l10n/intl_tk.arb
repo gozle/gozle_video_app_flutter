@@ -125,7 +125,7 @@
     "exclude_video_from_preferences": "Видео будет исключено из ваших предпочтений",
     "welcome_to_gozle_video": "Hoşgeldiňiz !",
     "learning_and_entertainment_service": "Bilim we güýmenje serwisi",
-    "without_sign_missing_features":"Abuna ýazylmak, halaýan goýmak we şahsy taryhy aýratynlyklaryny açmak üçin ulgama giriň. Hasabyňyz bolmazdan, bu möhüm täsirleri we aýratyn tejribäni ýitirersiňiz.",
+    "without_sign_missing_features":"Abuna ýazylmak, halaýan goýmak we şahsy taryhy aýratynlyklaryny açmak üçin ulgama giriň.",
     "sign_in": "Ulgama girmek",
     "sign_in_gozle_account":"Gözle akkaunta girmek",
     "then_sign_in_gozle_account":"Onda Gözle akkaunta giriň",
@@ -136,5 +136,8 @@
     "undefined_issue": "Что то пошло не так. Пожалуйста, попробуйте еще раз",
     "install": "ýüklemek",
     "want_to_subscribe":"Bu kanala ýazylmak isleýärsiňizmi?",
-    "want_to_like":"Wideony haladyňyzmy?"
+    "want_to_like":"Wideony haladyňyzmy?",
+    "have_not_watched_video": "Siz entek wideo görmediňiz",
+    "order_advertising": "Mahabat sargamak",
+    "see_all": "Ählisini gor"
 }

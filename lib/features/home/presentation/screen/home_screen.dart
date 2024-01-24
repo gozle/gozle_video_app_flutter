@@ -351,7 +351,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return VideoListWidget(videos: videos);
                         },
                         channelsLoaded: (channels, hasReachedMax) {
-                          return SliverToBoxAdapter(child: ChannelsWidget(channel: channels));
+                          return ChannelsWidget(channel: channels);
                         },
                         channelsLoading: (channels) =>
                             SliverToBoxAdapter(child: ChannelsWidget.placeHolder(context)),

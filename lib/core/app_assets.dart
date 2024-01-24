@@ -15,6 +15,14 @@ class AppAssets {
 
   static const String cubes = 'assets/icons/ic_cubes.svg';
 
+  static const String noVideo = 'assets/images/no_video.jpg';
+
+  static const String chevronLeft = 'assets/icons/ic_chevron-left.svg';
+
+  static const String gozleId = 'assets/icons/ic_gozle_id.svg';
+
+  static const String gozleIdLight = 'assets/icons/ic_gozle_id_light.svg';
+
   static const String menuIcon = 'assets/icons/ic_menu.svg';
 
   static const String videoLogo = 'assets/icons/video_logo.svg';
@@ -32,6 +40,8 @@ class AppAssets {
   static const String languageIcon = 'assets/icons/ic_language.svg';
 
   static const String settingsIcon = 'assets/icons/ic_settings.svg';
+
+  static const String adsIcon = 'assets/icons/ic_ads.svg';
 
   static const String backwardIcon = 'assets/icons/ic_backward.svg';
 

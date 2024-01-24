@@ -12,16 +12,22 @@ abstract class AppColors {
 
   // lightSecondary Color Swatch
   static const Color lightSecondaryHeader = Color(0xffE7E7E7);
+
   // lightAccent Color Swatch
   static const Color lightAccent = Color(0xfff6a547);
+
   // lightOnSurface Color Swatch
   static const Color lightOnSurface = Color(0xff000000);
+
   // lightSurface Color Swatch
   static const Color lightSurface = Color(0xffffffff);
+
   // lightSurfaceTint Color Swatch
   static const Color lightSurfaceTint = Color(0xfff2f2f2);
+
   // lightOutline Color Swatch
   static const Color lightOutline = Color(0x33000000);
+
   // lightComponentScrim Color Swatch
   static const Color lightComponentScrim = Color(0xb3000000);
 
@@ -37,20 +43,27 @@ abstract class AppColors {
   static const Color darkPrimary = Colors.white;
 
   static const Color darkBackground = Color.fromARGB(255, 25, 25, 25);
+
   // lightSecondary Color Swatch
   static const Color darkSecondaryHeader = Color.fromARGB(255, 45, 45, 45);
 
   static const Color darkBarColor = Color.fromARGB(255, 35, 35, 35);
+
   // lightAccent Color Swatch
   static const Color darkAccent = Color(0xfff6a547);
+
   // lightOnSurface Color Swatch
   static const Color darkOnSurface = Color(0xff000000);
+
   // lightSurface Color Swatch
   static const Color darkSurface = Color(0xffffffff);
+
   // lightSurfaceTint Color Swatch
   static const Color darkSurfaceTint = Color(0xfff2f2f2);
+
   // lightOutline Color Swatch
   static const Color darkOutline = Color(0x33000000);
+
   // lightComponentScrim Color Swatch
   static const Color darkComponentScrim = Color(0xb3000000);
 
@@ -64,12 +77,13 @@ abstract class AppColors {
 }
 
 class AppTheme {
-  static const String fontFamily = 'Inter';
+  static const String fontFamily = 'Geologica';
 
   static ThemeData lightTheme = ThemeData.light(
     useMaterial3: true,
   ).copyWith(
-    scaffoldBackgroundColor: AppColors.lightBackground,
+
+    scaffoldBackgroundColor: Colors.white,
     primaryColor: AppColors.lightPrimary,
     colorScheme: const ColorScheme.light(
       primary: AppColors.lightPrimary,
@@ -93,37 +107,46 @@ class AppTheme {
       ),
     ),
     chipTheme: ChipThemeData(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(50),
+      ),
+    ),
     secondaryHeaderColor: AppColors.lightSecondaryHeader,
     textTheme: const TextTheme(
       titleLarge: TextStyle(
         color: Colors.black,
         fontSize: 16,
+        fontFamily: fontFamily,
         fontWeight: FontWeight.w600,
       ),
       titleMedium: TextStyle(
         color: Colors.black,
         fontSize: 14,
+        fontFamily: fontFamily,
         fontWeight: FontWeight.w600,
       ),
       titleSmall: TextStyle(
         color: Colors.black54,
+        fontFamily: fontFamily,
         fontSize: 12,
         fontWeight: FontWeight.w500,
       ),
       bodyLarge: TextStyle(
         color: Colors.black,
         fontSize: 16,
+        fontFamily: fontFamily,
         fontWeight: FontWeight.w600,
       ),
       bodyMedium: TextStyle(
         color: Colors.black,
         fontSize: 14,
+        fontFamily: fontFamily,
         fontWeight: FontWeight.w600,
       ),
       bodySmall: TextStyle(
         color: Colors.black54,
         fontSize: 12,
+        fontFamily: fontFamily,
         fontWeight: FontWeight.w500,
       ),
     ),
@@ -131,8 +154,7 @@ class AppTheme {
       style: ButtonStyle(
         foregroundColor: const MaterialStatePropertyAll(Colors.white),
         backgroundColor: const MaterialStatePropertyAll(AppColors.GOZLE_COLOR),
-        overlayColor:
-            const MaterialStatePropertyAll(AppColors.lightOverlayColor),
+        overlayColor: const MaterialStatePropertyAll(AppColors.lightOverlayColor),
         shape: MaterialStatePropertyAll(defaultShape),
       ),
     ),
@@ -172,9 +194,8 @@ class AppTheme {
         (states) => TextStyle(
           color: const Color.fromRGBO(22, 22, 22, 1),
           fontSize: 10,
-          fontWeight: states.contains(MaterialState.selected)
-              ? FontWeight.w500
-              : FontWeight.w300,
+          fontFamily: fontFamily,
+          fontWeight: states.contains(MaterialState.selected) ? FontWeight.w500 : FontWeight.w300,
         ),
       ),
     ),
@@ -206,22 +227,25 @@ class AppTheme {
       ),
     ),
     iconTheme: const IconThemeData(color: AppColors.darkIconsColor),
-    chipTheme: ChipThemeData(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+    chipTheme:
+        ChipThemeData(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
     secondaryHeaderColor: AppColors.darkSecondaryHeader,
     textTheme: const TextTheme(
       titleLarge: TextStyle(
         color: Colors.white,
         fontSize: 16,
+        fontFamily: fontFamily,
         fontWeight: FontWeight.w600,
       ),
       titleMedium: TextStyle(
         color: Colors.white,
         fontSize: 14,
+        fontFamily: fontFamily,
         fontWeight: FontWeight.w600,
       ),
       titleSmall: TextStyle(
         color: Colors.white54,
+        fontFamily: fontFamily,
         fontSize: 12,
         fontWeight: FontWeight.w500,
       ),
@@ -274,6 +298,7 @@ class AppTheme {
       ),
       labelTextStyle: MaterialStateProperty.resolveWith(
         (states) => TextStyle(
+          fontFamily: fontFamily,
           color: states.contains(MaterialState.selected)
               ? AppColors.darkPrimary
               : darkTheme.disabledColor,

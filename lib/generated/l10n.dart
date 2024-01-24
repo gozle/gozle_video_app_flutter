@@ -1110,10 +1110,10 @@ class S {
     );
   }
 
-  /// `Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience.`
+  /// `Sign in to unlock subscribing, liking, and personalized history features.`
   String get without_sign_missing_features {
     return Intl.message(
-      'Sign in to unlock subscribing, liking, and personalized history features. Without an account, you miss out on these essential interactions and a tailored experience.',
+      'Sign in to unlock subscribing, liking, and personalized history features.',
       name: 'without_sign_missing_features',
       desc: '',
       args: [],
@@ -1195,6 +1195,36 @@ class S {
     return Intl.message(
       'Did you like the video?',
       name: 'want_to_like',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have not watched any video yet`
+  String get have_not_watched_video {
+    return Intl.message(
+      'You have not watched any video yet',
+      name: 'have_not_watched_video',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order advertising`
+  String get order_advertising {
+    return Intl.message(
+      'Order advertising',
+      name: 'order_advertising',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See all`
+  String get see_all {
+    return Intl.message(
+      'See all',
+      name: 'see_all',
       desc: '',
       args: [],
     );

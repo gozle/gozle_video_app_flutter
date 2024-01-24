@@ -53,8 +53,8 @@ android {
         applicationId "tm.gozle.video"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 9
-        versionName "1.0.9"
+        versionCode 12
+        versionName "1.0.12"
     }
 
     signingConfigs {

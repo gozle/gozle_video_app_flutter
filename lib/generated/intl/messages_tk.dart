@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Видео будет исключено из ваших предпочтений"),
         "go": MessageLookupByLibrary.simpleMessage("Geçmek"),
         "gozle_video": MessageLookupByLibrary.simpleMessage("Gozle Video"),
+        "have_not_watched_video":
+            MessageLookupByLibrary.simpleMessage("Siz entek wideo görmediňiz"),
         "help": MessageLookupByLibrary.simpleMessage("Salgylanma"),
         "hide": MessageLookupByLibrary.simpleMessage("Gizle"),
         "history": MessageLookupByLibrary.simpleMessage("Taryh"),
@@ -108,6 +110,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "old": MessageLookupByLibrary.simpleMessage("Köneler"),
         "onlite_tv": MessageLookupByLibrary.simpleMessage("Onlaýn tv"),
         "options": MessageLookupByLibrary.simpleMessage("Sazlamalar"),
+        "order_advertising":
+            MessageLookupByLibrary.simpleMessage("Mahabat sargamak"),
         "play": MessageLookupByLibrary.simpleMessage("Başlat"),
         "playback_conditions": MessageLookupByLibrary.simpleMessage(
             "Aýtdyrmak şertleri göz öňünde"),
@@ -145,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "search_channels":
             MessageLookupByLibrary.simpleMessage("Kanallary gözlemek"),
         "search_videos": MessageLookupByLibrary.simpleMessage("Wideo gözlegi"),
+        "see_all": MessageLookupByLibrary.simpleMessage("Ählisini gor"),
         "server_error": MessageLookupByLibrary.simpleMessage("Ошибка сервера"),
         "settings": MessageLookupByLibrary.simpleMessage("Sazlamalar"),
         "share": MessageLookupByLibrary.simpleMessage("Paýlaş"),
@@ -186,6 +191,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "why_need_gozle_id_account": MessageLookupByLibrary.simpleMessage(
             "Näme üçin Gozle ID hasaby gerek?"),
         "without_sign_missing_features": MessageLookupByLibrary.simpleMessage(
-            "Abuna ýazylmak, halaýan goýmak we şahsy taryhy aýratynlyklaryny açmak üçin ulgama giriň. Hasabyňyz bolmazdan, bu möhüm täsirleri we aýratyn tejribäni ýitirersiňiz.")
+            "Abuna ýazylmak, halaýan goýmak we şahsy taryhy aýratynlyklaryny açmak üçin ulgama giriň.")
       };
 }

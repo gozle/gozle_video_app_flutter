@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_gozle/core/app_utils.dart';
@@ -113,7 +111,6 @@ class VerticalVideoItemWidget extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(width: 10),
                     InkWrapper(
                       borderRadius: BorderRadius.circular(50),
                       onTap: () {

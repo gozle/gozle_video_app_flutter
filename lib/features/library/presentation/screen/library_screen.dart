@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_gozle/core/app_assets.dart';
 import 'package:video_gozle/core/constants.dart';
+import 'package:video_gozle/core/theme.dart';
 import 'package:video_gozle/features/auth/presentation/logic/user_bloc/user_bloc.dart';
-import 'package:video_gozle/features/auth/presentation/widget/logout_alert_dialog.dart';
 import 'package:video_gozle/features/global/presentation/widget/menu_item_widget.dart';
 import 'package:video_gozle/features/global/presentation/widget/smart_refresher_header.dart';
 import 'package:video_gozle/features/global/presentation/widget/video_item_widget/small_video_item_widget.dart';
@@ -17,6 +18,8 @@ import 'package:video_gozle/features/settings/presentation/logic/settings/settin
 import 'package:video_gozle/features/settings/presentation/screen/settings_screen.dart';
 import 'package:video_gozle/features/splash/presentation/screen/splash_screen.dart';
 import 'package:video_gozle/generated/l10n.dart';
+
+import 'history_list_screen.dart';
 
 class LibraryScreen extends StatefulWidget {
   static const String routeName = '/library';
@@ -61,13 +64,18 @@ class LibraryScreenState extends State<LibraryScreen> {
               orElse: () {
                 return ListView(
                   children: [
-                    Image.asset(
-                      AppAssets.signInImage,
-                      fit: BoxFit.fitHeight,
-                      height: MediaQuery.of(context).size.height / 3,
+                    const SizedBox(height: 37),
+                    SvgPicture.asset(
+                      Theme.of(context).brightness == Brightness.dark
+                          ? AppAssets.gozleIdLight
+                          : AppAssets.gozleId,
                     ),
+                    const SizedBox(height: 15),
                     Container(
-                      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                      padding: const EdgeInsets.only(
+                        left: 30,
+                        right: 30,
+                      ),
                       child: Column(
                         children: [
                           Text(
@@ -75,17 +83,16 @@ class LibraryScreenState extends State<LibraryScreen> {
                             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          const SizedBox(height: 10),
                           Text(
                             S.current.without_sign_missing_features,
-                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                            ),
                             textAlign: TextAlign.center,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          const SizedBox(height: 10),
                           ElevatedButton(
                             style: const ButtonStyle(
                               alignment: Alignment.center,
@@ -98,13 +105,13 @@ class LibraryScreenState extends State<LibraryScreen> {
                                 unauthenticated: (oAuthClientData) {
                                   if (oAuthClientData != null) {
                                     context.read<UserBloc>().add(
-                                      UserEvent.login(oAuthClientData: oAuthClientData),
-                                    );
+                                          UserEvent.login(oAuthClientData: oAuthClientData),
+                                        );
                                   }
                                 },
                               );
                               Future.delayed(const Duration(seconds: 2)).then(
-                                    (value) => Navigator.of(context, rootNavigator: true)
+                                (value) => Navigator.of(context, rootNavigator: true)
                                     .pushReplacementNamed(SplashScreen.routeName),
                               );
                             },
@@ -113,21 +120,42 @@ class LibraryScreenState extends State<LibraryScreen> {
                         ],
                       ),
                     ),
-                    MenuItemWidget(
-                      onTap: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => const SettingsScreen()));
-                      },
-                      label: S.current.settings,
+                    const SizedBox(height: 30),
+                    const Divider(),
+                    Row(
+                      children: [
+                        const SizedBox(width: 15),
+                        SvgPicture.asset(
+                          AppAssets.settingsIcon,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
+                        Expanded(
+                          child: MenuItemWidget(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) => const SettingsScreen()));
+                            },
+                            label: S.current.settings,
+                          ),
+                        ),
+                      ],
                     ),
                     const Divider(),
-                    MenuItemWidget(
-                      onTap: () {
-                        launchUrlString(AppConstants.supportLink);
-                      },
-                      label: S.current.help,
+                    Row(
+                      children: [
+                        const SizedBox(width: 15),
+                        SvgPicture.asset(AppAssets.adsIcon),
+                        Expanded(
+                          child: MenuItemWidget(
+                            onTap: () {
+                              launchUrlString(AppConstants.orderAdvertisingLink);
+                            },
+                            label: S.current.order_advertising,
+                            textColor: AppColors.lightPrimary,
+                          ),
+                        ),
+                      ],
                     ),
-                    const Divider(),
                   ],
                 );
               },
@@ -141,40 +169,63 @@ class LibraryScreenState extends State<LibraryScreen> {
                   child: CustomScrollView(
                     slivers: [
                       SliverPadding(
-                        padding: const EdgeInsets.only(left: 24, right: 24, top: 24),
+                        padding: const EdgeInsets.only(left: 15, right: 15, top: 24),
                         sliver: SliverToBoxAdapter(child: AccountCardWidget(user: user)),
                       ),
                       SliverPadding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
                         sliver: SliverToBoxAdapter(
-                          child: Text(
-                            S.current.history,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                S.current.history,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const HistoryListScreen(),
+                                  ),
+                                ),
+                                child: Text(
+                                  S.current.all,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w300,
+                                    color: AppColors.lightPrimary,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                       SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 180,
-                          child: BlocConsumer<HistoryListBloc, HistoryListState>(
-                            listener: (context, state) {
-                              state.whenOrNull(
-                                loaded: (videos, hasReachedMax) {
-                                  refreshController.refreshCompleted();
-                                },
-                                error: (oldVideos, lastEvent, falure) {
-                                  refreshController.refreshFailed();
-                                },
-                              );
-                            },
-                            builder: (context, state) {
-                              return state.maybeWhen(
-                                loaded: (videos, hasReachedMax) {
-                                  return ListView.separated(
-                                    itemCount: videos.length,
+                        child: BlocConsumer<HistoryListBloc, HistoryListState>(
+                          listener: (context, state) {
+                            state.whenOrNull(
+                              loaded: (videos, hasReachedMax) {
+                                refreshController.refreshCompleted();
+                              },
+                              error: (oldVideos, lastEvent, falure) {
+                                refreshController.refreshFailed();
+                              },
+                            );
+                          },
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              loaded: (videos, hasReachedMax) {
+                                return SizedBox(
+                                  height: videos.isEmpty ? 20 : 180,
+                                  child: videos.isEmpty ? Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                                    child: Text(S.current.have_not_watched_video),
+                                  ) : ListView.separated(
+                                    itemCount: videos.length > 15 ? 15 : videos.length,
                                     padding: const EdgeInsets.symmetric(horizontal: 24),
                                     scrollDirection: Axis.horizontal,
                                     separatorBuilder: (context, index) {
@@ -185,25 +236,25 @@ class LibraryScreenState extends State<LibraryScreen> {
                                         video: videos[index],
                                       );
                                     },
-                                  );
-                                },
-                                orElse: () {
-                                  return ListView.builder(
-                                    itemCount: 5,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return Container(
-                                        margin: EdgeInsets.only(
-                                            left: index == 0 ? 24 : 0,
-                                            right: index + 1 == 5 ? 24 : 10),
-                                        child: SmallVideoItemWidget.placeHolder(context),
-                                      );
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                                  ),
+                                );
+                              },
+                              orElse: () {
+                                return ListView.builder(
+                                  itemCount: 5,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      margin: EdgeInsets.only(
+                                          left: index == 0 ? 24 : 0,
+                                          right: index + 1 == 5 ? 24 : 10),
+                                      child: SmallVideoItemWidget.placeHolder(context),
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          },
                         ),
                       ),
                       const SliverToBoxAdapter(child: Divider(height: 10)),
@@ -217,42 +268,52 @@ class LibraryScreenState extends State<LibraryScreen> {
                       //   ),
                       // ),
                       SliverToBoxAdapter(
-                        child: MenuItemWidget(
-                          onTap: () {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) => const SettingsScreen()));
-                          },
-                          label: S.current.settings,
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 15),
+                            SvgPicture.asset(
+                              AppAssets.settingsIcon,
+                              color: Theme.of(context).iconTheme.color,
+                            ),
+                            Expanded(
+                              child: MenuItemWidget(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => const SettingsScreen()));
+                                },
+                                label: S.current.settings,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SliverToBoxAdapter(child: Divider()),
                       SliverToBoxAdapter(
-                        child: MenuItemWidget(
-                          onTap: () {
-                            launchUrlString(AppConstants.supportLink);
-                          },
-                          label: S.current.help,
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 15),
+                            SvgPicture.asset(AppAssets.adsIcon),
+                            Expanded(
+                              child: MenuItemWidget(
+                                onTap: () {
+                                  launchUrlString(AppConstants.orderAdvertisingLink);
+                                },
+                                label: S.current.order_advertising,
+                                textColor: AppColors.lightPrimary,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SliverToBoxAdapter(child: Divider()),
-                      SliverToBoxAdapter(
-                        child: MenuItemWidget(
-                          onTap: () {
-                            launchUrlString(AppConstants.getStoreLink());
-                          },
-                          label: S.current.leave_review,
-                        ),
-                      ),
-                      const SliverToBoxAdapter(child: Divider(height: 10)),
-                      SliverToBoxAdapter(
-                        child: MenuItemWidget(
-                          onTap: () {
-                            LogoutAlerDialog.show(context);
-                          },
-                          label: S.current.sign_out,
-                          textColor: Colors.red,
-                        ),
-                      ),
+                      // SliverToBoxAdapter(
+                      //   child: MenuItemWidget(
+                      //     onTap: () {
+                      //       launchUrlString(AppConstants.getStoreLink());
+                      //     },
+                      //     label: S.current.leave_review,
+                      //   ),
+                      // ),
                     ],
                   ),
                 );

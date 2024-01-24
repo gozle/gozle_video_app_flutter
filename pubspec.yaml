@@ -2,7 +2,7 @@ name: video_gozle
 description: Gozle Video App
 publish_to: 'none'
 
-version: 1.0.9
+version: 1.0.12
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -145,6 +145,9 @@ flutter:
 
 
   fonts:
+    - family: RobotoMono
+      fonts:
+        - asset: assets/fonts/Geologica.ttf
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter-Black.ttf

@@ -125,7 +125,7 @@
     "exclude_video_from_preferences": "Видео будет исключено из ваших предпочтений",
     "welcome_to_gozle_video": "Добро пожаловать в\nGozle Video !",
     "learning_and_entertainment_service": "Сервис для обучения и развлечений.",
-    "without_sign_missing_features": "Войдите в систему, чтобы разблокировать функции подписки, лайков и персонализированной истории. Без учетной записи вы упускаете эти важные взаимодействия и индивидуальный подход.",
+    "without_sign_missing_features": "Войдите в систему, чтобы разблокировать функции подписки, лайков и персонализированной истории.",
     "sign_in": "Войти",
     "sign_in_gozle_account":"Войти в Gozle Account",
     "then_sign_in_gozle_account":"Тогда войдите в Gozle Account",
@@ -136,5 +136,8 @@
     "undefined_issue": "Что то пошло не так. Пожалуйста, попробуйте еще раз",
     "install": "установить",
     "want_to_subscribe":"Хотите записаться на этот канал?",
-    "want_to_like":"Понравилось видео?"
+    "want_to_like":"Понравилось видео?",
+    "have_not_watched_video": "Вы еще не смотрели ни одного видео",
+    "order_advertising": "Заказать рекламу",
+    "see_all": "Посмотреть все"
 }
