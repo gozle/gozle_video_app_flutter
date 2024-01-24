@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 
 final StreamController<String?> selectNotificationStream = StreamController<String?>.broadcast();
@@ -48,11 +48,9 @@ Future<void> fcmOnBackgroundMessageReceived(RemoteMessage message) async {
   return _handleFcmMessage(message);
 }
 
-// String _encodePayloadFromRemoteMessage(RemoteMessage message) {
-//   return jsonEncode(<String, dynamic>{
-//     'order_id': message.data['order_id'],
-//   });
-// }
+String _encodePayloadFromRemoteMessage(RemoteMessage message) {
+  return message.data.toString();
+}
 
 Future<void> globalInitFcm() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -151,7 +149,7 @@ Future<void> _configureFcm() async {
   try {
     final message = await FirebaseMessaging.instance.getInitialMessage();
     if (message != null && message.data.isNotEmpty) {
-      // _selectedNotificationPayload = _encodePayloadFromRemoteMessage(message);
+      _selectedNotificationPayload = _encodePayloadFromRemoteMessage(message);
     }
   } catch (e) {
     //ignored
@@ -160,7 +158,7 @@ Future<void> _configureFcm() async {
   FirebaseMessaging.onMessage.listen(_handleFcmMessage);
   FirebaseMessaging.onMessageOpenedApp.listen((message) {
     if (message.data.isNotEmpty) {
-      // selectNotificationStream.add(_encodePayloadFromRemoteMessage(message));
+      selectNotificationStream.add(_encodePayloadFromRemoteMessage(message));
     }
   });
 }
@@ -176,7 +174,7 @@ Future<void> _handleFcmMessage(RemoteMessage message) async {
   final String? photo =
       message.notification?.android?.imageUrl ?? message.notification?.apple?.imageUrl;
 
-  // final String payload = _encodePayloadFromRemoteMessage(message);
+  final String payload = _encodePayloadFromRemoteMessage(message);
 
   String? bigPicturePath;
   if (photo != null) {
@@ -236,7 +234,7 @@ Future<void> _handleFcmMessage(RemoteMessage message) async {
     title,
     body,
     platformChannelSpecifics,
-    // payload: payload,
+    payload: payload,
   );
 }
 
@@ -248,17 +246,17 @@ Future<void> handleNotificationPayload(BuildContext context, String payload) asy
 
   final messageData = jsonDecode(payload) as Map<String, dynamic>;
 
-  final int orderId = int.tryParse(messageData['order_id'].toString()) ?? -1;
+  final String linkData = messageData['link'];
 
-  if (orderId != -1) {
-    _showOrder(context, orderId);
+  if (linkData.isNotEmpty) {
+    _showOrder(context, linkData);
     return;
   }
 }
 
-void _showOrder(BuildContext context, int orderId) {
-  /*final rootContext = rootNavigatorKey.currentContext;
-  if (rootContext != null) {*/
-    // navigateToScreen(context, OrderDetailsScreen.byId(orderId: orderId));
-  /*}*/
+void _showOrder(BuildContext context, String link) {
+  // final rootContext = rootNavigatorKey.currentContext;
+  // if (rootContext != null) {
+    launchUrlString(link);
+  // }
 }

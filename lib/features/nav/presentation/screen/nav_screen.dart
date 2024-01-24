@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,8 +19,10 @@ import 'package:video_gozle/features/subscriptions/presentation/screen/subscript
 import 'package:video_gozle/features/video/presentation/miniplayer/widget/miniplayer_widget.dart';
 import 'package:video_gozle/features/video/presentation/video/logic/video_bloc/video_bloc.dart';
 import 'package:video_gozle/generated/l10n.dart';
+import 'package:video_gozle/fcm.dart' as CloudMessaging;
 
-import '../../../../fcm.dart';
+
+final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class NavScreen extends StatefulWidget {
   static String routeName = '/main-nav';
@@ -35,9 +37,13 @@ class NavScreen extends StatefulWidget {
 class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMixin {
   late AnimationController miniplayerAnimationController;
   late PanelController miniplayerController;
+  StreamSubscription<String?>? onFcmMessageReceivedStreamSub;
+
 
   @override
   void initState() {
+    setupInitialRoutes();
+
     miniplayerAnimationController = AnimationController(
       vsync: this,
       duration: Duration.zero,
@@ -57,8 +63,39 @@ class _NavScreenState extends State<NavScreen> with SingleTickerProviderStateMix
     );
   }
 
+  Future<void> setupInitialRoutes() async {
+    onFcmMessageReceivedStreamSub =
+        CloudMessaging.selectNotificationStream.stream.listen((payload) {
+          if (payload != null && mounted) {
+            CloudMessaging.handleNotificationPayload(context, payload);
+          }
+        });
+
+    while (mounted) {
+      final rootContext = rootNavigatorKey.currentContext;
+      if (rootContext != null && rootContext.mounted) {
+        final notificationData = CloudMessaging.selectedNotificationPayload();
+        if (notificationData != null) {
+          //FIXME: await frame build, if we didn't await then [Navigator] replaces this screen (set as root)
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+            if (mounted) {
+              CloudMessaging.handleNotificationPayload(context, notificationData);
+            }
+          });
+        }
+        break;
+      }
+
+      //await one frame time
+      await Future<void>.delayed(const Duration(milliseconds: 16));
+    }
+  }
+
   @override
   void dispose() {
+    onFcmMessageReceivedStreamSub?.cancel();
+    onFcmMessageReceivedStreamSub = null;
+
     if (miniplayerController.isAttached) {
       miniplayerController.close();
     }
